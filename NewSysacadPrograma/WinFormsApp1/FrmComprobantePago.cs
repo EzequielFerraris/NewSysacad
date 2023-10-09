@@ -18,10 +18,10 @@ namespace NewSysacadFront
             InitializeComponent();
             lblConcepto.Text = pagoRealizado.Concepto;
             lblMonto.Text = pagoRealizado.Monto.ToString();
-            lblTransaccion.Text = pagoRealizado.NumeroTransaccion.ToString();
+            lblTransaccion.Text = pagoRealizado.NumeroTransaccion;
             lblFormaDePago.Text = pagoRealizado.FormaDePago.ToString();
             lblFechaPago.Text = pagoRealizado.FechaAbonado.ToString("dd/MM/yyyy");
-            lblTarjetaCuenta.Text = pagoRealizado.FormaDePago.ToString();
+            lblTarjetaCuenta.Text = pagoRealizado.TarjetaCuenta;
             lblTitular.Text = pagoRealizado.TitularPago;
         }
 

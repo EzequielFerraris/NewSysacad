@@ -35,6 +35,8 @@
             tbxNombreUsuario = new TextBox();
             txbPassword = new TextBox();
             cbxUsuario = new ComboBox();
+            btnAdminDefecto = new Button();
+            btnEstudianteDefecto = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -119,12 +121,34 @@
             cbxUsuario.Size = new Size(150, 28);
             cbxUsuario.TabIndex = 3;
             // 
+            // btnAdminDefecto
+            // 
+            btnAdminDefecto.Location = new Point(12, 127);
+            btnAdminDefecto.Name = "btnAdminDefecto";
+            btnAdminDefecto.Size = new Size(117, 24);
+            btnAdminDefecto.TabIndex = 5;
+            btnAdminDefecto.Text = "AdminDefecto";
+            btnAdminDefecto.UseVisualStyleBackColor = true;
+            btnAdminDefecto.Click += btnAdminDefecto_Click;
+            // 
+            // btnEstudianteDefecto
+            // 
+            btnEstudianteDefecto.Location = new Point(12, 97);
+            btnEstudianteDefecto.Name = "btnEstudianteDefecto";
+            btnEstudianteDefecto.Size = new Size(117, 24);
+            btnEstudianteDefecto.TabIndex = 6;
+            btnEstudianteDefecto.Text = "Estudiante Defecto";
+            btnEstudianteDefecto.UseVisualStyleBackColor = true;
+            btnEstudianteDefecto.Click += button2_Click;
+            // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(125, 121, 163);
             ClientSize = new Size(384, 461);
+            Controls.Add(btnEstudianteDefecto);
+            Controls.Add(btnAdminDefecto);
             Controls.Add(cbxUsuario);
             Controls.Add(txbPassword);
             Controls.Add(tbxNombreUsuario);
@@ -151,5 +175,7 @@
         private TextBox tbxNombreUsuario;
         private TextBox txbPassword;
         private ComboBox cbxUsuario;
+        private Button btnAdminDefecto;
+        private Button btnEstudianteDefecto;
     }
 }

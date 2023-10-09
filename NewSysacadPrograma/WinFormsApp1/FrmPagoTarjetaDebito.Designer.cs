@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             lbl1 = new Label();
-            label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -45,6 +44,8 @@
             txbCalle = new TextBox();
             txbAltura = new TextBox();
             txbVencimientoAnio = new TextBox();
+            label1 = new Label();
+            label8 = new Label();
             SuspendLayout();
             // 
             // lbl1
@@ -57,17 +58,6 @@
             lbl1.Size = new Size(115, 15);
             lbl1.TabIndex = 1;
             lbl1.Text = "Titular de la tarjeta:";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.Gainsboro;
-            label1.Location = new Point(12, 59);
-            label1.Name = "label1";
-            label1.Size = new Size(126, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Número de la Tarjeta:";
             // 
             // label2
             // 
@@ -98,9 +88,8 @@
             label4.ForeColor = Color.Gainsboro;
             label4.Location = new Point(17, 136);
             label4.Name = "label4";
-            label4.Size = new Size(124, 15);
+            label4.Size = new Size(0, 15);
             label4.TabIndex = 5;
-            label4.Text = "Código de Seguridad:";
             // 
             // label5
             // 
@@ -199,12 +188,35 @@
             txbVencimientoAnio.Size = new Size(34, 23);
             txbVencimientoAnio.TabIndex = 17;
             // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Gainsboro;
+            label1.Location = new Point(12, 59);
+            label1.Name = "label1";
+            label1.Size = new Size(126, 38);
+            label1.TabIndex = 18;
+            label1.Text = "Número de la Tarjeta:\r\n(16 dígitos)";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.ForeColor = Color.Gainsboro;
+            label8.Location = new Point(17, 136);
+            label8.Name = "label8";
+            label8.Size = new Size(124, 30);
+            label8.TabIndex = 19;
+            label8.Text = "Código de Seguridad:\r\n(3 dígitos)";
+            // 
             // FrmPagoTarjetaDebito
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 29, 33);
             ClientSize = new Size(584, 180);
+            Controls.Add(label8);
+            Controls.Add(label1);
             Controls.Add(txbVencimientoAnio);
             Controls.Add(txbAltura);
             Controls.Add(txbCalle);
@@ -220,7 +232,6 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
             Controls.Add(lbl1);
             ForeColor = Color.Gainsboro;
             FormBorderStyle = FormBorderStyle.None;
@@ -233,7 +244,6 @@
         #endregion
 
         private Label lbl1;
-        private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
@@ -249,5 +259,7 @@
         private TextBox txbCalle;
         private TextBox txbAltura;
         private TextBox txbVencimientoAnio;
+        private Label label1;
+        private Label label8;
     }
 }

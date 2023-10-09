@@ -44,14 +44,13 @@
             // 
             // lbl1
             // 
-            lbl1.AutoSize = true;
             lbl1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lbl1.ForeColor = Color.Gainsboro;
-            lbl1.Location = new Point(292, 150);
+            lbl1.Location = new Point(292, 144);
             lbl1.Name = "lbl1";
-            lbl1.Size = new Size(139, 15);
+            lbl1.Size = new Size(139, 32);
             lbl1.TabIndex = 1;
-            lbl1.Text = "Número de transacción:";
+            lbl1.Text = "Número de transacción:\r\n(8 dígitos)";
             // 
             // txbTitular
             // 
@@ -73,14 +72,13 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Gainsboro;
-            label2.Location = new Point(292, 119);
+            label2.Location = new Point(292, 113);
             label2.Name = "label2";
-            label2.Size = new Size(114, 15);
+            label2.Size = new Size(114, 31);
             label2.TabIndex = 11;
-            label2.Text = "Número de cuenta:";
+            label2.Text = "Número de cuenta:\r\n(16 dígitos)";
             // 
             // txbNroCuenta
             // 

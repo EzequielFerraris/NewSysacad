@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -34,7 +35,7 @@ namespace BibliotecaNewSysacad
             true, de lo contrario retorna false
              */
             if (dato.Length < longitudMinima || dato.Length > longitudMaxima)
-                valid =  true;
+                valid =  false;
 
             return valid;
         }
@@ -205,8 +206,17 @@ namespace BibliotecaNewSysacad
 
         public static bool ValidarMail(string mail)
         {
-            return true;
+
+            string patronMail = @"^[^@]+@gmail\.com$";
+
+            if (Regex.IsMatch(mail, patronMail))
+            {
+                return true;
+            }
+
+            return false;
         }
+
 
         public static bool ValidarDescripcion(string descripcion)
         {
@@ -256,8 +266,7 @@ namespace BibliotecaNewSysacad
             tenga ningún caractér además de letras, números o guiones, en caso de 
             que la cadena de texto NO cumpla con las validaciones, retorna false, 
             en caso contrario, retorna true
-             
-             
+
              */
 
             foreach (var c in nombre)
@@ -269,5 +278,38 @@ namespace BibliotecaNewSysacad
             return true;
         }
 
+        public static bool ValidarMesTarjeta(string mes)
+        {
+            if (!int.TryParse(mes, out var numero))
+                return false;
+            /*
+             
+             Valida que el entero ingresado no sea ni menor ni igual a 0
+             
+             */
+            if (numero < 1 || numero > 12)
+                return false;
+
+
+            return true;
+
+        }
+
+        public static bool ValidarAnioTarjeta(string anio)
+        {
+            if (!int.TryParse(anio, out var numero))
+                return false;
+            /*
+             
+             Valida que el entero ingresado no sea ni menor ni igual a 0
+             
+             */
+            if (numero < 23 || numero > 40)
+                return false;
+
+
+            return true;
+
+        }
     }
 }

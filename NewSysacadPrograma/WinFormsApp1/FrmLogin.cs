@@ -20,7 +20,7 @@ namespace NewSysacadFront
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            
+
             if (cbxUsuario.Text == "Administrador")
             {
                 if (NewSysacad.LoginAdministrador(tbxNombreUsuario.Text, txbPassword.Text))
@@ -56,6 +56,20 @@ namespace NewSysacadFront
                 }
 
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.tbxNombreUsuario.Text = "est1";
+            this.txbPassword.Text = "1234";
+            this.cbxUsuario.SelectedIndex = 0;
+        }
+
+        private void btnAdminDefecto_Click(object sender, EventArgs e)
+        {
+            this.tbxNombreUsuario.Text = "admin";
+            this.txbPassword.Text = "1234";
+            this.cbxUsuario.SelectedIndex = 1;
         }
     }
 }

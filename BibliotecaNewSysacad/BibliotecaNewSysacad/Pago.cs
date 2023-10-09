@@ -30,9 +30,9 @@ namespace BibliotecaNewSysacad
 
         private string titularPago;
         private FormaDePago formaDePago;
-        private int numeroTransaccion;
+        private string numeroTransaccion;
         private DateTime fechaAbonado;
-        private int tarjetaCuenta;
+        private string tarjetaCuenta;
 
         public Pago(string concepto, decimal monto, TipoDePago tipo, DateTime fechaLimite, int codigo)
         {
@@ -64,7 +64,7 @@ namespace BibliotecaNewSysacad
             get => tipo;
             set => tipo = value;
         }
-        public int TarjetaCuenta
+        public string TarjetaCuenta
         {
             get => tarjetaCuenta;
             set => tarjetaCuenta = value;
@@ -90,7 +90,7 @@ namespace BibliotecaNewSysacad
             get => fechaLimite;
             set => fechaLimite = value;
         }
-        public int NumeroTransaccion
+        public string NumeroTransaccion
         {
             get => numeroTransaccion;
             set => numeroTransaccion = value;

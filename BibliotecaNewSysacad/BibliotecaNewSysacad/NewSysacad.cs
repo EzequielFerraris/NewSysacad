@@ -50,6 +50,15 @@ namespace BibliotecaNewSysacad
                 Estudiante ultimoLegajo = listaEstudiantes.Last();
                 numeroDeLegajo = ultimoLegajo.Legajo + 1;
             }
+            else
+            {
+                string hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword("1234", 13);
+                Estudiante estudiantePorDefecto = new Estudiante("est1", "est1", "est1", "est1@gmail.com", 
+                                                                 hashedPassword, "12312312", "Siempreviva", "123",
+                                                                 "1533556677", false);
+                listaEstudiantes.Add(estudiantePorDefecto);
+                EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
+            }
 
             //CHEQUEO SI HAY ADMINISTRADORES REGISTRADOS. CASO CONTRARIO INSTANCIO UN ADMIN POR DEFECTO Y ESCRIBO EL ARCHIVO
             if (File.Exists(Combinar(dataBaseAdministradoresNombreArchivo)))

@@ -60,14 +60,13 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Gainsboro;
             label1.Location = new Point(12, 59);
             label1.Name = "label1";
-            label1.Size = new Size(126, 15);
+            label1.Size = new Size(126, 38);
             label1.TabIndex = 2;
-            label1.Text = "Número de la Tarjeta:";
+            label1.Text = "Número de la Tarjeta:\r\n(16 dígitos)";
             // 
             // label2
             // 
@@ -98,9 +97,9 @@
             label4.ForeColor = Color.Gainsboro;
             label4.Location = new Point(17, 136);
             label4.Name = "label4";
-            label4.Size = new Size(124, 15);
+            label4.Size = new Size(124, 30);
             label4.TabIndex = 5;
-            label4.Text = "Código de Seguridad:";
+            label4.Text = "Código de Seguridad:\r\n(3 dígitos)";
             // 
             // label5
             // 
@@ -153,7 +152,7 @@
             // 
             txbVencimientoMes.Location = new Point(159, 97);
             txbVencimientoMes.Name = "txbVencimientoMes";
-            txbVencimientoMes.Size = new Size(34, 23);
+            txbVencimientoMes.Size = new Size(29, 23);
             txbVencimientoMes.TabIndex = 11;
             // 
             // txbCodigoSeg
@@ -161,7 +160,7 @@
             txbCodigoSeg.Location = new Point(159, 136);
             txbCodigoSeg.Name = "txbCodigoSeg";
             txbCodigoSeg.PasswordChar = '*';
-            txbCodigoSeg.Size = new Size(135, 23);
+            txbCodigoSeg.Size = new Size(44, 23);
             txbCodigoSeg.TabIndex = 12;
             // 
             // txbMail
@@ -196,10 +195,10 @@
             // 
             txbVencimientoAnio.Location = new Point(214, 97);
             txbVencimientoAnio.Name = "txbVencimientoAnio";
-            txbVencimientoAnio.Size = new Size(34, 23);
+            txbVencimientoAnio.Size = new Size(28, 23);
             txbVencimientoAnio.TabIndex = 17;
             // 
-            // FrmPagoTarjeta
+            // FrmPagoTarjetaCredito
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -224,7 +223,7 @@
             Controls.Add(lbl1);
             ForeColor = Color.Gainsboro;
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmPagoTarjeta";
+            Name = "FrmPagoTarjetaCredito";
             Text = "FrmPagoTarjeta";
             ResumeLayout(false);
             PerformLayout();
