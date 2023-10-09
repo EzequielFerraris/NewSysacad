@@ -115,6 +115,8 @@ namespace BibliotecaNewSysacad
             get => listaPagosRealizados;
         }
 
+        
+
         //ADMINISTRADOR--------------------------------------------------------------------
         //LOGGEO DEL ADMINISTRADOR
         public static bool LoginAdministrador(string nombreDeUsuario, string password)
@@ -363,6 +365,21 @@ namespace BibliotecaNewSysacad
                 }
             }
             return null;
+        }
+
+        //ACTUALIZAR ESTUDIANTE
+        public static void ActualizarEstudiante(Estudiante estudianteActualizado)
+        {
+            foreach (Estudiante estudiante in listaEstudiantes)
+            {
+                if (estudianteActualizado.NombreUsuario == estudiante.NombreUsuario && estudianteActualizado.Legajo == estudiante.Legajo)
+                {
+                    estudiante.Password = estudianteActualizado.Password;
+                    estudiante.DebeCambiarPassword = false;
+                    EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
+                }
+            }
+            
         }
 
         //PAGOS--------------------------------------------------------------------------

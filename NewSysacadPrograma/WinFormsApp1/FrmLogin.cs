@@ -39,13 +39,25 @@ namespace NewSysacadFront
                 }
 
             }
-            else //ACA IRIA LA LOGICA DE LOGIN ESTUDIANTE
+            else 
             {
                 if (NewSysacad.LoginEstudiante(tbxNombreUsuario.Text, txbPassword.Text))
                 {
-                    FrmHomeEstudiante home = new FrmHomeEstudiante(tbxNombreUsuario.Text);
-                    home.Show();
-                    this.Hide();
+                    Estudiante estudiante = NewSysacad.ObtenerEstudiante(tbxNombreUsuario.Text);
+                    
+                    if (estudiante.DebeCambiarPassword) 
+                    {
+                        FrmCambiarPassword cambio = new FrmCambiarPassword(estudiante);
+                        cambio.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        FrmHomeEstudiante home = new FrmHomeEstudiante(tbxNombreUsuario.Text);
+                        home.Show();
+                        this.Hide();
+                    }
+                    
                 }
                 else
                 {
