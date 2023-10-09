@@ -207,9 +207,9 @@ namespace BibliotecaNewSysacad
         public static bool ValidarMail(string mail)
         {
 
-            string patronMail = @"^[^@]+@gmail\.com$";
+            Regex validarEmailRegex = new Regex("^\\S+@\\S+\\.\\S+$");
 
-            if (Regex.IsMatch(mail, patronMail))
+            if (validarEmailRegex.IsMatch(mail))
             {
                 return true;
             }
