@@ -14,9 +14,11 @@ namespace NewSysacadFront
     public partial class FrmListaDeCursos : Form
     {
         private List<FrmCurso> cursos;
-        public FrmListaDeCursos()
+        private Administrador admin;
+        public FrmListaDeCursos(Administrador admin)
         {
             InitializeComponent();
+            this.admin = admin;
             cursos = new List<FrmCurso>();
             ActualizarLista();
         }
@@ -25,9 +27,9 @@ namespace NewSysacadFront
         {
             cursos.Clear();
             pnlListaCursos.Controls.Clear();
-            foreach (Curso curso in NewSysacad.ListaCursos)
+            foreach (Curso curso in NewSysacad.listaCursos)
             {
-                FrmCurso cardCurso = new FrmCurso(curso, this);
+                FrmCurso cardCurso = new FrmCurso(curso, this, admin);
                 cardCurso.TopLevel = false;
                 pnlListaCursos.Controls.Add(cardCurso);
                 cardCurso.Dock = DockStyle.Top;

@@ -16,14 +16,16 @@ namespace NewSysacadFront
     {
         private FrmListaDeCursos listaPadre;
         private Curso cursoObj;
-        public FrmCurso(Curso curso, FrmListaDeCursos lista)
+        private Administrador admin;
+        public FrmCurso(Curso curso, FrmListaDeCursos lista, Administrador admin)
         {
             InitializeComponent();
+            this.admin = admin;
             cursoObj = curso;
             lblNombre.Text = cursoObj.Nombre;
             lblCodigo.Text = $"{cursoObj.Codigo}";
             lblCupo.Text = $"{cursoObj.CantidadInscriptos()}/{curso.CupoMaximo}";
-            lblDescripcion.Text = cursoObj.Descripcion;
+            txbDescripcion.Text = cursoObj.Descripcion;
             lblDia.Text = cursoObj.DiaCursada.ToString();
             lblTurno.Text = cursoObj.TurnoCursada.ToString();
             listaPadre = lista;
@@ -31,7 +33,7 @@ namespace NewSysacadFront
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            FrmEditarCurso nuevaEdicion = new FrmEditarCurso(cursoObj, listaPadre);
+            FrmEditarCurso nuevaEdicion = new FrmEditarCurso(cursoObj, listaPadre, admin);
             nuevaEdicion.Show();
         }
 
@@ -44,11 +46,11 @@ namespace NewSysacadFront
             if (result == DialogResult.Yes)
             {
 
-                if (NewSysacad.EliminarCurso(cursoObj, out string error))
+                if (admin.EliminarCurso(cursoObj, out string error))
                 {
                     string mensaje1 = "Curso eliminado.";
                     string titulo1 = "Eliminar";
-                    DialogResult result1 = MessageBox.Show(mensaje, titulo);
+                    DialogResult result1 = MessageBox.Show(mensaje1, titulo1);
 
 
                     listaPadre.ActualizarLista();
@@ -59,11 +61,12 @@ namespace NewSysacadFront
                 {
                     string mensaje2 = $"{error}";
                     string titulo2 = "Eliminar";
-                    DialogResult result2 = MessageBox.Show(mensaje, titulo);
+                    DialogResult result2 = MessageBox.Show(mensaje2, titulo2);
                 }
 
             }
         }
+
 
     }
 }

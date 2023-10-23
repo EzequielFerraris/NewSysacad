@@ -16,18 +16,18 @@ namespace BibliotecaNewSysacad
         estudiante,
         administrador,
         curso,
-        pagoPendiente,
+        pagoPendiente, 
         pagoRealizado
     }
     public static class NewSysacad
     {
         public static int numeroDeLegajo = 1;
 
-        private static List<Estudiante> listaEstudiantes; 
         private static List<Administrador> listaAdministradores;
-        private static List<Curso> listaCursos;
-        private static List<Pago> listaPagosPendientes;
-        private static List<Pago> listaPagosRealizados;
+        public static List<Estudiante> listaEstudiantes;
+        public static List<Curso> listaCursos;
+        public static List<Pago> listaPagosPendientes;
+        public static List<Pago> listaPagosRealizados;
         private static string dataBaseEstudiantesNombreArchivo = "DBEstudiantes.json";
         private static string dataBaseAdministradoresNombreArchivo = "DBAdministradores.json";
         private static string dataBaseCursosNombreArchivo = "DBCursosI.json";
@@ -100,22 +100,30 @@ namespace BibliotecaNewSysacad
 
         //GETTERS
 
-        public static List<Curso> ListaCursos
-        {
-            get => listaCursos;
-        }
-
-        public static List<Pago> ListaPagosPendientes
-        {
-            get => listaPagosPendientes;
-        }
-
         public static List<Pago> ListaPagosRealizados
         {
             get => listaPagosRealizados;
         }
 
-        
+        public static string DataBaseEstudiantesNombreArchivo
+        {
+            get => dataBaseEstudiantesNombreArchivo;
+        }
+
+        public static string DataBaseCursosNombreArchivo
+        {
+            get => dataBaseCursosNombreArchivo;
+        }
+
+        public static string DataBasePagosPendientes
+        {
+            get => dataBasePagosPendientes;
+        }
+
+        public static string DataBasePagosRealizados
+        {
+            get => dataBasePagosRealizados;
+        }
 
         //ADMINISTRADOR--------------------------------------------------------------------
         //LOGGEO DEL ADMINISTRADOR
@@ -133,53 +141,20 @@ namespace BibliotecaNewSysacad
             }
             return result;
         }
-        
-        //VALIDACION DE ESTUDIANTES
-        private static bool ValidarEstudianteNuevo(Estudiante estudianteNuevo, out string campoRepetido) 
-        {
-            campoRepetido = "Ninguno";
-            bool resultado = true;
-            foreach (Estudiante estudiante in listaEstudiantes)
-            {
-                if (estudiante.NombreUsuario == estudianteNuevo.NombreUsuario)
-                {
-                    campoRepetido = "Nombre de usuario";
-                    resultado = false;
-                    break;
-                }
-                else if (estudiante.Dni == estudianteNuevo.Dni)
-                {
-                    campoRepetido = "DNI";
-                    resultado = false;
-                    break;
-                }
-                else if (estudiante.EMail == estudianteNuevo.EMail)
-                {
-                    campoRepetido = "E-Mail";
-                    resultado = false;
-                    break;
-                }
-            }
-            return resultado;
-        }
-         
-        //AGREGA UN ESTUDIANTE Y LE ASIGNA UN NÚMERO DE LEGAJO. AUMENTA EL NÚMERO DE LEGAJO 
-        public static bool AgregarEstudiante(Estudiante estudianteNuevo, out string error)
-        {
 
-            bool condicion = ValidarEstudianteNuevo(estudianteNuevo, out string campoRepetido);
-            error = campoRepetido;
-            if (condicion)
+        //BUSCA UN ADMINISTRADOR POR EL NOMBRE DE USUARIO
+        public static Administrador ObtenerEstudianteAdministrador(string nombreDeUsuario)
+        {
+            foreach (Administrador admin in listaAdministradores)
             {
-                estudianteNuevo.Legajo += numeroDeLegajo;
-                numeroDeLegajo++;
-                listaEstudiantes.Add(estudianteNuevo);
-                EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
-                EnviarCorreoElectronico(estudianteNuevo);
-                return true; 
+                if (nombreDeUsuario == admin.NombreUsuario)
+                {
+                    return admin;
+                }
             }
-            return false;
+            return null;
         }
+        
         //ARCHIVOS------------------------------------------------------------------------
         //GENERA EL PATH DONDE GUARDAR LOS ARCHIVOS CON DATOS DEL SISTEMA
         private static string Combinar(string file)
@@ -192,7 +167,7 @@ namespace BibliotecaNewSysacad
         }
 
         //ESCRIBE LOS ARCHIVOS DONDE PERSISTEN LOS DATOS
-        private static void EscribirJSON(string file, datoDelSistema tipo)
+        public static void EscribirJSON(string file, datoDelSistema tipo)
         {
             using (var writer = new StreamWriter(Combinar(file)))
             {
@@ -250,96 +225,10 @@ namespace BibliotecaNewSysacad
 
             return nuevaLista;
         }
-       
-        //CURSOS---------------------------------------------------------------
-        //VALIDA UN CURSO
-        private static bool ValidarCursoNuevo(Curso cursoNuevo, out string campoRepetido)
-        {
-            campoRepetido = "Ninguno";
-            bool resultado = true;
-            foreach (Curso curso in listaCursos)
-            {
-                if (curso.Nombre == cursoNuevo.Nombre)
-                {
-                    campoRepetido = "Nombre del curso";
-                    resultado = false;
-                    break;
-                }
-                else if (curso.Codigo == cursoNuevo.Codigo)
-                {
-                    campoRepetido = "Codigo";
-                    resultado = false;
-                    break;
-                }
-            }
-            return resultado;
-        }
-
-        //AGREGA UN CURSO NUEVO
-        public static bool AgregarCurso(Curso cursoNuevo, out string error)
-        {
-            bool resultado = false;
-            bool condicion = ValidarCursoNuevo(cursoNuevo, out string campoRepetido);
-            error = campoRepetido;
-            if (condicion)
-            {
-                listaCursos.Add(cursoNuevo);
-                EscribirJSON(dataBaseCursosNombreArchivo, datoDelSistema.curso);
-                resultado = true;
-            }
-            return resultado;
-        }
-
-        //ACTUALIZA UN CURSO YA EXISTENTE CON NUEVOS INSCRIPTOS
-        public static bool ActualizarCurso(Curso cursoNuevo)
-        {
-            bool resultado = false;
-            foreach (Curso c in listaCursos)
-            {
-                if (c.Nombre == cursoNuevo.Nombre && c.Codigo == cursoNuevo.Codigo)
-                {
-                    listaCursos.Remove(c);
-                    listaCursos.Add(cursoNuevo);
-                    EscribirJSON(dataBaseCursosNombreArchivo, datoDelSistema.curso);
-                    resultado = true;
-                    break;
-                }
-            }
-            return resultado;
-        }
-
-        //ELIMINAR UN CURSO
-        public static bool EliminarCurso(Curso cursoAEliminar, out string error)
-        {
-            bool resultado = false;
-            error = "Curso no encontrado";
-            foreach (var curso in listaCursos)
-            {
-                if((cursoAEliminar.Nombre == curso.Nombre) && (cursoAEliminar.Codigo == curso.Codigo))
-                { 
-                    listaCursos.Remove(curso);
-                    EscribirJSON(dataBaseCursosNombreArchivo, datoDelSistema.curso);
-                    resultado = true;
-                    error = String.Empty;
-                    break;
-                }
-            }
-            return resultado;
-        }
-
-
 
         //ESTUDIANTES-------------------------------------------------------------------
-        //ENVIA UN CORREO ELECTRONICO AL ESTUDIANTE REGISTRADO (?)
-        private static bool EnviarCorreoElectronico(Estudiante estudianteRegistrado)
-        {
-            return true;
-        }
-
-        
 
         //LOGGEO DEL ESTUDIANTE
-
         public static bool LoginEstudiante(string nombreDeUsuario, string password)
         {
             bool result = false;
@@ -354,12 +243,12 @@ namespace BibliotecaNewSysacad
             return result;
         }
 
-        //OBTENER ESTUDIANTE
+        //OBTENER ESTUDIANTE CON EL NOMBRE DE USUARIO
         public static Estudiante ObtenerEstudiante(string nombreDeUsuario)
         {
             foreach (Estudiante estudiante in listaEstudiantes)
             {
-                if(nombreDeUsuario == estudiante.NombreUsuario)
+                if (nombreDeUsuario == estudiante.NombreUsuario)
                 {
                     return estudiante;
                 }
@@ -367,7 +256,7 @@ namespace BibliotecaNewSysacad
             return null;
         }
 
-        //ACTUALIZAR ESTUDIANTE
+        //ACTUALIZAR ESTUDIANTE CON NUEVO PASSWORD
         public static void ActualizarEstudiante(Estudiante estudianteActualizado)
         {
             foreach (Estudiante estudiante in listaEstudiantes)
@@ -379,79 +268,7 @@ namespace BibliotecaNewSysacad
                     EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
                 }
             }
-            
-        }
 
-        //PAGOS--------------------------------------------------------------------------
-        //VALIDA UN PAGO NUEVO
-        private static bool ValidarRegistroPagoNuevo(Pago pagoNuevo, out string campoRepetido)
-        {
-            campoRepetido = "Ninguno";
-            bool resultado = true;
-            if (listaPagosPendientes.Count() > 0)
-            {
-                foreach (Pago pago in listaPagosPendientes)
-                {
-                    if (pago.Concepto == pagoNuevo.Concepto)
-                    {
-                        campoRepetido = "Concepto del Pago";
-                        resultado = false;
-                        break;
-                    }
-                    else if (pago.Codigo == pagoNuevo.Codigo)
-                    {
-                        campoRepetido = "Codigo";
-                        resultado = false;
-                        break;
-                    }
-                }
-            }
-            
-            return resultado;
-        }
-
-        public static bool AgregarPago(Pago pagoNuevo, out string error)
-        {
-            bool resultado = false;
-            bool condicion = ValidarRegistroPagoNuevo(pagoNuevo, out string campoRepetido);
-            error = campoRepetido;
-            if (condicion)
-            {
-                listaPagosPendientes.Add(pagoNuevo);
-                EscribirJSON(dataBasePagosPendientes, datoDelSistema.pagoPendiente);
-                resultado = true;
-            }
-            return resultado;
-        }
-
-        //PAGOS REALIZADOS
-        //VALIDA
-
-        public static bool ValidarPagoRealizadoNuevo(Pago pagoNuevo, out string campoRepetido)
-        {
-            campoRepetido = "Ninguno";
-            bool resultado = true;
-            if (listaPagosRealizados.Count() > 0)
-            {
-                foreach (Pago pago in listaPagosRealizados)
-                {
-                    if (pago.Concepto == pagoNuevo.Concepto && pago.LegajoDelEstudiante == pagoNuevo.LegajoDelEstudiante && pago.Codigo == pagoNuevo.Codigo)
-                    {
-                        campoRepetido = "Pago ya realizado";
-                        resultado = false;
-                        break;
-                    }
-                    
-                }
-            }
-
-            return resultado;
-        }
-        //REGISTRA PAGO REALIZADO
-        public static void RegistrarPagoRealizado(Pago pagoNuevo)
-        {
-            listaPagosRealizados.Add(pagoNuevo);
-            EscribirJSON(dataBasePagosRealizados, datoDelSistema.pagoRealizado);
         }
 
 

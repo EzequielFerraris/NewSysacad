@@ -14,9 +14,11 @@ namespace NewSysacadFront
     public partial class FrmAgregarCurso : Form
     {
         public bool agregado = false;
-        public FrmAgregarCurso()
+        private Administrador admin;
+        public FrmAgregarCurso(Administrador admin)
         {
             InitializeComponent();
+            this.admin = admin;
             cbxDia.DataSource = Enum.GetValues(typeof(dia));
             cbxTurno.DataSource = Enum.GetValues(typeof(turno));
         }
@@ -90,7 +92,7 @@ namespace NewSysacadFront
                 }
                 if (validados)
                 {
-                    if (NewSysacad.AgregarCurso(nuevoCurso, out string error))
+                    if (admin.AgregarCurso(nuevoCurso, out string error))
                     {
                         string mensaje1 = "Curso agregado correctamente.";
                         string titulo1 = "Agregar curso";

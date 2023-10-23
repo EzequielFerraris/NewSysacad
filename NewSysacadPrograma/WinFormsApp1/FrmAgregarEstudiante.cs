@@ -17,9 +17,11 @@ namespace NewSysacadFront
     public partial class FrmAgregarEstudiante : Form
     {
         public bool agregado = false;
-        public FrmAgregarEstudiante()
+        private Administrador admin;
+        public FrmAgregarEstudiante(Administrador admin)
         {
             InitializeComponent();
+            this.admin = admin;
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -81,7 +83,7 @@ namespace NewSysacadFront
                     
                     try
                     {
-                        if (NewSysacad.AgregarEstudiante(nuevoEstudiante, out string error))
+                        if (admin.AgregarEstudiante(nuevoEstudiante, out string error))
                         {
                             string mensajeConfirmacion = "Estudiante agregado correctamente.";
                             string tituloConfirmacion = "Inscripción";

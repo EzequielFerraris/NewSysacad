@@ -44,7 +44,7 @@ namespace NewSysacadFront
 
         private void ActualizarListaLocal()
         {
-            foreach (Curso curso in NewSysacad.ListaCursos)
+            foreach (Curso curso in NewSysacad.listaCursos)
             {
                 FrmCursoParaEstudiante cardCurso = new FrmCursoParaEstudiante(curso, this);
                 cursosAgregados.Add(cardCurso);
@@ -121,7 +121,7 @@ namespace NewSysacadFront
                             //INSCRIBE AL USUARIO EN LA CLASE CURSO
                             bool inscripcion = curso.InscribirEstudiante(EstudianteUsuario, out string errorCurso);
                             //GUARDA LOS CAMBIOS EN LA BASE DE DATOS
-                            NewSysacad.ActualizarCurso(curso);
+                            EstudianteUsuario.ActualizarCurso(curso);
                             if (!inscripcion)
                             {
                                 listaErrores += $"{curso.Nombre}: {errorCurso}\n";

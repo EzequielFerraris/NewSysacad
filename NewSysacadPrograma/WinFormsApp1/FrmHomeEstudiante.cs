@@ -41,7 +41,7 @@ namespace NewSysacadFront
             pnlDisplay.Controls.Add(pagosPendientes);
             pagosPendientes.Hide();
 
-            realizados = new FrmPagosRealizados();
+            realizados = new FrmPagosRealizados(usuario);
             realizados.TopLevel = false;
             pnlDisplay.Controls.Add(realizados);
             realizados.Hide();

@@ -115,13 +115,7 @@ namespace BibliotecaNewSysacad
 
 
             /*
-             Verifica cada caracter de la cadena de texto y chequea que
-            únicamente sean letras y solamente toma como válido el espacio 
-            vació entre palabras (con la idea de que sea un solo campo
-            para ingresar nombre y apellido), tampoco admite ningún caracter
-            especial, en caso de que la cadena NO cumpla con estas validaciones,
-            se va a retornar un false, de lo contrario, si es válida, retorna true
-             
+             Verifica que los carácteres sean letras
              */
             foreach (char c in nombre)
             {
@@ -300,9 +294,7 @@ namespace BibliotecaNewSysacad
             if (!int.TryParse(anio, out var numero))
                 return false;
             /*
-             
              Valida que el entero ingresado no sea ni menor ni igual a 0
-             
              */
             if (numero < 23 || numero > 40)
                 return false;

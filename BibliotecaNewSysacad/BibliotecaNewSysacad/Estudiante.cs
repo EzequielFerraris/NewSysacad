@@ -118,7 +118,7 @@ namespace BibliotecaNewSysacad
             get => cursosInscripto; 
         }
 
-        //CURSOS
+        //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
         public bool ChequearDisponibilidad(Curso curso)
         {
             if(cursosInscripto.Count > 0)
@@ -146,7 +146,7 @@ namespace BibliotecaNewSysacad
         }
         public void ActualizarCursosInscripto()
         {
-            foreach(Curso curso in NewSysacad.ListaCursos)
+            foreach(Curso curso in NewSysacad.listaCursos)
             {
                 foreach(int estudiante in curso.EstudiantesInscriptos) 
                 { 
@@ -158,5 +158,52 @@ namespace BibliotecaNewSysacad
             }
         }
 
+        //ACTUALIZA UN CURSO YA EXISTENTE CON NUEVOS INSCRIPTOS
+        public bool ActualizarCurso(Curso cursoNuevo)
+        {
+            bool resultado = false;
+            foreach (Curso c in NewSysacad.listaCursos)
+            {
+                if (c.Nombre == cursoNuevo.Nombre && c.Codigo == cursoNuevo.Codigo)
+                {
+                    NewSysacad.listaCursos.Remove(c);
+                    NewSysacad.listaCursos.Add(cursoNuevo);
+                    NewSysacad.EscribirJSON(NewSysacad.DataBaseCursosNombreArchivo, datoDelSistema.curso);
+                    resultado = true;
+                    break;
+                }
+            }
+            return resultado;
+        }
+
+        //PAGOS---------------------------------------------------------------------------------------------------
+
+        //VALIDAR PAGOS REALIZADOS
+        public bool ValidarPagoRealizadoNuevo(Pago pagoNuevo, out string campoRepetido)
+        {
+            campoRepetido = "Ninguno";
+            bool resultado = true;
+            if (NewSysacad.listaPagosRealizados.Count() > 0)
+            {
+                foreach (Pago pago in NewSysacad.listaPagosRealizados)
+                {
+                    if (pago.Concepto == pagoNuevo.Concepto && pago.LegajoDelEstudiante == pagoNuevo.LegajoDelEstudiante && pago.Codigo == pagoNuevo.Codigo)
+                    {
+                        campoRepetido = "Pago ya realizado";
+                        resultado = false;
+                        break;
+                    }
+
+                }
+            }
+            return resultado;
+        }
+
+        //REGISTRAR PAGO REALIZADO
+        public void RegistrarPagoRealizado(Pago pagoNuevo)
+        {
+            NewSysacad.listaPagosRealizados.Add(pagoNuevo);
+            NewSysacad.EscribirJSON(NewSysacad.DataBasePagosRealizados, datoDelSistema.pagoRealizado);
+        }
     }
 }

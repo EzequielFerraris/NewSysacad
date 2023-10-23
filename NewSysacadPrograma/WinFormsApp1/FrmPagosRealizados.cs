@@ -13,11 +13,13 @@ namespace NewSysacadFront
 {
     public partial class FrmPagosRealizados : Form
     {
+        private Estudiante estudiante;
         public List<FrmPagoRealizadoIndividual> pagosEnLista;
         
-        public FrmPagosRealizados()
+        public FrmPagosRealizados(Estudiante estudiante)
         {
             InitializeComponent();
+            this.estudiante = estudiante;
             pagosEnLista = new List<FrmPagoRealizadoIndividual>();
             ActualizarLista();
         }

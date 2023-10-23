@@ -45,10 +45,10 @@ namespace NewSysacadFront
 
         private void ActualizarListaLocal()
         {
-            foreach (Pago pagoPendiente in NewSysacad.ListaPagosPendientes)
+            foreach (Pago pagoPendiente in NewSysacad.listaPagosPendientes)
             {
                 bool condicion1 = true;
-                foreach (Pago pagoRealizado in NewSysacad.ListaPagosRealizados)
+                foreach (Pago pagoRealizado in NewSysacad.listaPagosRealizados)
                 {
                     if(pagoPendiente.Codigo == pagoRealizado.Codigo && pagoRealizado.LegajoDelEstudiante == usuario.Legajo)
                     {

@@ -189,6 +189,7 @@ namespace NewSysacadFront
                         pagoTransferencia.Cuenta = "";
                     }
                 }
+
                 //
                 if(datosValidados)
                 {
@@ -222,7 +223,7 @@ namespace NewSysacadFront
                             pagoRealizado.TitularPago = pagoTransferencia.Titular;
                         }
 
-                        condicion1 = NewSysacad.ValidarPagoRealizadoNuevo(pagoRealizado, out string errorRegistro);
+                        condicion1 = usuario.ValidarPagoRealizadoNuevo(pagoRealizado, out string errorRegistro);
 
                         if (!condicion1)
                         {
@@ -238,7 +239,7 @@ namespace NewSysacadFront
                     {
                         foreach (Pago pagoChequeado in nuevosPagos)
                         {
-                            NewSysacad.RegistrarPagoRealizado(pagoChequeado);
+                            usuario.RegistrarPagoRealizado(pagoChequeado);
                         }
 
                         string mensaje1 = "Pago realizado correctamente.";

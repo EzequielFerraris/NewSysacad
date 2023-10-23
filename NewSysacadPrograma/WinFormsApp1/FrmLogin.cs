@@ -25,7 +25,8 @@ namespace NewSysacadFront
             {
                 if (NewSysacad.LoginAdministrador(tbxNombreUsuario.Text, txbPassword.Text))
                 {
-                    FrmHomeAdministrador home = new FrmHomeAdministrador(tbxNombreUsuario.Text);
+                    Administrador admin = NewSysacad.ObtenerEstudianteAdministrador(tbxNombreUsuario.Text);
+                    FrmHomeAdministrador home = new FrmHomeAdministrador(admin);
                     home.Show();
                     this.Hide();
 

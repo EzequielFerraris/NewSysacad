@@ -66,7 +66,7 @@
             btnSalir.Dock = DockStyle.Top;
             btnSalir.FlatAppearance.BorderSize = 0;
             btnSalir.FlatAppearance.MouseDownBackColor = Color.Coral;
-            btnSalir.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 97, 130);
+            btnSalir.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
             btnSalir.FlatStyle = FlatStyle.Flat;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.DarkRed;
@@ -110,7 +110,7 @@
             btnGestionarCursos.Dock = DockStyle.Top;
             btnGestionarCursos.FlatAppearance.BorderSize = 0;
             btnGestionarCursos.FlatAppearance.MouseDownBackColor = Color.Coral;
-            btnGestionarCursos.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 97, 130);
+            btnGestionarCursos.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
             btnGestionarCursos.FlatStyle = FlatStyle.Flat;
             btnGestionarCursos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnGestionarCursos.ForeColor = Color.DarkRed;
@@ -127,7 +127,7 @@
             btnAgregarEstudiante.Dock = DockStyle.Top;
             btnAgregarEstudiante.FlatAppearance.BorderSize = 0;
             btnAgregarEstudiante.FlatAppearance.MouseDownBackColor = Color.Coral;
-            btnAgregarEstudiante.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 97, 130);
+            btnAgregarEstudiante.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
             btnAgregarEstudiante.FlatStyle = FlatStyle.Flat;
             btnAgregarEstudiante.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAgregarEstudiante.ForeColor = Color.DarkRed;

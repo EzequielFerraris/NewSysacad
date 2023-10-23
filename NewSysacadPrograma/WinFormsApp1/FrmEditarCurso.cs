@@ -16,9 +16,11 @@ namespace NewSysacadFront
     {
         private Curso cursoAEditar;
         FrmListaDeCursos listaPadre;
-        public FrmEditarCurso(Curso curso, FrmListaDeCursos lista)
+        private Administrador admin;
+        public FrmEditarCurso(Curso curso, FrmListaDeCursos lista, Administrador admin)
         {
             InitializeComponent();
+            this.admin = admin;
             cursoAEditar = curso;
             txbNombre.Text = cursoAEditar.Nombre;
             txbCodigo.Text = cursoAEditar.Codigo.ToString();
@@ -37,6 +39,7 @@ namespace NewSysacadFront
             string titulo = "Editar curso";
             MessageBoxButtons botones = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show(mensaje, titulo, botones);
+
             if (result == DialogResult.Yes)
             {
                 Curso nuevoCurso = new Curso();
@@ -60,15 +63,13 @@ namespace NewSysacadFront
                 List<string> props = new List<string> { nuevoCurso.Nombre, nuevoCurso.Descripcion };
                 List<int> props2 = new List<int> { nuevoCurso.CupoMaximo, nuevoCurso.Codigo };
 
+                //--------------------------------------------------------
                 bool validados = true;
 
                 foreach (string prop in props)
                 {
                     if (prop == string.Empty)
                     {
-                        txbNombre.Text = nuevoCurso.Nombre;
-                        txbDescripcion.Text = nuevoCurso.Descripcion;
-
                         validados = false;
 
                         string mensajeError1 = $"Uno o más de los campos es inválido. Inténtelo nuevamente.";
@@ -83,10 +84,6 @@ namespace NewSysacadFront
                 {
                     if (prop == 0)
                     {
-
-                        txbCupoMax.Text = nuevoCurso.CupoMaximo.ToString();
-                        txbCodigo.Text = nuevoCurso.Codigo.ToString();
-
                         validados = false;
 
                         string mensajeError1 = $"Uno o más de los campos es inválido. Inténtelo nuevamente.";
@@ -97,11 +94,28 @@ namespace NewSysacadFront
                     }
                 }
 
+
+
+                txbNombre.Text = nuevoCurso.Nombre;
+                txbDescripcion.Text = nuevoCurso.Descripcion;
+                txbCupoMax.Text = nuevoCurso.CupoMaximo.ToString();
+                txbCodigo.Text = nuevoCurso.Codigo.ToString();
+
+
                 if (validados)
                 {
-                    if (NewSysacad.EliminarCurso(cursoAEditar, out string error))
+                    try
                     {
-                        if (NewSysacad.AgregarCurso(nuevoCurso, out string error2))
+                        admin.EliminarCurso(cursoAEditar, out string error);
+                        if (!admin.AgregarCurso(nuevoCurso, out string error2))
+                        {
+                            admin.AgregarCurso(cursoAEditar, out string x);
+                            string mensaje3 = $"Error. El código ya está en uso.";
+                            string titulo3 = "Editar curso";
+                            DialogResult result3 = MessageBox.Show(mensaje3, titulo3);
+                            txbCodigo.Text = cursoAEditar.Codigo.ToString();
+                        }
+                        else
                         {
                             string mensaje1 = "Curso actualizado correctamente.";
                             string titulo1 = "Editar curso";
@@ -110,28 +124,18 @@ namespace NewSysacadFront
                             this.Hide();
                             this.Close();
                         }
-                        else
-                        {
-                            string mensaje2 = $"Error en los registros. {error2}.";
-                            string titulo2 = "Editar curso";
-                            DialogResult result2 = MessageBox.Show(mensaje2, titulo2);
-                            listaPadre.ActualizarLista();
-                            this.Hide();
-                            this.Close();
-                        }
+
                     }
-                    else
+                    catch
                     {
-                        string mensaje3 = $"Error en los registros. {error}.";
-                        string titulo3 = "Editar curso";
-                        DialogResult result3 = MessageBox.Show(mensaje3, titulo3);
+                        string mensaje2 = $"Error en los registros. Inténtelo nuevamente.";
+                        string titulo2 = "Editar curso";
+                        DialogResult result2 = MessageBox.Show(mensaje2, titulo2);
                         listaPadre.ActualizarLista();
                         this.Hide();
                         this.Close();
                     }
                 }
-                
-
             }
         }
 
@@ -140,7 +144,6 @@ namespace NewSysacadFront
             this.Hide();
             this.Close();
         }
-
 
     }
 }

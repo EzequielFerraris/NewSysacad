@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliotecaNewSysacad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,16 +17,18 @@ namespace NewSysacadFront
         public List<FrmAgregarEstudiante> formulariosEstudiantes;
         public List<FrmAgregarCurso> formulariosCursos;
         public FrmListaDeCursos listaDeCursos;
-        
-        public FrmHomeAdministrador(string nombreAdmin)
+        private Administrador admin;
+
+        public FrmHomeAdministrador(Administrador admin)
         {
 
             InitializeComponent();
             EstadoMenusPorDefecto();
+            this.admin = admin;
             formulariosEstudiantes = new List<FrmAgregarEstudiante>();
             formulariosCursos = new List<FrmAgregarCurso>();
-            lbNombreAdmin.Text = nombreAdmin;
-            listaDeCursos = new FrmListaDeCursos();
+            lbNombreAdmin.Text = admin.Nombre;
+            listaDeCursos = new FrmListaDeCursos(admin);
             listaDeCursos.TopLevel = false;
             pnlDisplay.Controls.Add(listaDeCursos);
 
@@ -69,7 +72,7 @@ namespace NewSysacadFront
 
             if (formulariosEstudiantes.Count() == 0)
             {
-                FrmAgregarEstudiante nuevoEstudiante = new FrmAgregarEstudiante();
+                FrmAgregarEstudiante nuevoEstudiante = new FrmAgregarEstudiante(admin);
                 nuevoEstudiante.TopLevel = false;
                 pnlDisplay.Controls.Add(nuevoEstudiante);
                 nuevoEstudiante.Show();
@@ -82,7 +85,7 @@ namespace NewSysacadFront
                 {
                     formulariosEstudiantes.Remove(cargarForm);
                     cargarForm.Close();
-                    FrmAgregarEstudiante nuevoEstudiante = new FrmAgregarEstudiante();
+                    FrmAgregarEstudiante nuevoEstudiante = new FrmAgregarEstudiante(admin);
                     nuevoEstudiante.TopLevel = false;
                     pnlDisplay.Controls.Add(nuevoEstudiante);
                     nuevoEstudiante.Show();
@@ -99,11 +102,11 @@ namespace NewSysacadFront
 
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
+            MostrarSubMenu(pnlSubMenuGE);
             if (formulariosEstudiantes.Count() > 0)
             {
                 var cargarForm = formulariosEstudiantes.Last();
                 cargarForm.Hide();
-                MostrarSubMenu(pnlSubMenuGE);
             }
             listaDeCursos.ActualizarLista();
             listaDeCursos.Show();
@@ -118,7 +121,7 @@ namespace NewSysacadFront
             EsconderSubMenus();
             if (formulariosCursos.Count() == 0)
             {
-                FrmAgregarCurso nuevoCurso = new FrmAgregarCurso();
+                FrmAgregarCurso nuevoCurso = new FrmAgregarCurso(admin);
                 nuevoCurso.TopLevel = false;
                 pnlDisplay.Controls.Add(nuevoCurso);
                 nuevoCurso.Show();
@@ -131,7 +134,7 @@ namespace NewSysacadFront
                 {
                     formulariosCursos.Remove(cargarForm);
                     cargarForm.Close();
-                    FrmAgregarCurso nuevoCurso = new FrmAgregarCurso();
+                    FrmAgregarCurso nuevoCurso = new FrmAgregarCurso(admin);
                     nuevoCurso.TopLevel = false;
                     pnlDisplay.Controls.Add(nuevoCurso);
                     nuevoCurso.Show();

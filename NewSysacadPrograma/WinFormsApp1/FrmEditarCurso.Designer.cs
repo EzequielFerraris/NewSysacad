@@ -129,6 +129,7 @@
             txbDescripcion.Location = new Point(331, 101);
             txbDescripcion.Multiline = true;
             txbDescripcion.Name = "txbDescripcion";
+            txbDescripcion.ScrollBars = ScrollBars.Vertical;
             txbDescripcion.Size = new Size(187, 155);
             txbDescripcion.TabIndex = 7;
             // 
