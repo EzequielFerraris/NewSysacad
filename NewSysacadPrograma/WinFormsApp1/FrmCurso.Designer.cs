@@ -280,7 +280,7 @@
             // 
             // txbDescripcion
             // 
-            txbDescripcion.BackColor = Color.FromArgb(125, 121, 163);
+            txbDescripcion.BackColor = Color.FromArgb(100, 125, 153);
             txbDescripcion.Dock = DockStyle.Fill;
             txbDescripcion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txbDescripcion.ForeColor = Color.DarkRed;
@@ -296,7 +296,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(125, 121, 163);
+            AutoSize = true;
+            BackColor = Color.FromArgb(100, 125, 153);
             ClientSize = new Size(584, 75);
             Controls.Add(pnlBotones);
             Controls.Add(pnlDescripcion);

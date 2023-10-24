@@ -47,14 +47,14 @@ namespace NewSysacadFront
                 nuevoEstudiante.DebeCambiarPassword = this.cbxCambiarPassword.Checked;
 
                 List<string> props = new List<string> { nuevoEstudiante.Nombre, nuevoEstudiante.Apellido, nuevoEstudiante.NombreUsuario,
-                                                        nuevoEstudiante.EMail, nuevoEstudiante.Dni, nuevoEstudiante.Calle, 
+                                                        nuevoEstudiante.EMail, nuevoEstudiante.Dni, nuevoEstudiante.Calle,
                                                         nuevoEstudiante.Altura, nuevoEstudiante.Telefono };
-                
+
                 bool validados = true;
-                
+
                 foreach (string prop in props)
                 {
-                    if(prop == string.Empty)
+                    if (prop == string.Empty)
                     {
 
                         this.txbNombre.Text = nuevoEstudiante.Nombre;
@@ -76,11 +76,11 @@ namespace NewSysacadFront
                     }
                 }
 
-                if (validados) 
+                if (validados)
                 {
                     //ASIGNAMOS EL DNI COMO PASSWORD LA PRIMERA VEZ
                     nuevoEstudiante.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(nuevoEstudiante.Dni, 13);
-                    
+
                     try
                     {
                         if (admin.AgregarEstudiante(nuevoEstudiante, out string error))
@@ -106,11 +106,11 @@ namespace NewSysacadFront
 
                     }
                 }
-                
+
             }
-               
+
         }
-            
+
     }
-    
+
 }

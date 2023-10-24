@@ -241,7 +241,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(102, 97, 130);
+            BackColor = Color.FromArgb(125, 121, 163);
             ClientSize = new Size(584, 361);
             Controls.Add(txbAltura);
             Controls.Add(label1);

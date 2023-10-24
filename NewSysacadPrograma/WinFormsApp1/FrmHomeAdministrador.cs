@@ -13,11 +13,12 @@ namespace NewSysacadFront
 {
     public partial class FrmHomeAdministrador : Form
     {
-
-        public List<FrmAgregarEstudiante> formulariosEstudiantes;
-        public List<FrmAgregarCurso> formulariosCursos;
         public FrmListaDeCursos listaDeCursos;
         private Administrador admin;
+        private FrmAgregarEstudiante formAgregarEstudiante;
+        private FrmAgregarCurso formAgregarCurso;
+        private FrmControlReportes frmControlReportes;
+
 
         public FrmHomeAdministrador(Administrador admin)
         {
@@ -25,12 +26,26 @@ namespace NewSysacadFront
             InitializeComponent();
             EstadoMenusPorDefecto();
             this.admin = admin;
-            formulariosEstudiantes = new List<FrmAgregarEstudiante>();
-            formulariosCursos = new List<FrmAgregarCurso>();
+            
             lbNombreAdmin.Text = admin.Nombre;
             listaDeCursos = new FrmListaDeCursos(admin);
             listaDeCursos.TopLevel = false;
             pnlDisplay.Controls.Add(listaDeCursos);
+
+            frmControlReportes = new FrmControlReportes();
+            frmControlReportes.TopLevel = false;
+            pnlDisplay.Controls.Add(frmControlReportes);
+            frmControlReportes.Hide();
+
+            formAgregarEstudiante = new FrmAgregarEstudiante(admin);
+            formAgregarEstudiante.TopLevel = false;
+            pnlDisplay.Controls.Add(formAgregarEstudiante);
+            formAgregarEstudiante.Hide();
+
+            formAgregarCurso = new FrmAgregarCurso(admin);
+            formAgregarCurso.TopLevel = false;
+            pnlDisplay.Controls.Add(formAgregarCurso);
+            formAgregarCurso.Hide();
 
         }
 
@@ -64,88 +79,55 @@ namespace NewSysacadFront
         {
             EsconderSubMenus(); //Esconde los submenus
             listaDeCursos.Hide(); //Esconde la lista de cursos
-            if (formulariosCursos.Count() > 0) //Esconde los formularios de cursos si los hay
+            frmControlReportes.Hide();
+            formAgregarCurso.Hide();
+
+            if (formAgregarEstudiante.agregado)
             {
-                var cargarForm = formulariosCursos.Last();
-                cargarForm.Hide();
+                formAgregarEstudiante = new FrmAgregarEstudiante(admin);
+                formAgregarEstudiante.TopLevel = false;
+                pnlDisplay.Controls.Add(formAgregarEstudiante);
             }
 
-            if (formulariosEstudiantes.Count() == 0)
-            {
-                FrmAgregarEstudiante nuevoEstudiante = new FrmAgregarEstudiante(admin);
-                nuevoEstudiante.TopLevel = false;
-                pnlDisplay.Controls.Add(nuevoEstudiante);
-                nuevoEstudiante.Show();
-                formulariosEstudiantes.Add(nuevoEstudiante);
-            }
-            else
-            {
-                var cargarForm = formulariosEstudiantes.Last();
-                if (cargarForm.agregado)
-                {
-                    formulariosEstudiantes.Remove(cargarForm);
-                    cargarForm.Close();
-                    FrmAgregarEstudiante nuevoEstudiante = new FrmAgregarEstudiante(admin);
-                    nuevoEstudiante.TopLevel = false;
-                    pnlDisplay.Controls.Add(nuevoEstudiante);
-                    nuevoEstudiante.Show();
-                    formulariosEstudiantes.Add(nuevoEstudiante);
-                }
-                else
-                {
-                    cargarForm.Show();
-                }
-
-            }
+            formAgregarEstudiante.Show();
 
         }
 
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
             MostrarSubMenu(pnlSubMenuGE);
-            if (formulariosEstudiantes.Count() > 0)
-            {
-                var cargarForm = formulariosEstudiantes.Last();
-                cargarForm.Hide();
-            }
+            formAgregarEstudiante.Hide();
+            frmControlReportes.Hide();
             listaDeCursos.ActualizarLista();
             listaDeCursos.Show();
 
         }
 
-
-
         private void btnAgregarCurso_Click(object sender, EventArgs e)
         {
             listaDeCursos.Hide();
             EsconderSubMenus();
-            if (formulariosCursos.Count() == 0)
-            {
-                FrmAgregarCurso nuevoCurso = new FrmAgregarCurso(admin);
-                nuevoCurso.TopLevel = false;
-                pnlDisplay.Controls.Add(nuevoCurso);
-                nuevoCurso.Show();
-                formulariosCursos.Add(nuevoCurso);
-            }
-            else
-            {
-                var cargarForm = formulariosCursos.Last();
-                if (cargarForm.agregado)
-                {
-                    formulariosCursos.Remove(cargarForm);
-                    cargarForm.Close();
-                    FrmAgregarCurso nuevoCurso = new FrmAgregarCurso(admin);
-                    nuevoCurso.TopLevel = false;
-                    pnlDisplay.Controls.Add(nuevoCurso);
-                    nuevoCurso.Show();
-                    formulariosCursos.Add(nuevoCurso);
-                }
-                else
-                {
-                    cargarForm.Show();
-                }
 
+            if (formAgregarCurso.agregado)
+            {
+                formAgregarCurso = new FrmAgregarCurso(admin);
+                formAgregarCurso.TopLevel = false;
+                pnlDisplay.Controls.Add(formAgregarCurso);
             }
+
+            formAgregarCurso.Show();
+
+        }
+
+        //REPORTES
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            EsconderSubMenus(); //Esconde los submenus
+            listaDeCursos.Hide(); //Esconde la lista de cursos
+            formAgregarEstudiante.Hide();
+            formAgregarCurso.Hide();
+
+            frmControlReportes.Show();
         }
 
         //SALIR
@@ -161,5 +143,6 @@ namespace NewSysacadFront
             }
         }
 
+        
     }
 }

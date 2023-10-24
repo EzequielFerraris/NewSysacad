@@ -11,14 +11,7 @@ using System.ComponentModel.Design;
 
 namespace BibliotecaNewSysacad
 {
-    public enum datoDelSistema
-    { 
-        estudiante,
-        administrador,
-        curso,
-        pagoPendiente, 
-        pagoRealizado
-    }
+    
     public static class NewSysacad
     {
         public static int numeroDeLegajo = 1;
@@ -145,14 +138,16 @@ namespace BibliotecaNewSysacad
         //BUSCA UN ADMINISTRADOR POR EL NOMBRE DE USUARIO
         public static Administrador ObtenerEstudianteAdministrador(string nombreDeUsuario)
         {
+            Administrador resultado = new Administrador();
+
             foreach (Administrador admin in listaAdministradores)
             {
                 if (nombreDeUsuario == admin.NombreUsuario)
                 {
-                    return admin;
+                    resultado = admin;
                 }
             }
-            return null;
+            return resultado;
         }
         
         //ARCHIVOS------------------------------------------------------------------------
@@ -169,61 +164,75 @@ namespace BibliotecaNewSysacad
         //ESCRIBE LOS ARCHIVOS DONDE PERSISTEN LOS DATOS
         public static void EscribirJSON(string file, datoDelSistema tipo)
         {
-            using (var writer = new StreamWriter(Combinar(file)))
+            try
             {
-                var options = new JsonSerializerOptions();
-                options.WriteIndented = true;
-                
-
-                switch (tipo)
+                using (var writer = new StreamWriter(Combinar(file)))
                 {
-                    case datoDelSistema.estudiante:
-                        var json1 = JsonSerializer.Serialize(NewSysacad.listaEstudiantes, options);
-                        writer.Write(json1);
-                        break;
-                    case datoDelSistema.administrador:
-                        var json2 = JsonSerializer.Serialize(NewSysacad.listaAdministradores, options);
-                        writer.Write(json2);
-                        break;
-                    case datoDelSistema.curso:
-                        var json3 = JsonSerializer.Serialize(NewSysacad.listaCursos, options);
-                        writer.Write(json3);
-                        break;
-                    case datoDelSistema.pagoPendiente:
-                        var json4 = JsonSerializer.Serialize(NewSysacad.listaPagosPendientes, options);
-                        writer.Write(json4);
-                        break;
-                    case datoDelSistema.pagoRealizado:
-                        var json5 = JsonSerializer.Serialize(NewSysacad.listaPagosRealizados, options);
-                        writer.Write(json5);
-                        break;
+                    var options = new JsonSerializerOptions();
+                    options.WriteIndented = true;
+
+                    switch (tipo)
+                    {
+                        case datoDelSistema.estudiante:
+                            var json1 = JsonSerializer.Serialize(NewSysacad.listaEstudiantes, options);
+                            writer.Write(json1);
+                            break;
+                        case datoDelSistema.administrador:
+                            var json2 = JsonSerializer.Serialize(NewSysacad.listaAdministradores, options);
+                            writer.Write(json2);
+                            break;
+                        case datoDelSistema.curso:
+                            var json3 = JsonSerializer.Serialize(NewSysacad.listaCursos, options);
+                            writer.Write(json3);
+                            break;
+                        case datoDelSistema.pagoPendiente:
+                            var json4 = JsonSerializer.Serialize(NewSysacad.listaPagosPendientes, options);
+                            writer.Write(json4);
+                            break;
+                        case datoDelSistema.pagoRealizado:
+                            var json5 = JsonSerializer.Serialize(NewSysacad.listaPagosRealizados, options);
+                            writer.Write(json5);
+                            break;
+                    }
                 }
             }
+            catch 
+            { 
+            
+            }
+            
         }
 
         //LEE LOS ARCHIVOS
         private static List<T> LeerJSON<T>(string file)
         {
+
             var path = Combinar(file);
 
             var nuevaLista = new List<T>();
-
-            if (File.Exists(path))
+            try
             {
-                using (var reader = new StreamReader(path))
+                if (File.Exists(path))
                 {
-                    var json = reader.ReadToEnd();
-
-                    var listaAux = JsonSerializer.Deserialize<List<T>>(json);
-
-                    if (listaAux != null)
+                    using (var reader = new StreamReader(path))
                     {
-                        nuevaLista = listaAux;
+                        var json = reader.ReadToEnd();
+
+                        var listaAux = JsonSerializer.Deserialize<List<T>>(json);
+
+                        if (listaAux != null)
+                        {
+                            nuevaLista = listaAux;
+                        }
                     }
                 }
             }
+            catch
+            {
 
+            }
             return nuevaLista;
+
         }
 
         //ESTUDIANTES-------------------------------------------------------------------
@@ -246,14 +255,16 @@ namespace BibliotecaNewSysacad
         //OBTENER ESTUDIANTE CON EL NOMBRE DE USUARIO
         public static Estudiante ObtenerEstudiante(string nombreDeUsuario)
         {
+            Estudiante resultado = new Estudiante();
+
             foreach (Estudiante estudiante in listaEstudiantes)
             {
                 if (nombreDeUsuario == estudiante.NombreUsuario)
                 {
-                    return estudiante;
+                    resultado = estudiante;
                 }
             }
-            return null;
+            return resultado;
         }
 
         //ACTUALIZAR ESTUDIANTE CON NUEVO PASSWORD

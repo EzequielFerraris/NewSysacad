@@ -9,6 +9,7 @@ namespace BibliotecaNewSysacad
     public class Administrador : Persona
     {
         
+        public Administrador() { }
         public Administrador(string nombre, string apellido, string nombreUsuario, 
                             string eMail, string password) 
                             : base(nombre, apellido, nombreUsuario, 

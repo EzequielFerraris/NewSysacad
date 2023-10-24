@@ -6,18 +6,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaNewSysacad
 {
-    public enum TipoDePago
-    {
-        Pendiente,
-        Realizado
-    }
-
-    public enum FormaDePago
-    {
-        Credito,
-        Debito,
-        Transferencia
-    }
+    
     public class Pago
     {
         private string concepto;

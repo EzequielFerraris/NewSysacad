@@ -8,21 +8,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaNewSysacad
 {
-    public enum dia
-    {
-        Lunes,
-        Martes,
-        Miércoles,
-        Jueves,
-        Viernes,
-    }
-
-    public enum turno
-    {
-        Mañana,
-        Tarde,
-        Noche
-    }
+    
     public class Curso
     {
         private string nombre;

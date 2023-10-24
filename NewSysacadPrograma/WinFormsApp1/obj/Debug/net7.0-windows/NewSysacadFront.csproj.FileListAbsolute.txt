@@ -40,3 +40,4 @@ C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmPagoRealizadoIndividual.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmComprobantePago.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmCambiarPassword.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmControlReportes.resources

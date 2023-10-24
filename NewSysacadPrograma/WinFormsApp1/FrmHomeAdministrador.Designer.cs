@@ -40,6 +40,7 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             pnlDisplay = new Panel();
+            btnReportes = new Button();
             panel1.SuspendLayout();
             pnlSubMenuGE.SuspendLayout();
             panel3.SuspendLayout();
@@ -50,6 +51,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(102, 97, 130);
+            panel1.Controls.Add(btnReportes);
             panel1.Controls.Add(btnSalir);
             panel1.Controls.Add(pnlSubMenuGE);
             panel1.Controls.Add(btnGestionarCursos);
@@ -63,16 +65,16 @@
             // 
             // btnSalir
             // 
-            btnSalir.Dock = DockStyle.Top;
+            btnSalir.Dock = DockStyle.Bottom;
             btnSalir.FlatAppearance.BorderSize = 0;
             btnSalir.FlatAppearance.MouseDownBackColor = Color.Coral;
             btnSalir.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
             btnSalir.FlatStyle = FlatStyle.Flat;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.DarkRed;
-            btnSalir.Location = new Point(0, 310);
+            btnSalir.Location = new Point(0, 421);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(200, 70);
+            btnSalir.Size = new Size(200, 40);
             btnSalir.TabIndex = 4;
             btnSalir.Text = "Salir";
             btnSalir.UseVisualStyleBackColor = true;
@@ -83,9 +85,9 @@
             pnlSubMenuGE.BackColor = Color.FromArgb(158, 153, 186);
             pnlSubMenuGE.Controls.Add(btnAgregarCurso);
             pnlSubMenuGE.Dock = DockStyle.Top;
-            pnlSubMenuGE.Location = new Point(0, 240);
+            pnlSubMenuGE.Location = new Point(0, 180);
             pnlSubMenuGE.Name = "pnlSubMenuGE";
-            pnlSubMenuGE.Size = new Size(200, 70);
+            pnlSubMenuGE.Size = new Size(200, 40);
             pnlSubMenuGE.TabIndex = 3;
             // 
             // btnAgregarCurso
@@ -99,7 +101,7 @@
             btnAgregarCurso.ForeColor = Color.DarkRed;
             btnAgregarCurso.Location = new Point(0, 0);
             btnAgregarCurso.Name = "btnAgregarCurso";
-            btnAgregarCurso.Size = new Size(200, 70);
+            btnAgregarCurso.Size = new Size(200, 40);
             btnAgregarCurso.TabIndex = 0;
             btnAgregarCurso.Text = "Agregar curso";
             btnAgregarCurso.UseVisualStyleBackColor = true;
@@ -114,9 +116,9 @@
             btnGestionarCursos.FlatStyle = FlatStyle.Flat;
             btnGestionarCursos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnGestionarCursos.ForeColor = Color.DarkRed;
-            btnGestionarCursos.Location = new Point(0, 170);
+            btnGestionarCursos.Location = new Point(0, 140);
             btnGestionarCursos.Name = "btnGestionarCursos";
-            btnGestionarCursos.Size = new Size(200, 70);
+            btnGestionarCursos.Size = new Size(200, 40);
             btnGestionarCursos.TabIndex = 2;
             btnGestionarCursos.Text = "Gestionar Cursos";
             btnGestionarCursos.UseVisualStyleBackColor = true;
@@ -133,7 +135,7 @@
             btnAgregarEstudiante.ForeColor = Color.DarkRed;
             btnAgregarEstudiante.Location = new Point(0, 100);
             btnAgregarEstudiante.Name = "btnAgregarEstudiante";
-            btnAgregarEstudiante.Size = new Size(200, 70);
+            btnAgregarEstudiante.Size = new Size(200, 40);
             btnAgregarEstudiante.TabIndex = 1;
             btnAgregarEstudiante.Text = "Agregar Estudiante";
             btnAgregarEstudiante.UseVisualStyleBackColor = true;
@@ -203,6 +205,23 @@
             pnlDisplay.Size = new Size(584, 361);
             pnlDisplay.TabIndex = 2;
             // 
+            // btnReportes
+            // 
+            btnReportes.Dock = DockStyle.Top;
+            btnReportes.FlatAppearance.BorderSize = 0;
+            btnReportes.FlatAppearance.MouseDownBackColor = Color.Coral;
+            btnReportes.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
+            btnReportes.FlatStyle = FlatStyle.Flat;
+            btnReportes.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnReportes.ForeColor = Color.DarkRed;
+            btnReportes.Location = new Point(0, 220);
+            btnReportes.Name = "btnReportes";
+            btnReportes.Size = new Size(200, 40);
+            btnReportes.TabIndex = 5;
+            btnReportes.Text = "Generar Reportes";
+            btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.Click += btnReportes_Click;
+            // 
             // FrmHomeAdministrador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -239,5 +258,6 @@
         private Button btnAgregarCurso;
         private Panel pnlDisplay;
         private PictureBox pictureBox1;
+        private Button btnReportes;
     }
 }
