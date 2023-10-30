@@ -45,6 +45,7 @@ namespace NewSysacadFront
                 nuevoEstudiante.Altura = this.txbAltura.Text;
                 nuevoEstudiante.Telefono = this.txbTelefono.Text;
                 nuevoEstudiante.DebeCambiarPassword = this.cbxCambiarPassword.Checked;
+                nuevoEstudiante.Inscripcion = DateTime.Now;
 
                 List<string> props = new List<string> { nuevoEstudiante.Nombre, nuevoEstudiante.Apellido, nuevoEstudiante.NombreUsuario,
                                                         nuevoEstudiante.EMail, nuevoEstudiante.Dni, nuevoEstudiante.Calle,

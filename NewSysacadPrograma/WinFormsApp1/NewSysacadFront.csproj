@@ -17,6 +17,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FrmReporteInscripcionesCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmReporteInscripcionesPeriodo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmInformeListaEspera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmInformeInscripcionesPorCarrera.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmInformeIngresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmInformeEstudiantesInscriptosMateria.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmPagoRealizadoIndividual.cs">
       <SubType>Form</SubType>
     </Compile>

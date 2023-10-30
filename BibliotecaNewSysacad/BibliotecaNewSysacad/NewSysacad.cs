@@ -17,10 +17,10 @@ namespace BibliotecaNewSysacad
         public static int numeroDeLegajo = 1;
 
         private static List<Administrador> listaAdministradores;
-        public static List<Estudiante> listaEstudiantes;
-        public static List<Curso> listaCursos;
-        public static List<Pago> listaPagosPendientes;
-        public static List<Pago> listaPagosRealizados;
+        private static List<Estudiante> listaEstudiantes;
+        private static List<Curso> listaCursos;
+        private static List<Pago> listaPagosPendientes;
+        private static List<Pago> listaPagosRealizados;
         private static string dataBaseEstudiantesNombreArchivo = "DBEstudiantes.json";
         private static string dataBaseAdministradoresNombreArchivo = "DBAdministradores.json";
         private static string dataBaseCursosNombreArchivo = "DBCursosI.json";
@@ -48,7 +48,7 @@ namespace BibliotecaNewSysacad
                 string hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword("1234", 13);
                 Estudiante estudiantePorDefecto = new Estudiante("est1", "est1", "est1", "est1@gmail.com", 
                                                                  hashedPassword, "12312312", "Siempreviva", "123",
-                                                                 "1533556677", false);
+                                                                 "1533556677", false, new DateTime(2022, 3, 5));
                 listaEstudiantes.Add(estudiantePorDefecto);
                 EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
             }
@@ -96,6 +96,25 @@ namespace BibliotecaNewSysacad
         public static List<Pago> ListaPagosRealizados
         {
             get => listaPagosRealizados;
+            set => listaPagosRealizados = value;
+        }
+
+        public static List<Estudiante> ListaEstudiantes
+        {
+            get => listaEstudiantes;
+            set => listaEstudiantes = value;
+        }
+
+        public static List<Curso> ListaCursos
+        {
+            get => listaCursos;
+            set => listaCursos = value;
+        }
+
+        public static List<Pago> ListaPagosPendientes
+        {
+            get => listaPagosPendientes;
+            set => listaPagosPendientes = value;
         }
 
         public static string DataBaseEstudiantesNombreArchivo

@@ -42,7 +42,8 @@ namespace NewSysacadFront
 
         private void ActualizarListaLocal()
         {
-            foreach (Pago pago in NewSysacad.ListaPagosRealizados)
+            List<Pago> pagosRealizados = estudiante.ObtenerPagosRealizados();   
+            foreach (Pago pago in pagosRealizados)
             {
                 FrmPagoRealizadoIndividual cardPago = new FrmPagoRealizadoIndividual(pago, this);
                 pagosEnLista.Add(cardPago);

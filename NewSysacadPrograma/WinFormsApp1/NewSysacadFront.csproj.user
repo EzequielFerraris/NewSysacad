@@ -34,6 +34,9 @@
     <Compile Update="FrmHorario.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmInformeInscripcionesPorPeriodo.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmListaCursosEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>

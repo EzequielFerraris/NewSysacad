@@ -22,7 +22,7 @@ namespace BibliotecaNewSysacad
         {
             campoRepetido = "Ninguno";
             bool resultado = true;
-            foreach (Estudiante estudiante in NewSysacad.listaEstudiantes)
+            foreach (Estudiante estudiante in NewSysacad.ListaEstudiantes)
             {
                 if (estudiante.NombreUsuario == estudianteNuevo.NombreUsuario)
                 {
@@ -56,12 +56,19 @@ namespace BibliotecaNewSysacad
             {
                 estudianteNuevo.Legajo += NewSysacad.numeroDeLegajo;
                 NewSysacad.numeroDeLegajo++;
-                NewSysacad.listaEstudiantes.Add(estudianteNuevo);
+                List<Estudiante> actualizada = NewSysacad.ListaEstudiantes;
+                NewSysacad.ListaEstudiantes = actualizada;
                 NewSysacad.EscribirJSON(NewSysacad.DataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
                 EnviarCorreoElectronico(estudianteNuevo);
                 return true; 
             }
             return false;
+        }
+
+        //OBTIENE LISTA DE ESTUDIANTES DEL SISTEMA
+        public List<Estudiante> ListaEstudiantes()
+        {
+            return NewSysacad.ListaEstudiantes; 
         }
 
         //ENVIA UN CORREO ELECTRONICO AL ESTUDIANTE REGISTRADO (?)
@@ -77,7 +84,7 @@ namespace BibliotecaNewSysacad
         {
             campoRepetido = "Ninguno";
             bool resultado = true;
-            foreach (Curso curso in NewSysacad.listaCursos)
+            foreach (Curso curso in NewSysacad.ListaCursos)
             {
                 if (curso.Nombre == cursoNuevo.Nombre)
                 {
@@ -103,7 +110,9 @@ namespace BibliotecaNewSysacad
             error = campoRepetido;
             if (condicion)
             {
-                NewSysacad.listaCursos.Add(cursoNuevo);
+                List<Curso> actualizada = NewSysacad.ListaCursos;
+                actualizada.Add(cursoNuevo);
+                NewSysacad.ListaCursos = actualizada;
                 NewSysacad.EscribirJSON(NewSysacad.DataBaseCursosNombreArchivo, datoDelSistema.curso);
                 resultado = true;
             }
@@ -115,11 +124,13 @@ namespace BibliotecaNewSysacad
         {
             bool resultado = false;
             error = "Curso no encontrado";
-            foreach (var curso in NewSysacad.listaCursos)
+            foreach (var curso in NewSysacad.ListaCursos)
             {
                 if((cursoAEliminar.Nombre == curso.Nombre) && (cursoAEliminar.Codigo == curso.Codigo))
                 {
-                    NewSysacad.listaCursos.Remove(curso);
+                    List<Curso> actualizada = NewSysacad.ListaCursos;
+                    actualizada.Remove(curso);
+                    NewSysacad.ListaCursos = actualizada;
                     NewSysacad.EscribirJSON(NewSysacad.DataBaseCursosNombreArchivo, datoDelSistema.curso);
                     resultado = true;
                     error = String.Empty;
@@ -129,15 +140,28 @@ namespace BibliotecaNewSysacad
             return resultado;
         }
 
+        //LISTA DE CURSOS
+
+        public List<Curso> ObtenerCursos()
+        {
+            return NewSysacad.ListaCursos;
+        }
+
         //PAGOS--------------------------------------------------------------------------
+        //OBTENER PAGOS
+        public List<Pago> ObtenerPagosPendientes()
+        {
+            return NewSysacad.ListaPagosPendientes;
+        }
+
         //VALIDA UN PAGO NUEVO
         private bool ValidarRegistroPagoNuevo(Pago pagoNuevo, out string campoRepetido)
         {
             campoRepetido = "Ninguno";
             bool resultado = true;
-            if (NewSysacad.listaPagosPendientes.Count() > 0)
+            if (ObtenerPagosPendientes().Count() > 0)
             {
-                foreach (Pago pago in NewSysacad.listaPagosPendientes)
+                foreach (Pago pago in ObtenerPagosPendientes())
                 {
                     if (pago.Concepto == pagoNuevo.Concepto)
                     {
@@ -165,7 +189,9 @@ namespace BibliotecaNewSysacad
             error = campoRepetido;
             if (condicion)
             {
-                NewSysacad.listaPagosPendientes.Add(pagoNuevo);
+                List<Pago> actualizada = ObtenerPagosPendientes();
+                actualizada.Add(pagoNuevo);
+                NewSysacad.ListaPagosPendientes = actualizada;
                 NewSysacad.EscribirJSON(NewSysacad.DataBasePagosPendientes, datoDelSistema.pagoPendiente);
                 resultado = true;
             }

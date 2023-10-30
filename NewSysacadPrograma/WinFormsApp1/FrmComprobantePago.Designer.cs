@@ -54,9 +54,9 @@
             // 
             panel1.Controls.Add(btnAceptar);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 309);
+            panel1.Location = new Point(0, 296);
             panel1.Name = "panel1";
-            panel1.Size = new Size(304, 57);
+            panel1.Size = new Size(304, 70);
             panel1.TabIndex = 0;
             // 
             // btnAceptar
@@ -69,9 +69,9 @@
             btnAceptar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnAceptar.ForeColor = Color.FromArgb(32, 29, 33);
             btnAceptar.ImageAlign = ContentAlignment.TopRight;
-            btnAceptar.Location = new Point(92, 3);
+            btnAceptar.Location = new Point(100, 4);
             btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(121, 54);
+            btnAceptar.Size = new Size(120, 54);
             btnAceptar.TabIndex = 0;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = false;

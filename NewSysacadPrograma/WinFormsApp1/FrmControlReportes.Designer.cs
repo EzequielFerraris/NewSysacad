@@ -29,22 +29,18 @@
         private void InitializeComponent()
         {
             pnlControlReportes = new Panel();
-            pnlGenerarReporte = new Panel();
-            btnGenerar = new Button();
             pnlOpciones = new Panel();
             cbxReportes = new ComboBox();
             pnlTitulo = new Panel();
             lblTitulo = new Label();
             pnlDisplayOpcionesReporte = new Panel();
             pnlControlReportes.SuspendLayout();
-            pnlGenerarReporte.SuspendLayout();
             pnlOpciones.SuspendLayout();
             pnlTitulo.SuspendLayout();
             SuspendLayout();
             // 
             // pnlControlReportes
             // 
-            pnlControlReportes.Controls.Add(pnlGenerarReporte);
             pnlControlReportes.Controls.Add(pnlOpciones);
             pnlControlReportes.Controls.Add(pnlTitulo);
             pnlControlReportes.Dock = DockStyle.Top;
@@ -52,31 +48,6 @@
             pnlControlReportes.Name = "pnlControlReportes";
             pnlControlReportes.Size = new Size(584, 62);
             pnlControlReportes.TabIndex = 0;
-            // 
-            // pnlGenerarReporte
-            // 
-            pnlGenerarReporte.Controls.Add(btnGenerar);
-            pnlGenerarReporte.Dock = DockStyle.Fill;
-            pnlGenerarReporte.Location = new Point(472, 0);
-            pnlGenerarReporte.Name = "pnlGenerarReporte";
-            pnlGenerarReporte.Size = new Size(112, 62);
-            pnlGenerarReporte.TabIndex = 2;
-            // 
-            // btnGenerar
-            // 
-            btnGenerar.Dock = DockStyle.Fill;
-            btnGenerar.FlatAppearance.BorderSize = 0;
-            btnGenerar.FlatAppearance.MouseDownBackColor = Color.Coral;
-            btnGenerar.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 97, 130);
-            btnGenerar.FlatStyle = FlatStyle.Flat;
-            btnGenerar.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnGenerar.ForeColor = Color.Brown;
-            btnGenerar.Location = new Point(0, 0);
-            btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(112, 62);
-            btnGenerar.TabIndex = 1;
-            btnGenerar.Text = "Generar";
-            btnGenerar.UseVisualStyleBackColor = true;
             // 
             // pnlOpciones
             // 
@@ -91,10 +62,12 @@
             // 
             cbxReportes.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxReportes.FormattingEnabled = true;
-            cbxReportes.Location = new Point(21, 26);
+            cbxReportes.Items.AddRange(new object[] { "Inscripciones por período", "Estudiantes inscriptos en curso", "Ingresos", "Inscripción por carrera", "Lista de espera curso" });
+            cbxReportes.Location = new Point(22, 23);
             cbxReportes.Name = "cbxReportes";
             cbxReportes.Size = new Size(187, 23);
             cbxReportes.TabIndex = 0;
+            cbxReportes.SelectedIndexChanged += cbxReportes_SelectedIndexChanged;
             // 
             // pnlTitulo
             // 
@@ -137,7 +110,6 @@
             Name = "FrmControlReportes";
             Text = "FrmControlReportes";
             pnlControlReportes.ResumeLayout(false);
-            pnlGenerarReporte.ResumeLayout(false);
             pnlOpciones.ResumeLayout(false);
             pnlTitulo.ResumeLayout(false);
             ResumeLayout(false);
@@ -146,12 +118,10 @@
         #endregion
 
         private Panel pnlControlReportes;
-        private Panel pnlGenerarReporte;
         private Panel pnlOpciones;
         private Panel pnlTitulo;
         private Panel pnlDisplayOpcionesReporte;
         private ComboBox cbxReportes;
         private Label lblTitulo;
-        private Button btnGenerar;
     }
 }

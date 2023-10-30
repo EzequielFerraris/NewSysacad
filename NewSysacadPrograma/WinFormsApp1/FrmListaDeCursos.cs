@@ -27,7 +27,7 @@ namespace NewSysacadFront
         {
             cursos.Clear();
             pnlListaCursos.Controls.Clear();
-            foreach (Curso curso in NewSysacad.listaCursos)
+            foreach (Curso curso in admin.ObtenerCursos())
             {
                 FrmCurso cardCurso = new FrmCurso(curso, this, admin);
                 cardCurso.TopLevel = false;

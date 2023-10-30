@@ -19,10 +19,10 @@ namespace NewSysacadFront
         public FrmListaCursosEstudiante(Estudiante usuario)
         {
             InitializeComponent();
+            EstudianteUsuario = usuario;
             cursosAgregados = new List<FrmCursoParaEstudiante>();
             cursosSeleccionados = new List<Curso>();
             ActualizarLista();
-            EstudianteUsuario = usuario;
             EstudianteUsuario.ActualizarCursosInscripto();
         }
 
@@ -44,11 +44,11 @@ namespace NewSysacadFront
 
         private void ActualizarListaLocal()
         {
-            foreach (Curso curso in NewSysacad.listaCursos)
+            List<Curso> lista = EstudianteUsuario.ObtenerCursos();
+            foreach (Curso curso in lista)
             {
                 FrmCursoParaEstudiante cardCurso = new FrmCursoParaEstudiante(curso, this);
                 cursosAgregados.Add(cardCurso);
-                
             }
         }
 

@@ -57,11 +57,14 @@
             // 
             // pnl1
             // 
+            pnl1.BackColor = Color.FromArgb(102, 97, 140);
             pnl1.Controls.Add(tableLayoutPanel1);
-            pnl1.Dock = DockStyle.Left;
+            pnl1.Controls.Add(pnlBotones);
+            pnl1.Controls.Add(pnlDescripcion);
+            pnl1.Dock = DockStyle.Fill;
             pnl1.Location = new Point(3, 3);
             pnl1.Name = "pnl1";
-            pnl1.Size = new Size(290, 69);
+            pnl1.Size = new Size(578, 78);
             pnl1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -81,14 +84,14 @@
             tableLayoutPanel1.Controls.Add(lblTurno, 3, 2);
             tableLayoutPanel1.Controls.Add(lbl4, 2, 1);
             tableLayoutPanel1.Controls.Add(lblDia, 3, 1);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Dock = DockStyle.Left;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.Size = new Size(290, 69);
+            tableLayoutPanel1.Size = new Size(270, 78);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // lblCupo
@@ -96,9 +99,9 @@
             lblCupo.AutoSize = true;
             lblCupo.Dock = DockStyle.Fill;
             lblCupo.ForeColor = Color.DarkRed;
-            lblCupo.Location = new Point(67, 46);
+            lblCupo.Location = new Point(62, 52);
             lblCupo.Name = "lblCupo";
-            lblCupo.Size = new Size(110, 23);
+            lblCupo.Size = new Size(102, 26);
             lblCupo.TabIndex = 5;
             lblCupo.Text = "?";
             // 
@@ -107,9 +110,9 @@
             lblCodigo.AutoSize = true;
             lblCodigo.Dock = DockStyle.Fill;
             lblCodigo.ForeColor = Color.DarkRed;
-            lblCodigo.Location = new Point(67, 23);
+            lblCodigo.Location = new Point(62, 26);
             lblCodigo.Name = "lblCodigo";
-            lblCodigo.Size = new Size(110, 23);
+            lblCodigo.Size = new Size(102, 26);
             lblCodigo.TabIndex = 4;
             lblCodigo.Text = "?";
             // 
@@ -118,9 +121,9 @@
             lblNombre.AutoSize = true;
             lblNombre.Dock = DockStyle.Fill;
             lblNombre.ForeColor = Color.DarkRed;
-            lblNombre.Location = new Point(67, 0);
+            lblNombre.Location = new Point(62, 0);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(110, 23);
+            lblNombre.Size = new Size(102, 26);
             lblNombre.TabIndex = 3;
             lblNombre.Text = "?";
             // 
@@ -132,7 +135,7 @@
             lbl1.ForeColor = Color.Brown;
             lbl1.Location = new Point(3, 0);
             lbl1.Name = "lbl1";
-            lbl1.Size = new Size(58, 23);
+            lbl1.Size = new Size(53, 26);
             lbl1.TabIndex = 0;
             lbl1.Text = "Nombre:";
             // 
@@ -142,9 +145,9 @@
             lbl2.Dock = DockStyle.Fill;
             lbl2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lbl2.ForeColor = Color.Brown;
-            lbl2.Location = new Point(3, 23);
+            lbl2.Location = new Point(3, 26);
             lbl2.Name = "lbl2";
-            lbl2.Size = new Size(58, 23);
+            lbl2.Size = new Size(53, 26);
             lbl2.TabIndex = 1;
             lbl2.Text = "Código:";
             // 
@@ -154,9 +157,9 @@
             lbl3.Dock = DockStyle.Fill;
             lbl3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lbl3.ForeColor = Color.Brown;
-            lbl3.Location = new Point(3, 46);
+            lbl3.Location = new Point(3, 52);
             lbl3.Name = "lbl3";
-            lbl3.Size = new Size(58, 23);
+            lbl3.Size = new Size(53, 26);
             lbl3.TabIndex = 2;
             lbl3.Text = "Cupo:";
             // 
@@ -166,9 +169,9 @@
             lbl5.Dock = DockStyle.Fill;
             lbl5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lbl5.ForeColor = Color.Brown;
-            lbl5.Location = new Point(183, 46);
+            lbl5.Location = new Point(170, 52);
             lbl5.Name = "lbl5";
-            lbl5.Size = new Size(46, 23);
+            lbl5.Size = new Size(42, 26);
             lbl5.TabIndex = 7;
             lbl5.Text = "Turno:";
             // 
@@ -177,9 +180,9 @@
             lblTurno.AutoSize = true;
             lblTurno.Dock = DockStyle.Fill;
             lblTurno.ForeColor = Color.DarkRed;
-            lblTurno.Location = new Point(235, 46);
+            lblTurno.Location = new Point(218, 52);
             lblTurno.Name = "lblTurno";
-            lblTurno.Size = new Size(52, 23);
+            lblTurno.Size = new Size(49, 26);
             lblTurno.TabIndex = 9;
             lblTurno.Text = "?";
             // 
@@ -189,9 +192,9 @@
             lbl4.Dock = DockStyle.Fill;
             lbl4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lbl4.ForeColor = Color.Brown;
-            lbl4.Location = new Point(183, 23);
+            lbl4.Location = new Point(170, 26);
             lbl4.Name = "lbl4";
-            lbl4.Size = new Size(46, 23);
+            lbl4.Size = new Size(42, 26);
             lbl4.TabIndex = 6;
             lbl4.Text = "Día:";
             // 
@@ -200,9 +203,9 @@
             lblDia.AutoSize = true;
             lblDia.Dock = DockStyle.Fill;
             lblDia.ForeColor = Color.DarkRed;
-            lblDia.Location = new Point(235, 23);
+            lblDia.Location = new Point(218, 26);
             lblDia.Name = "lblDia";
-            lblDia.Size = new Size(52, 23);
+            lblDia.Size = new Size(49, 26);
             lblDia.TabIndex = 8;
             lblDia.Text = "?";
             // 
@@ -211,9 +214,9 @@
             pnlBotones.Controls.Add(panel2);
             pnlBotones.Controls.Add(panel1);
             pnlBotones.Dock = DockStyle.Right;
-            pnlBotones.Location = new Point(512, 3);
+            pnlBotones.Location = new Point(509, 0);
             pnlBotones.Name = "pnlBotones";
-            pnlBotones.Size = new Size(69, 69);
+            pnlBotones.Size = new Size(69, 78);
             pnlBotones.TabIndex = 2;
             // 
             // panel2
@@ -222,7 +225,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 37);
             panel2.Name = "panel2";
-            panel2.Size = new Size(69, 32);
+            panel2.Size = new Size(69, 41);
             panel2.TabIndex = 1;
             // 
             // btnEliminar
@@ -236,7 +239,7 @@
             btnEliminar.ForeColor = Color.Brown;
             btnEliminar.Location = new Point(0, 0);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(69, 32);
+            btnEliminar.Size = new Size(69, 41);
             btnEliminar.TabIndex = 6;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
@@ -272,15 +275,14 @@
             // 
             pnlDescripcion.AutoScroll = true;
             pnlDescripcion.Controls.Add(txbDescripcion);
-            pnlDescripcion.Dock = DockStyle.Left;
-            pnlDescripcion.Location = new Point(293, 3);
+            pnlDescripcion.Location = new Point(273, 0);
             pnlDescripcion.Name = "pnlDescripcion";
-            pnlDescripcion.Size = new Size(213, 69);
+            pnlDescripcion.Size = new Size(230, 78);
             pnlDescripcion.TabIndex = 1;
             // 
             // txbDescripcion
             // 
-            txbDescripcion.BackColor = Color.FromArgb(100, 125, 153);
+            txbDescripcion.BackColor = Color.FromArgb(102, 97, 140);
             txbDescripcion.Dock = DockStyle.Fill;
             txbDescripcion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txbDescripcion.ForeColor = Color.DarkRed;
@@ -289,7 +291,7 @@
             txbDescripcion.Name = "txbDescripcion";
             txbDescripcion.ReadOnly = true;
             txbDescripcion.ScrollBars = ScrollBars.Vertical;
-            txbDescripcion.Size = new Size(213, 69);
+            txbDescripcion.Size = new Size(230, 78);
             txbDescripcion.TabIndex = 0;
             // 
             // FrmCurso
@@ -297,10 +299,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            BackColor = Color.FromArgb(100, 125, 153);
-            ClientSize = new Size(584, 75);
-            Controls.Add(pnlBotones);
-            Controls.Add(pnlDescripcion);
+            BackColor = Color.FromArgb(125, 121, 163);
+            ClientSize = new Size(584, 84);
             Controls.Add(pnl1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmCurso";
@@ -320,23 +320,23 @@
         #endregion
 
         private Panel pnl1;
+        private TextBox txbDescripcion;
         private TableLayoutPanel tableLayoutPanel1;
-        private Panel pnlBotones;
-        private Panel panel2;
-        private Panel panel1;
-        private Label lbl1;
-        private Label lbl2;
-        private Label lbl3;
         private Label lblCupo;
         private Label lblCodigo;
         private Label lblNombre;
-        private Button btnEliminar;
-        private Button btnEditar;
-        private Panel pnlDescripcion;
+        private Label lbl1;
+        private Label lbl2;
+        private Label lbl3;
         private Label lbl5;
-        private Label lblDia;
         private Label lblTurno;
         private Label lbl4;
-        private TextBox txbDescripcion;
+        private Label lblDia;
+        private Panel pnlBotones;
+        private Panel panel2;
+        private Button btnEliminar;
+        private Panel panel1;
+        private Button btnEditar;
+        private Panel pnlDescripcion;
     }
 }

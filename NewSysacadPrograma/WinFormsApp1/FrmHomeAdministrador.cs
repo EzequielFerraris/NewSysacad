@@ -32,7 +32,7 @@ namespace NewSysacadFront
             listaDeCursos.TopLevel = false;
             pnlDisplay.Controls.Add(listaDeCursos);
 
-            frmControlReportes = new FrmControlReportes();
+            frmControlReportes = new FrmControlReportes(admin);
             frmControlReportes.TopLevel = false;
             pnlDisplay.Controls.Add(frmControlReportes);
             frmControlReportes.Hide();
@@ -126,7 +126,6 @@ namespace NewSysacadFront
             listaDeCursos.Hide(); //Esconde la lista de cursos
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
-
             frmControlReportes.Show();
         }
 
