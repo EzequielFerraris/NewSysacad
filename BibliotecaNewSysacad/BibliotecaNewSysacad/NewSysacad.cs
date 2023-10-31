@@ -46,9 +46,10 @@ namespace BibliotecaNewSysacad
             else
             {
                 string hashedPassword = BCrypt.Net.BCrypt.EnhancedHashPassword("1234", 13);
-                Estudiante estudiantePorDefecto = new Estudiante("est1", "est1", "est1", "est1@gmail.com", 
+                Estudiante estudiantePorDefecto = new Estudiante("est1", "est1", "est1", "est1@gmail.com",
                                                                  hashedPassword, "12312312", "Siempreviva", "123",
-                                                                 "1533556677", false, new DateTime(2022, 3, 5));
+                                                                 "1533556677", false, new DateTime(2022, 3, 5),
+                                                                 Carrera.TUP, new List<string>());
                 listaEstudiantes.Add(estudiantePorDefecto);
                 EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
             }
@@ -300,6 +301,9 @@ namespace BibliotecaNewSysacad
             }
 
         }
+
+        //-------------------------------------------------------------------------
+        
 
 
     }

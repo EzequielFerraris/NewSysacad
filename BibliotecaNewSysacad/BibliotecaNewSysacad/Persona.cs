@@ -83,7 +83,6 @@ namespace BibliotecaNewSysacad
             }
             
         }
-
         public string Password
         {
             get => password;

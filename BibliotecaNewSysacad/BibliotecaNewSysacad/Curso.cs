@@ -18,6 +18,7 @@ namespace BibliotecaNewSysacad
         private List<int> estudiantesInscriptos;
         private dia diaCursada;
         private turno turnoCursada;
+        private Carrera carrera;
         
         public Curso()
         {
@@ -27,7 +28,7 @@ namespace BibliotecaNewSysacad
             this.codigo = 0;
             estudiantesInscriptos = new List<int>();
         }
-        public Curso(string nombre, string descripcion, int cupoMaximo, int codigo, dia diaCursada, turno turnoCursada)
+        public Curso(string nombre, string descripcion, int cupoMaximo, int codigo, dia diaCursada, turno turnoCursada, Carrera carrera)
         {
             this.nombre = nombre;
             this.descripcion = descripcion;
@@ -35,6 +36,7 @@ namespace BibliotecaNewSysacad
             this.codigo = codigo;
             this.diaCursada = diaCursada;
             this.turnoCursada = turnoCursada;
+            this.carrera = carrera;
             estudiantesInscriptos = new List<int>();
         }
 
@@ -100,6 +102,12 @@ namespace BibliotecaNewSysacad
         {
             get => turnoCursada;
             set => turnoCursada = value;
+        }
+
+        public Carrera Carrera
+        {
+            get => carrera;
+            set => carrera = value;
         }
 
         public bool InscribirEstudiante(Estudiante estudianteNuevo, out string error) 

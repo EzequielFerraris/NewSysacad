@@ -154,6 +154,11 @@ namespace BibliotecaNewSysacad
             return NewSysacad.ListaPagosPendientes;
         }
 
+        public List<Pago> ObtenerPagosRealizados ()
+        {
+            return NewSysacad.ListaPagosRealizados;
+        }
+
         //VALIDA UN PAGO NUEVO
         private bool ValidarRegistroPagoNuevo(Pago pagoNuevo, out string campoRepetido)
         {

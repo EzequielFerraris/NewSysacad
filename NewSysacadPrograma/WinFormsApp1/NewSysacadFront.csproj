@@ -17,31 +17,37 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="FrmReporteInscripcionesCurso.cs">
+    <Compile Update="Administrador\Informes\FrmReporteInscripcionesCurso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmReporteInscripcionesPeriodo.cs">
+    <Compile Update="Administrador\Informes\FrmReporteIngresos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmInformeListaEspera.cs">
+    <Compile Update="Administrador\Informes\FrmReporteInscripcionesCarrera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmInformeInscripcionesPorCarrera.cs">
+    <Compile Update="Administrador\Informes\FrmReporteInscripcionesPeriodo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmInformeIngresos.cs">
+    <Compile Update="Administrador\Informes\FrmInformeListaEspera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmInformeEstudiantesInscriptosMateria.cs">
+    <Compile Update="Administrador\Informes\FrmInformeInscripcionesPorCarrera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagoRealizadoIndividual.cs">
+    <Compile Update="Administrador\Informes\FrmInformeIngresos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagoTransferencia.cs">
+    <Compile Update="Administrador\Informes\FrmInformeEstudiantesInscriptosMateria.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagoTarjetaDebito.cs">
+    <Compile Update="Estudiantes\Pagos\FrmPagoRealizadoIndividual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Estudiantes\Pagos\FrmPagoTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Estudiantes\Pagos\FrmPagoTarjetaDebito.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -48,3 +48,5 @@ C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmInformeListaEspera.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmReporteInscripcionesPeriodo.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmReporteInscripcionesCurso.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmReporteIngresos.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmReporteInscripcionesCarrera.resources

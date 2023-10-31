@@ -1,64 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="FrmAgregarCurso.cs">
+    <Compile Update="Administrador\GestionCursos\FrmAgregarCurso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmAgregarEstudiante.cs">
+    <Compile Update="Administrador\FrmAgregarEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmCambiarPassword.cs">
+    <Compile Update="Estudiantes\FrmCambiarPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmComprobantePago.cs">
+    <Compile Update="Estudiantes\Pagos\FrmComprobantePago.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmControlReportes.cs">
+    <Compile Update="Administrador\Informes\FrmControlReportes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmCurso.cs">
+    <Compile Update="Administrador\GestionCursos\FrmCurso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmCursoParaEstudiante.cs">
+    <Compile Update="Estudiantes\Cursos\FrmCursoParaEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmEditarCurso.cs">
+    <Compile Update="Administrador\GestionCursos\FrmEditarCurso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmHomeAdministrador.cs">
+    <Compile Update="Administrador\FrmHomeAdministrador.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmHomeEstudiante.cs">
+    <Compile Update="Estudiantes\FrmHomeEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmHorario.cs">
+    <Compile Update="Estudiantes\Cursos\FrmHorario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmInformeInscripcionesPorPeriodo.cs">
+    <Compile Update="Administrador\Informes\FrmInformeInscripcionesPorPeriodo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmListaCursosEstudiante.cs">
+    <Compile Update="Estudiantes\Cursos\FrmListaCursosEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmListaDeCursos.cs">
+    <Compile Update="Administrador\GestionCursos\FrmListaDeCursos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagoPendiente.cs">
+    <Compile Update="Estudiantes\Pagos\FrmPagoPendiente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagosPendientes.cs">
+    <Compile Update="Estudiantes\Pagos\FrmPagosPendientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagosRealizados.cs">
+    <Compile Update="Estudiantes\Pagos\FrmPagosRealizados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmPagoTarjetaCredito.cs">
+    <Compile Update="Estudiantes\Pagos\FrmPagoTarjetaCredito.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FrmRealizarPago.cs">
+    <Compile Update="Estudiantes\Pagos\FrmRealizarPago.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

@@ -14,10 +14,11 @@ namespace BibliotecaNewSysacad
         private string altura;
         private string telefono;
         private DateTime inscripcion;
+        private Carrera carrera;
         public bool debeCambiarPassword;
         private int legajo;
-        private List<int> codigoPagosLista;
         private List<Curso> cursosInscripto;
+        private List<string> cursosAprobados;
 
         public Estudiante()
         {
@@ -30,13 +31,13 @@ namespace BibliotecaNewSysacad
             this.calle = string.Empty;
             this.altura = string.Empty;
             this.telefono = string.Empty;
-
-            codigoPagosLista = new List<int>();
+            this.carrera = Carrera.TUP;
 
             cursosInscripto = new List<Curso>();
+            cursosAprobados = new List<string>();   
             ActualizarCursosInscripto();
         }
-        public Estudiante(string nombre, string apellido, string nombreUsuario, string eMail, string password, string dni, string calle, string altura, string telefono, bool debeCambiarPassword, DateTime inscripcion) : base(nombre, apellido, nombreUsuario, eMail, password) 
+        public Estudiante(string nombre, string apellido, string nombreUsuario, string eMail, string password, string dni, string calle, string altura, string telefono, bool debeCambiarPassword, DateTime inscripcion, Carrera carrera, List<string> cursosAprobados) : base(nombre, apellido, nombreUsuario, eMail, password) 
         {
             this.dni = dni;
             this.calle = calle;
@@ -44,7 +45,8 @@ namespace BibliotecaNewSysacad
             this.telefono = telefono;
             this.debeCambiarPassword = debeCambiarPassword;
             this.inscripcion = inscripcion;
-            codigoPagosLista = new List<int>();
+            this.carrera = carrera;
+            this.cursosAprobados = cursosAprobados;
 
             cursosInscripto = new List<Curso>();
             ActualizarCursosInscripto();
@@ -124,6 +126,18 @@ namespace BibliotecaNewSysacad
         public List<Curso> CursosInscripto
         { 
             get => cursosInscripto; 
+        }
+
+        public Carrera Carrera
+        {
+            get => carrera;
+            set => carrera = value;
+        }
+
+        public List<string> CursosAprobados
+        {
+            get => cursosAprobados;
+            set => cursosAprobados = value;
         }
 
         //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
@@ -233,5 +247,7 @@ namespace BibliotecaNewSysacad
             NewSysacad.ListaPagosRealizados = actualizada;
             NewSysacad.EscribirJSON(NewSysacad.DataBasePagosRealizados, datoDelSistema.pagoRealizado);
         }
+
+        
     }
 }
