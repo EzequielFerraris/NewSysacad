@@ -45,7 +45,7 @@ namespace NewSysacadFront
             List<Pago> pagosRealizados = estudiante.ObtenerPagosRealizados();   
             foreach (Pago pago in pagosRealizados)
             {
-                FrmPagoRealizadoIndividual cardPago = new FrmPagoRealizadoIndividual(pago, this);
+                FrmPagoRealizadoIndividual cardPago = new FrmPagoRealizadoIndividual(pago, this, estudiante);
                 pagosEnLista.Add(cardPago);
             }
         }

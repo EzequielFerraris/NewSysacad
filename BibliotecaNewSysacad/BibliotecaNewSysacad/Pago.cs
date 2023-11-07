@@ -23,14 +23,30 @@ namespace BibliotecaNewSysacad
         private DateTime fechaAbonado;
         private string tarjetaCuenta;
 
-        public Pago(string concepto, decimal monto, TipoDePago tipo, DateTime fechaLimite, int codigo)
+        public Pago()
+        {
+            this.concepto = String.Empty;
+            this.monto = 0;
+            this.tipo = TipoDePago.Pendiente;
+            this.fechaLimite = DateTime.Now;
+            this.codigo = 0;
+            titularPago = String.Empty;
+            numeroTransaccion = String.Empty;
+            tarjetaCuenta = String.Empty;
+        }
+
+        public Pago(string concepto, decimal monto, 
+            TipoDePago tipo, DateTime fechaLimite, 
+            int codigo)
         {
             this.concepto = concepto;
             this.monto = monto;
             this.tipo = tipo;
             this.fechaLimite = fechaLimite;
             this.codigo = codigo;
-            
+            titularPago = String.Empty;
+            numeroTransaccion = String.Empty;
+            tarjetaCuenta = String.Empty;
         }
         public string Concepto 
         { 

@@ -47,21 +47,7 @@ namespace NewSysacadFront
                 nuevoEstudiante.Telefono = this.txbTelefono.Text;
                 nuevoEstudiante.DebeCambiarPassword = this.cbxCambiarPassword.Checked;
                 nuevoEstudiante.Inscripcion = DateTime.Now;
-                switch (this.cbxCarrera.SelectedIndex)
-                {
-                    case 0:
-                        nuevoEstudiante.Carrera = Carrera.TUP;
-                        break;
-                    case 1:
-                        nuevoEstudiante.Carrera = Carrera.TUSI;
-                        break;
-                    case 2:
-                        nuevoEstudiante.Carrera = Carrera.LS;
-                        break;
-                    case 3:
-                        nuevoEstudiante.Carrera = Carrera.IS;
-                        break;
-                }
+                nuevoEstudiante.Carrera = (Carrera)this.cbxCarrera.SelectedIndex;
 
                 List<string> props = new List<string> { nuevoEstudiante.Nombre, nuevoEstudiante.Apellido, nuevoEstudiante.NombreUsuario,
                                                         nuevoEstudiante.EMail, nuevoEstudiante.Dni, nuevoEstudiante.Calle,

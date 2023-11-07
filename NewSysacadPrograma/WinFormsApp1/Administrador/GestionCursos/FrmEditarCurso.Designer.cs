@@ -51,6 +51,7 @@
             // 
             // lblTitulo
             // 
+            lblTitulo.BackColor = Color.FromArgb(158, 153, 186);
             lblTitulo.Dock = DockStyle.Top;
             lblTitulo.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lblTitulo.ForeColor = Color.Brown;
@@ -228,7 +229,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(102, 97, 130);
+            BackColor = Color.FromArgb(158, 153, 186);
             ClientSize = new Size(584, 361);
             Controls.Add(lbl6);
             Controls.Add(cbxCarrera);

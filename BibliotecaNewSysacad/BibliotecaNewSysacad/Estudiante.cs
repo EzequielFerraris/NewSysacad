@@ -17,7 +17,7 @@ namespace BibliotecaNewSysacad
         private Carrera carrera;
         public bool debeCambiarPassword;
         private int legajo;
-        private List<Curso> cursosInscripto;
+        private List<int> cursosInscriptoCodigos;
         private List<string> cursosAprobados;
 
         public Estudiante()
@@ -33,26 +33,11 @@ namespace BibliotecaNewSysacad
             this.telefono = string.Empty;
             this.carrera = Carrera.TUP;
 
-            cursosInscripto = new List<Curso>();
+            cursosInscriptoCodigos = new List<int>();
             cursosAprobados = new List<string>();   
-            ActualizarCursosInscripto();
+ 
         }
-        public Estudiante(string nombre, string apellido, string nombreUsuario, string eMail, string password, string dni, string calle, string altura, string telefono, bool debeCambiarPassword, DateTime inscripcion, Carrera carrera, List<string> cursosAprobados) : base(nombre, apellido, nombreUsuario, eMail, password) 
-        {
-            this.dni = dni;
-            this.calle = calle;
-            this.altura = altura;
-            this.telefono = telefono;
-            this.debeCambiarPassword = debeCambiarPassword;
-            this.inscripcion = inscripcion;
-            this.carrera = carrera;
-            this.cursosAprobados = cursosAprobados;
-
-            cursosInscripto = new List<Curso>();
-            ActualizarCursosInscripto();
-
-        }
-
+        
         public string Dni 
         {
             get => dni;
@@ -123,9 +108,10 @@ namespace BibliotecaNewSysacad
             set => inscripcion = value;
         }
 
-        public List<Curso> CursosInscripto
+        public List<int> CursosInscriptoCodigos
         { 
-            get => cursosInscripto; 
+            get => cursosInscriptoCodigos; 
+            set => cursosInscriptoCodigos = value;
         }
 
         public Carrera Carrera
@@ -144,31 +130,74 @@ namespace BibliotecaNewSysacad
         //LISTA DE CURSOS
         public List<Curso> ObtenerCursos()
         {
-            return NewSysacad.ListaCursos;
-        }
+            List<Curso> cursosVisibles = new List<Curso>();
 
-        public bool ChequearDisponibilidad(Curso curso)
-        {
-            if(cursosInscripto.Count > 0)
+            foreach (Curso curso in NewSysacad.ListaCursos)
             {
-                foreach (Curso cursoInscripto in cursosInscripto)
+                if(this.Carrera == curso.Carrera)
                 {
-                    if (cursoInscripto.DiaCursada == curso.DiaCursada && cursoInscripto.TurnoCursada == curso.TurnoCursada)
-                    {
-                        return false;
-                    }
+                    cursosVisibles.Add(curso);
                 }
-                return true;
             }
-            return true;
-
+            return cursosVisibles;
         }
 
+        public List<Curso> ObtenerCursosInscripto()
+        {
+            List<Curso> cursosInscripto = new List<Curso>();
+
+            foreach (Curso curso in NewSysacad.ListaCursos)
+            {
+                if (this.Carrera == curso.Carrera)
+                {
+                    foreach (int codigo in this.cursosInscriptoCodigos)
+                    {
+                        if(codigo == curso.Codigo)
+                        {
+                            cursosInscripto.Add(curso);
+                            break;
+                        }
+                       
+                    }
+                    
+                }
+            }
+            return cursosInscripto;
+        }
+
+        public bool ChequearDisponibilidad(Curso cursoChequear)
+        {
+            List<Curso> cursos = ObtenerCursosInscripto();
+            bool result = true;
+            if(cursosInscriptoCodigos.Count > 0)
+            {
+                if(cursoChequear.Carrera != this.Carrera)
+                {
+                    result = false;
+                }
+                else
+                {
+                    foreach (Curso cursoInscripto in cursos)
+                    {
+                        if (cursoInscripto.DiaCursada == cursoChequear.DiaCursada
+                            && cursoInscripto.TurnoCursada == cursoChequear.TurnoCursada
+                            )
+                        {
+                            result = false;
+                        }
+                    }
+                 }
+                
+             }
+            return result;
+          }
+        
         public void AgregarCurso(Curso curso)
         {
             if(ChequearDisponibilidad(curso))
             {
-                cursosInscripto.Add(curso);
+                cursosInscriptoCodigos.Add(curso.Codigo);
+                NewSysacad.ActualizarEstudiante(this);
             }
             
         }
@@ -181,6 +210,7 @@ namespace BibliotecaNewSysacad
                     if(estudiante == this.Legajo) 
                     {
                         AgregarCurso(curso);
+                        break;
                     }
                 }
             }
@@ -205,7 +235,7 @@ namespace BibliotecaNewSysacad
             }
             return resultado;
         }
-
+        
         //PAGOS---------------------------------------------------------------------------------------------------
 
         public List<Pago> ObtenerPagosPendientes()

@@ -46,6 +46,8 @@
             lblTarjetaCuenta = new Label();
             label8 = new Label();
             lblTitular = new Label();
+            label9 = new Label();
+            lblCarrera = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -82,7 +84,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.Gainsboro;
-            label1.Location = new Point(12, 69);
+            label1.Location = new Point(34, 60);
             label1.Name = "label1";
             label1.Size = new Size(61, 15);
             label1.TabIndex = 2;
@@ -93,7 +95,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.Gainsboro;
-            label2.Location = new Point(12, 98);
+            label2.Location = new Point(34, 129);
             label2.Name = "label2";
             label2.Size = new Size(90, 15);
             label2.TabIndex = 3;
@@ -104,7 +106,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.ForeColor = Color.Gainsboro;
-            label3.Location = new Point(12, 133);
+            label3.Location = new Point(32, 154);
             label3.Name = "label3";
             label3.Size = new Size(73, 15);
             label3.TabIndex = 4;
@@ -115,7 +117,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.Gainsboro;
-            label4.Location = new Point(12, 167);
+            label4.Location = new Point(32, 180);
             label4.Name = "label4";
             label4.Size = new Size(46, 15);
             label4.TabIndex = 5;
@@ -126,7 +128,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label5.ForeColor = Color.Gainsboro;
-            label5.Location = new Point(12, 199);
+            label5.Location = new Point(33, 207);
             label5.Name = "label5";
             label5.Size = new Size(87, 15);
             label5.TabIndex = 6;
@@ -157,7 +159,7 @@
             // 
             lblConcepto.AutoSize = true;
             lblConcepto.ForeColor = Color.Gainsboro;
-            lblConcepto.Location = new Point(123, 69);
+            lblConcepto.Location = new Point(140, 60);
             lblConcepto.Name = "lblConcepto";
             lblConcepto.Size = new Size(12, 15);
             lblConcepto.TabIndex = 10;
@@ -167,7 +169,7 @@
             // 
             lblFormaDePago.AutoSize = true;
             lblFormaDePago.ForeColor = Color.Gainsboro;
-            lblFormaDePago.Location = new Point(123, 98);
+            lblFormaDePago.Location = new Point(140, 129);
             lblFormaDePago.Name = "lblFormaDePago";
             lblFormaDePago.Size = new Size(12, 15);
             lblFormaDePago.TabIndex = 11;
@@ -177,7 +179,7 @@
             // 
             lblTransaccion.AutoSize = true;
             lblTransaccion.ForeColor = Color.Gainsboro;
-            lblTransaccion.Location = new Point(123, 133);
+            lblTransaccion.Location = new Point(140, 154);
             lblTransaccion.Name = "lblTransaccion";
             lblTransaccion.Size = new Size(12, 15);
             lblTransaccion.TabIndex = 12;
@@ -187,7 +189,7 @@
             // 
             lblMonto.AutoSize = true;
             lblMonto.ForeColor = Color.Gainsboro;
-            lblMonto.Location = new Point(123, 167);
+            lblMonto.Location = new Point(140, 180);
             lblMonto.Name = "lblMonto";
             lblMonto.Size = new Size(12, 15);
             lblMonto.TabIndex = 13;
@@ -197,7 +199,7 @@
             // 
             lblFechaPago.AutoSize = true;
             lblFechaPago.ForeColor = Color.Gainsboro;
-            lblFechaPago.Location = new Point(123, 199);
+            lblFechaPago.Location = new Point(140, 207);
             lblFechaPago.Name = "lblFechaPago";
             lblFechaPago.Size = new Size(12, 15);
             lblFechaPago.TabIndex = 14;
@@ -208,7 +210,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label6.ForeColor = Color.Gainsboro;
-            label6.Location = new Point(12, 253);
+            label6.Location = new Point(34, 257);
             label6.Name = "label6";
             label6.Size = new Size(93, 15);
             label6.TabIndex = 15;
@@ -218,7 +220,7 @@
             // 
             lblTarjetaCuenta.AutoSize = true;
             lblTarjetaCuenta.ForeColor = Color.Gainsboro;
-            lblTarjetaCuenta.Location = new Point(123, 253);
+            lblTarjetaCuenta.Location = new Point(140, 257);
             lblTarjetaCuenta.Name = "lblTarjetaCuenta";
             lblTarjetaCuenta.Size = new Size(12, 15);
             lblTarjetaCuenta.TabIndex = 16;
@@ -229,7 +231,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label8.ForeColor = Color.Gainsboro;
-            label8.Location = new Point(12, 228);
+            label8.Location = new Point(34, 232);
             label8.Name = "label8";
             label8.Size = new Size(44, 15);
             label8.TabIndex = 17;
@@ -239,11 +241,31 @@
             // 
             lblTitular.AutoSize = true;
             lblTitular.ForeColor = Color.Gainsboro;
-            lblTitular.Location = new Point(123, 228);
+            lblTitular.Location = new Point(140, 232);
             lblTitular.Name = "lblTitular";
             lblTitular.Size = new Size(12, 15);
             lblTitular.TabIndex = 18;
             lblTitular.Text = "?";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.ForeColor = Color.Gainsboro;
+            label9.Location = new Point(34, 84);
+            label9.Name = "label9";
+            label9.Size = new Size(47, 15);
+            label9.TabIndex = 19;
+            label9.Text = "Carrera:";
+            // 
+            // lblCarrera
+            // 
+            lblCarrera.ForeColor = Color.Gainsboro;
+            lblCarrera.Location = new Point(140, 84);
+            lblCarrera.Name = "lblCarrera";
+            lblCarrera.Size = new Size(152, 39);
+            lblCarrera.TabIndex = 20;
+            lblCarrera.Text = "?";
             // 
             // FrmComprobantePago
             // 
@@ -251,6 +273,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 29, 33);
             ClientSize = new Size(304, 366);
+            Controls.Add(lblCarrera);
+            Controls.Add(label9);
             Controls.Add(lblTitular);
             Controls.Add(label8);
             Controls.Add(lblTarjetaCuenta);
@@ -296,5 +320,7 @@
         private Label lblTarjetaCuenta;
         private Label label8;
         private Label lblTitular;
+        private Label label9;
+        private Label lblCarrera;
     }
 }

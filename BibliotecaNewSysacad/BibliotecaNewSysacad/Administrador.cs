@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,20 @@ namespace BibliotecaNewSysacad
 {
     public class Administrador : Persona
     {
-        
+        private int id;
+        private string queryEstudiante = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD);";
         public Administrador() { }
-        public Administrador(string nombre, string apellido, string nombreUsuario, 
-                            string eMail, string password) 
-                            : base(nombre, apellido, nombreUsuario, 
-                            eMail, password)
-        {
-            
-        }
 
+
+
+        //ESTUDIANTES ------------------------------------------------------------------------------------------
+        //AGREGA UN ESTUDIANTE Y LE ASIGNA UN NÚMERO DE LEGAJO. AUMENTA EL NÚMERO DE LEGAJO 
         private bool ValidarEstudianteNuevo(Estudiante estudianteNuevo, out string campoRepetido)
         {
             campoRepetido = "Ninguno";
             bool resultado = true;
+            NewSysacad.ActualizarListaEstudiantes();
+
             foreach (Estudiante estudiante in NewSysacad.ListaEstudiantes)
             {
                 if (estudiante.NombreUsuario == estudianteNuevo.NombreUsuario)
@@ -46,20 +47,51 @@ namespace BibliotecaNewSysacad
             return resultado;
         }
 
-        //ESTUDIANTES ------------------------------------------------------------------------------------------
-        //AGREGA UN ESTUDIANTE Y LE ASIGNA UN NÚMERO DE LEGAJO. AUMENTA EL NÚMERO DE LEGAJO 
-        public bool AgregarEstudiante(Estudiante estudianteNuevo, out string error)
+        public bool AgregarEstudiante(Estudiante e, out string error)
         {
-            bool condicion = ValidarEstudianteNuevo(estudianteNuevo, out string campoRepetido);
+            bool condicion = ValidarEstudianteNuevo(e, out string campoRepetido);
             error = campoRepetido;
+
             if (condicion)
             {
-                estudianteNuevo.Legajo += NewSysacad.numeroDeLegajo;
-                NewSysacad.numeroDeLegajo++;
-                List<Estudiante> actualizada = NewSysacad.ListaEstudiantes;
-                NewSysacad.ListaEstudiantes = actualizada;
-                NewSysacad.EscribirJSON(NewSysacad.DataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
-                EnviarCorreoElectronico(estudianteNuevo);
+                //ESCRIBIR LA QUERY A LA BASE DE DATOS AQUÍ
+                try
+                {
+
+                    BDConexion.conexion.Open();
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.Connection = BDConexion.conexion;
+                    sqlCommand.CommandText = queryEstudiante;
+                    sqlCommand.Parameters.AddWithValue("@DNI", e.Dni);
+                    sqlCommand.Parameters.AddWithValue("@APELLIDO", e.Apellido);
+                    sqlCommand.Parameters.AddWithValue("@NOMBRE", e.Nombre);
+                    sqlCommand.Parameters.AddWithValue("@EMAIL", e.EMail);
+                    sqlCommand.Parameters.AddWithValue("@NOMBRE_USUARIO", e.NombreUsuario);
+                    sqlCommand.Parameters.AddWithValue("@CALLE", e.Calle);
+                    sqlCommand.Parameters.AddWithValue("@ALTURA", e.Altura);
+                    sqlCommand.Parameters.AddWithValue("@TELEFONO", e.Telefono);
+                    sqlCommand.Parameters.AddWithValue("@CARRERA", (int)e.Carrera);
+                    sqlCommand.Parameters.AddWithValue("@DEBE_CAMBIAR_PASS", e.DebeCambiarPassword);
+                    sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", e.Inscripcion.ToString("yyyy-MM-dd"));
+                    sqlCommand.Parameters.AddWithValue("@PASSWORD", e.Password);
+                  
+
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Parameters.Clear();
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    BDConexion.conexion.Close();
+                }
+                //
+
+                EnviarCorreoElectronico(e);
                 return true; 
             }
             return false;

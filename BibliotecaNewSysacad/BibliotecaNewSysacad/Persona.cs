@@ -37,7 +37,7 @@ namespace BibliotecaNewSysacad
             get => nombre;
             set
             {
-                if (Validaciones.ValidarNombre(value))
+                if (Validaciones.ValidarNombreYApellido(value))
                 { 
                     nombre = value; 
                 }
@@ -49,7 +49,7 @@ namespace BibliotecaNewSysacad
             get => apellido;
             set
             {
-                if (Validaciones.ValidarNombre(value))
+                if (Validaciones.ValidarNombreYApellido(value))
                 {
                     apellido = value;
                 }

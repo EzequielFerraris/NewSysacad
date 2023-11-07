@@ -16,9 +16,11 @@ namespace NewSysacadFront
     {
         private Pago pagoRealizado;
         private FrmPagosRealizados formularioPadre;
-        public FrmPagoRealizadoIndividual(Pago pago, FrmPagosRealizados lista1)
+        private Estudiante estudiante;
+        public FrmPagoRealizadoIndividual(Pago pago, FrmPagosRealizados lista1, Estudiante estudiante)
         {
             InitializeComponent();
+            this.estudiante = estudiante;
             pagoRealizado = pago;
             lblConcepto.Text = pagoRealizado.Concepto;
             lblCodigo.Text = pagoRealizado.Codigo.ToString();
@@ -29,7 +31,7 @@ namespace NewSysacadFront
 
         private void btnComprobante_Click(object sender, EventArgs e)
         {
-            FrmComprobantePago comprobante = new FrmComprobantePago(pagoRealizado);
+            FrmComprobantePago comprobante = new FrmComprobantePago(pagoRealizado, estudiante);
             comprobante.Show();
         }
     }

@@ -60,21 +60,7 @@ namespace NewSysacadFront
 
                 nuevoCurso.DiaCursada = (dia)cbxDia.SelectedValue;
                 nuevoCurso.TurnoCursada = (turno)cbxTurno.SelectedValue;
-                switch (this.cbxCarrera.SelectedIndex)
-                {
-                    case 0:
-                        nuevoCurso.Carrera = Carrera.TUP;
-                        break;
-                    case 1:
-                        nuevoCurso.Carrera = Carrera.TUSI;
-                        break;
-                    case 2:
-                        nuevoCurso.Carrera = Carrera.LS;
-                        break;
-                    case 3:
-                        nuevoCurso.Carrera = Carrera.IS;
-                        break;
-                }
+                nuevoCurso.Carrera = (Carrera)this.cbxCarrera.SelectedIndex;
 
                 List<string> props = new List<string> { nuevoCurso.Nombre, nuevoCurso.Descripcion };
                 List<int> props2 = new List<int> { nuevoCurso.CupoMaximo, nuevoCurso.Codigo };

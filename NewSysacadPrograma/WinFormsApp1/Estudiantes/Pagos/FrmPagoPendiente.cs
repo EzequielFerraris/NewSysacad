@@ -29,7 +29,7 @@ namespace NewSysacadFront
 
         private void chbxPago_CheckedChanged(object sender, EventArgs e)
         {
-            if (chbxPago.Checked)
+            if(chbxPago.Checked)
             {
                 formularioPadre.AgregarQuitarSelecccion(pagoPendiente, "agregar");
                 formularioPadre.ActualizarSeleccion();

@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-
 namespace BibliotecaNewSysacad
 {
     
@@ -19,6 +16,7 @@ namespace BibliotecaNewSysacad
         private dia diaCursada;
         private turno turnoCursada;
         private Carrera carrera;
+        private Queue<int> listaDeEspera;
         
         public Curso()
         {
@@ -27,8 +25,12 @@ namespace BibliotecaNewSysacad
             this.cupoMaximo = 0;
             this.codigo = 0;
             estudiantesInscriptos = new List<int>();
+            listaDeEspera = new Queue<int>();
+
         }
-        public Curso(string nombre, string descripcion, int cupoMaximo, int codigo, dia diaCursada, turno turnoCursada, Carrera carrera)
+        public Curso(string nombre, string descripcion, 
+            int cupoMaximo, int codigo, dia diaCursada, 
+            turno turnoCursada, Carrera carrera)
         {
             this.nombre = nombre;
             this.descripcion = descripcion;
@@ -38,7 +40,10 @@ namespace BibliotecaNewSysacad
             this.turnoCursada = turnoCursada;
             this.carrera = carrera;
             estudiantesInscriptos = new List<int>();
+            listaDeEspera = new Queue<int>();
         }
+
+
 
         public string Nombre 
         { 
@@ -110,17 +115,31 @@ namespace BibliotecaNewSysacad
             set => carrera = value;
         }
 
-        public bool InscribirEstudiante(Estudiante estudianteNuevo, out string error) 
+        public Queue<int> ListaDeEspera
+        {
+            get => listaDeEspera;
+            set => listaDeEspera = value;
+        }
+
+        //CHEQUEO SI HAY LUGAR PARA EL ESTUDIANTE
+        public bool ChequearDisponibilidad()
         {
             bool resultado = true;
-            error = "";
-
             if (this.CupoMaximo == this.CantidadInscriptos())
             {
-                error = "Curso sin cupos.";
                 resultado = false;
             }
-            else
+            return resultado;
+        }
+
+
+        //INSCRIPCION ESTUDIANTE
+        public bool InscribirEstudiante(Estudiante estudianteNuevo, out string error)
+        {
+            bool resultado = false;
+            error = "";
+
+            if(estudiantesInscriptos.Count() > 0)
             {
                 foreach (int legajo in estudiantesInscriptos)
                 {
@@ -130,14 +149,51 @@ namespace BibliotecaNewSysacad
                         resultado = false;
                         break;
                     }
+                    resultado = true;
                 }
             }
-            
-            if(resultado)
+            else
             {
-                estudiantesInscriptos.Add(estudianteNuevo.Legajo);
+                resultado = true;
             }
             
+            if (ChequearDisponibilidad())
+            {
+                if (resultado)
+                {
+                    estudiantesInscriptos.Add(estudianteNuevo.Legajo);
+                    NewSysacad.EscribirJSON(NewSysacad.DataBaseCursosNombreArchivo, datoDelSistema.curso);
+                }
+
+            }
+            else
+            {
+                error = "El curso se encuentra lleno ¿Desea inscribirse en la lista de espera?";
+                resultado = false;
+            }
+            return resultado;
+        }
+
+        //INSCRIPCION EN LA LISTA DE ESPERA
+        public bool InscribirEstudianteEnListaDeEspera(Estudiante estudianteNuevo, out string error)
+        {
+            bool resultado = true;
+            error = "";
+
+            foreach (int legajo in listaDeEspera)
+            {
+                if (legajo == estudianteNuevo.Legajo)
+                {
+                    error = "Usuario ya inscripto.";
+                    resultado = false;
+                    break;
+                }  
+            }
+            if (resultado)
+            {
+                listaDeEspera.Enqueue(estudianteNuevo.Legajo);
+            }
+
             return resultado;
         }
 

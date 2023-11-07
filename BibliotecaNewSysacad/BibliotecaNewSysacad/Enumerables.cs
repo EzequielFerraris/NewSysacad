@@ -80,28 +80,6 @@ namespace BibliotecaNewSysacad
             return result;
         }
 
-        public static Carrera StringACarrera(string carrera)
-        {
-            Carrera result;
-            switch (carrera)
-            {
-                case "Tecnicatura Universitaria en Programación":
-                    result = Carrera.TUP;
-                    break;
-                case "Tecnicatura Universitaria en Sistemas de la Información":
-                    result = Carrera.TUSI;
-                    break;
-                case "Licenciatura en Sistemas":
-                    result = Carrera.LS;
-                    break;
-                case "Ingeniería en Sistemas":
-                    result = Carrera.IS;
-                    break;
-                default:
-                    result = Carrera.NINGUNA;
-                    break;
-            }
-            return result;
-        }
+        
     }
 }

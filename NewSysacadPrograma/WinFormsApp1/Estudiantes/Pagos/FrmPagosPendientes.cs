@@ -24,6 +24,7 @@ namespace NewSysacadFront
             pagosSeleccionados = new List<Pago>();
             this.usuario = usuario;
             ActualizarLista();
+            ActualizarSeleccion();
         }
 
         public void ActualizarLista()
@@ -102,6 +103,7 @@ namespace NewSysacadFront
             }
             else
             {
+                pagosSeleccionados.Remove(pago);
                 return false;
             }
         }

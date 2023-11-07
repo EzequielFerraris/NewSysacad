@@ -113,25 +113,35 @@ namespace NewSysacadFront
                 {
                     string listaErrores = string.Empty;
                     string listaInscripciones = string.Empty;
+                    string listaListasDeEspera = string.Empty;
+
                     foreach (Curso curso in cursosSeleccionados)
                     {
 
                         if (EstudianteUsuario.ChequearDisponibilidad(curso))
                         {
                             //INSCRIBE AL USUARIO EN LA CLASE CURSO
-                            bool inscripcion = curso.InscribirEstudiante(EstudianteUsuario, out string errorCurso);
-                            //GUARDA LOS CAMBIOS EN LA BASE DE DATOS
-                            EstudianteUsuario.ActualizarCurso(curso);
+                            bool inscripcion = curso.ChequearDisponibilidad();
+
                             if (!inscripcion)
                             {
-                                listaErrores += $"{curso.Nombre}: {errorCurso}\n";
+                                //PREGUNTAR POR LISTA DE ESPERA
+                                
                             }
                             else
                             {
-                                //REGISTRA EL CODIGO DEL CURSO EN LA INFO DEL ESTUDIANTE
-
-                                listaInscripciones += $"{curso.Nombre}: Inscripción exitosa.\n";
-                                EstudianteUsuario.AgregarCurso(curso);
+                                bool yaInscripto = curso.InscribirEstudiante(EstudianteUsuario, out string errorCurso);
+                                if(!yaInscripto)
+                                {
+                                    listaErrores += $"{curso.Nombre}: {errorCurso}";
+                                }
+                                else
+                                {
+                                    //REGISTRA EL CODIGO DEL CURSO EN LA INFO DEL ESTUDIANTE
+                                    listaInscripciones += $"{curso.Nombre}: Inscripción exitosa.\n";
+                                    EstudianteUsuario.AgregarCurso(curso);
+                                }
+                                
                             }
                         }
                         else
@@ -139,6 +149,8 @@ namespace NewSysacadFront
                             listaErrores += $"{curso.Nombre}: El estudiante ya está inscripto en otro curso en ese horario.\n";
                         }
                     }
+
+
 
                     if (listaErrores != string.Empty) //MUESTRA LOS ERRORES
                     {

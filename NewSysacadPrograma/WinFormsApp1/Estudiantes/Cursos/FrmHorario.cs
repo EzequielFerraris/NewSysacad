@@ -24,7 +24,7 @@ namespace NewSysacadFront
 
         public void ActualizarHorario()
         {
-            foreach (Curso curso in EstudianteUsuario.CursosInscripto)
+            foreach (Curso curso in EstudianteUsuario.ObtenerCursosInscripto())
             {
                 dia dia = curso.DiaCursada;
                 turno turno = curso.TurnoCursada;

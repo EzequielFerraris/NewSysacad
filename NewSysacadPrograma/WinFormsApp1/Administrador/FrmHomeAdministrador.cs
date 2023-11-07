@@ -26,7 +26,7 @@ namespace NewSysacadFront
             InitializeComponent();
             EstadoMenusPorDefecto();
             this.admin = admin;
-            
+
             lbNombreAdmin.Text = admin.Nombre;
             listaDeCursos = new FrmListaDeCursos(admin);
             listaDeCursos.TopLevel = false;
@@ -142,6 +142,13 @@ namespace NewSysacadFront
             }
         }
 
-        
+        private void btnRequisitosAcademicos_Click(object sender, EventArgs e)
+        {
+            EsconderSubMenus(); 
+            listaDeCursos.Hide(); 
+            formAgregarEstudiante.Hide();
+            formAgregarCurso.Hide();
+            frmControlReportes.Hide();
+        }
     }
 }
