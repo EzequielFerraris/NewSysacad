@@ -93,7 +93,7 @@ namespace NewSysacadFront
                 }
                 if (validados)
                 {
-                    if (admin.AgregarCurso(nuevoCurso, out string error))
+                    if (nuevoCurso.AgregarABD(out string error))
                     {
                         string mensaje1 = "Curso agregado correctamente.";
                         string titulo1 = "Agregar curso";

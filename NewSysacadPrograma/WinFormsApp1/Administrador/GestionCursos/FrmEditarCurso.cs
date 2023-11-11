@@ -22,8 +22,9 @@ namespace NewSysacadFront
             InitializeComponent();
             this.admin = admin;
             cursoAEditar = curso;
+            listaPadre = lista;
+
             txbNombre.Text = cursoAEditar.Nombre;
-            txbCodigo.Text = cursoAEditar.Codigo.ToString();
             txbCupoMax.Text = cursoAEditar.CupoMaximo.ToString();
             txbDescripcion.Text = cursoAEditar.Descripcion;
             cbxDia.DataSource = Enum.GetValues(typeof(dia));
@@ -31,7 +32,7 @@ namespace NewSysacadFront
             cbxDia.SelectedItem = cursoAEditar.DiaCursada;
             cbxTurno.SelectedItem = cursoAEditar.TurnoCursada;
             cbxCarrera.SelectedIndex = (int)cursoAEditar.Carrera;
-            listaPadre = lista;
+            
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -45,17 +46,16 @@ namespace NewSysacadFront
             {
                 Curso nuevoCurso = new Curso();
 
+                nuevoCurso.Codigo = cursoAEditar.Codigo;
                 nuevoCurso.Nombre = txbNombre.Text;
                 nuevoCurso.Descripcion = txbDescripcion.Text;
                 try
                 {
                     nuevoCurso.CupoMaximo = int.Parse(txbCupoMax.Text);
-                    nuevoCurso.Codigo = int.Parse(txbCodigo.Text);
                 }
                 catch
                 {
                     nuevoCurso.CupoMaximo = 0;
-                    nuevoCurso.Codigo = 0;
                 }
 
                 nuevoCurso.DiaCursada = (dia)cbxDia.SelectedValue;
@@ -63,7 +63,7 @@ namespace NewSysacadFront
                 nuevoCurso.Carrera = (Carrera)this.cbxCarrera.SelectedIndex;
 
                 List<string> props = new List<string> { nuevoCurso.Nombre, nuevoCurso.Descripcion };
-                List<int> props2 = new List<int> { nuevoCurso.CupoMaximo, nuevoCurso.Codigo };
+                List<int> props2 = new List<int> { nuevoCurso.CupoMaximo };
 
                 //--------------------------------------------------------
                 bool validados = true;
@@ -96,28 +96,17 @@ namespace NewSysacadFront
                     }
                 }
 
-
-
                 txbNombre.Text = nuevoCurso.Nombre;
                 txbDescripcion.Text = nuevoCurso.Descripcion;
                 txbCupoMax.Text = nuevoCurso.CupoMaximo.ToString();
-                txbCodigo.Text = nuevoCurso.Codigo.ToString();
-
+                
 
                 if (validados)
                 {
                     try
                     {
-                        admin.EliminarCurso(cursoAEditar, out string error);
-                        if (!admin.AgregarCurso(nuevoCurso, out string error2))
-                        {
-                            admin.AgregarCurso(cursoAEditar, out string x);
-                            string mensaje3 = $"Error. El código ya está en uso.";
-                            string titulo3 = "Editar curso";
-                            DialogResult result3 = MessageBox.Show(mensaje3, titulo3);
-                            txbCodigo.Text = cursoAEditar.Codigo.ToString();
-                        }
-                        else
+                        //TRABAJANDO ACA PARA UPDATEAR
+                        if (nuevoCurso.ActualizarEnBD())
                         {
                             string mensaje1 = "Curso actualizado correctamente.";
                             string titulo1 = "Editar curso";

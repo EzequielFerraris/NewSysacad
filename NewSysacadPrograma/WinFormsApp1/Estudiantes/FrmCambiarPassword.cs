@@ -28,7 +28,9 @@ namespace NewSysacadFront
                 {
                     string nuevoPass = BCrypt.Net.BCrypt.EnhancedHashPassword(txbNuevoPass1.Text, 13);
                     usuario.Password = nuevoPass;
-                    NewSysacad.ActualizarEstudiante(usuario);
+                    usuario.DebeCambiarPassword = false;
+                    usuario.ActualizarEnBD();
+
                     FrmHomeEstudiante home = new FrmHomeEstudiante(usuario.NombreUsuario);
                     string mensaje = "Password cambiado exitosamente";
                     string titulo = "Cambiar Password";

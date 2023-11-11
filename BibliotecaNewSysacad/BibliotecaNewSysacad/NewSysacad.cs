@@ -10,10 +10,11 @@ using System.Linq;
 using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Data;
+using System.Data.Common;
 
 namespace BibliotecaNewSysacad
-{
-    
+{ 
     public static class NewSysacad
     {
         private static List<Administrador> listaAdministradores;
@@ -33,18 +34,12 @@ namespace BibliotecaNewSysacad
         static NewSysacad() 
         {
             //LISTAS MANEJADAS POR EL SISTEMA
-            listaEstudiantes = new List<Estudiante>();
-            listaAdministradores = new List<Administrador>();
-            listaCursos = new List<Curso>();
-            listaPagosPendientes = new List<Pago>();
-            listaPagosRealizados = new List<Pago>();
-
-            //ACTUALIZO LISTAS
-            listaEstudiantes = ActualizarListaEstudiantes();
-            listaAdministradores = ActualizarListaAdministradores();
-            listaCursos = ActualizarListaCursos();
-            listaPagosPendientes = ActualizarListaPagosPendientes();
-            listaPagosRealizados = ActualizarListaPagosRealizados();
+            
+            listaEstudiantes = ActualizarLista<Estudiante>(actualizarEstudiantes, MapeoEstudiante);
+            listaAdministradores = ActualizarLista<Administrador>(actualizarAdministrador, MapeoAdministrador);
+            listaCursos = ActualizarLista<Curso>(actualizarCursos, MapeoCurso);
+            listaPagosPendientes = ActualizarLista<Pago>(actualizarPagosPendientes, MapeoPagosPendientes);
+            listaPagosRealizados = ActualizarLista<Pago>(actualizarPagosRealizados, MapeoPagosRealizados);
 
         }
 
@@ -52,14 +47,18 @@ namespace BibliotecaNewSysacad
 
         public static List<Pago> ListaPagosRealizados
         {
-            get => listaPagosRealizados;
+            get
+            {
+                listaPagosRealizados = ActualizarLista<Pago>(actualizarPagosRealizados, MapeoPagosRealizados);
+                return listaPagosRealizados;
+            }
             set => listaPagosRealizados = value;
         }
 
         public static List<Estudiante> ListaEstudiantes
         {
             get {
-                ActualizarListaEstudiantes();
+                listaEstudiantes = ActualizarLista<Estudiante>(actualizarEstudiantes, MapeoEstudiante);
                 return listaEstudiantes;
                 }
             set => listaEstudiantes = value;
@@ -67,13 +66,21 @@ namespace BibliotecaNewSysacad
 
         public static List<Curso> ListaCursos
         {
-            get => listaCursos;
+            get
+            {
+                listaCursos = ActualizarLista<Curso>(actualizarCursos, MapeoCurso);
+                return listaCursos;
+            }
             set => listaCursos = value;
         }
 
         public static List<Pago> ListaPagosPendientes
         {
-            get => listaPagosPendientes;
+            get
+            {
+                listaPagosPendientes = ActualizarLista<Pago>(actualizarPagosPendientes, MapeoPagosPendientes);
+                return listaPagosPendientes;
+            }
             set => listaPagosPendientes = value;
         }
 
@@ -96,6 +103,126 @@ namespace BibliotecaNewSysacad
         {
             get => dataBasePagosRealizados;
         }
+
+        public static string ActualizarEstudiantes
+        {
+            get => actualizarEstudiantes;
+        }
+
+        public static string ActualizarCursos
+        {
+            get => actualizarCursos;
+        }
+
+        //BD-------------------------------------------------------------------------------
+
+        //LECTURA GENÉRICA DESDE LA BD
+        public static List<T> ActualizarLista<T>(string comandoCrearLista, Func<IDataReader, T> funcionMapeo)
+        {
+            List<T> lista = new List<T>();
+            try
+            {
+
+                BDConexion.conexion.Open();
+                BDConexion.comando.CommandText = comandoCrearLista;
+
+                using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        T item = funcionMapeo(dataReader);
+                        lista.Add(item);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+            return lista;
+        }
+
+        //MAPPERS--------------------------------------------------------------------------
+        public static Estudiante MapeoEstudiante(IDataReader dataReader)
+        {
+            Estudiante estudiante = new Estudiante();
+            estudiante.Nombre = dataReader["NOMBRE"].ToString();
+            estudiante.Apellido = dataReader["APELLIDO"].ToString();
+            estudiante.NombreUsuario = dataReader["NOMBRE_USUARIO"].ToString();
+            estudiante.EMail = dataReader["EMAIL"].ToString();
+            estudiante.Password = dataReader["PASSWORD"].ToString();
+            estudiante.Dni = dataReader["DNI"].ToString();
+            estudiante.Calle = dataReader["CALLE"].ToString();
+            estudiante.Altura = dataReader["ALTURA"].ToString();
+            estudiante.Telefono = dataReader["TELEFONO"].ToString();
+            estudiante.DebeCambiarPassword = Convert.ToBoolean(dataReader["DEBE_CAMBIAR_PASS"]);
+            estudiante.Inscripcion = Convert.ToDateTime(dataReader["INSCRIPCION_FECHA"]);
+            estudiante.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
+            estudiante.Legajo = Convert.ToInt32(dataReader["LEGAJO"]);
+
+            return estudiante;
+        }
+
+        public static Administrador MapeoAdministrador(IDataReader dataReader)
+        {
+            Administrador admin = new Administrador();
+            admin.Nombre = dataReader["NOMBRE"].ToString();
+            admin.Apellido = dataReader["APELLIDO"].ToString();
+            admin.NombreUsuario = dataReader["NOMBRE_USUARIO"].ToString();
+            admin.EMail = dataReader["EMAIL"].ToString();
+            admin.Password = dataReader["PASSWORD"].ToString();
+
+            return admin;
+        }
+
+        public static Curso MapeoCurso(IDataReader dataReader)
+        {
+            Curso curso = new Curso();
+            curso.Nombre = dataReader["NOMBRE"].ToString();
+            curso.Descripcion = dataReader["DESCRIPCION"].ToString();
+            curso.CupoMaximo = Convert.ToInt32(dataReader["CUPO_MAXIMO"]);
+            curso.Codigo = Convert.ToInt32(dataReader["CODIGO"]);
+            curso.DiaCursada = (dia)Convert.ToInt32(dataReader["DIA_CURSADA"]);
+            curso.TurnoCursada = (turno)Convert.ToInt32(dataReader["TURNO_CURSADA"]);
+            curso.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
+
+            return curso;
+        }
+
+        public static Pago MapeoPagosPendientes(IDataReader dataReader)
+        {
+            Pago pago = new Pago();
+            pago.Codigo = (int)dataReader["Codigo"];
+            pago.Concepto = dataReader["CONCEPTO"].ToString();
+            pago.Monto = Convert.ToDecimal(dataReader["MONTO"]);
+            pago.Tipo = (TipoDePago)Convert.ToInt32(dataReader["TIPO"]);
+            pago.FechaLimite = Convert.ToDateTime(dataReader["FECHA_LIMITE"]);
+
+            return pago;
+        }
+
+        public static Pago MapeoPagosRealizados(IDataReader dataReader)
+        {
+            Pago pago = new Pago();
+            pago.Codigo = (int)dataReader["Codigo"];
+            pago.Concepto = dataReader["CONCEPTO"].ToString();
+            pago.Monto = Convert.ToDecimal(dataReader["MONTO"]);
+            pago.Tipo = (TipoDePago)Convert.ToInt32(dataReader["TIPO"]);
+            pago.FechaAbonado = Convert.ToDateTime(dataReader["FECHA_PAGO"]);
+            pago.TitularPago = dataReader["TITULAR_PAGO"].ToString();
+            pago.NumeroTransaccion = dataReader["TRANSACCION"].ToString();
+            pago.TarjetaCuenta = dataReader["TARJETA_CUENTA"].ToString();
+            pago.LegajoDelEstudiante = Convert.ToInt32(dataReader["LEGAJO_ESTUDIANTE"]);
+            pago.FechaLimite = Convert.ToDateTime(dataReader["FECHA_LIMITE"]);
+            pago.FormaDePago = (FormaDePago)Convert.ToInt32(dataReader["FORMA_DE_PAGO"]);
+
+            return pago;
+        }
+        
 
         //ADMINISTRADOR--------------------------------------------------------------------
         //LOGGEO DEL ADMINISTRADOR
@@ -127,42 +254,6 @@ namespace BibliotecaNewSysacad
                 }
             }
             return resultado;
-        }
-
-        //ACTUALIZAR LISTA DE ADMINISTRADORES
-        public static List<Administrador> ActualizarListaAdministradores()
-        {
-            List<Administrador> administradores = new List<Administrador>();
-            try
-            {
-
-                BDConexion.conexion.Open();
-                BDConexion.comando.CommandText = actualizarAdministrador;
-
-                using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
-                {
-                    while (dataReader.Read())
-                    {
-                        Administrador admin = new Administrador();
-                        admin.Nombre = dataReader["NOMBRE"].ToString();
-                        admin.Apellido = dataReader["APELLIDO"].ToString();
-                        admin.NombreUsuario = dataReader["NOMBRE_USUARIO"].ToString();
-                        admin.EMail = dataReader["EMAIL"].ToString();
-                        admin.Password = dataReader["PASSWORD"].ToString();
-
-                        administradores.Add(admin);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                BDConexion.conexion.Close();
-            }
-            return administradores;
         }
 
         //ARCHIVOS------------------------------------------------------------------------
@@ -218,85 +309,7 @@ namespace BibliotecaNewSysacad
             
         }
 
-        //LEE LOS ARCHIVOS
-        private static List<T> LeerJSON<T>(string file)
-        {
-
-            var path = Combinar(file);
-
-            var nuevaLista = new List<T>();
-            try
-            {
-                if (File.Exists(path))
-                {
-                    using (var reader = new StreamReader(path))
-                    {
-                        var json = reader.ReadToEnd();
-
-                        var listaAux = JsonSerializer.Deserialize<List<T>>(json);
-
-                        if (listaAux != null)
-                        {
-                            nuevaLista = listaAux;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-            return nuevaLista;
-
-        }
-
-        //ESTUDIANTES-------------------------------------------------------------------
-
-        //ACTUALIZAR LISTA DE ESTUDIANTES
-        public static List<Estudiante> ActualizarListaEstudiantes()
-        {
-            List<Estudiante> estudiantes = new List<Estudiante>();
-            try
-            {
-
-                BDConexion.conexion.Open();
-                BDConexion.comando.CommandText = actualizarEstudiantes;
-
-                using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
-                {
-                    while (dataReader.Read())
-                    {
-                        Estudiante estudiante = new Estudiante();
-                        estudiante.Nombre = dataReader["NOMBRE"].ToString();
-                        estudiante.Apellido = dataReader["APELLIDO"].ToString();
-                        estudiante.NombreUsuario = dataReader["NOMBRE_USUARIO"].ToString();
-                        estudiante.EMail = dataReader["EMAIL"].ToString();
-                        estudiante.Password = dataReader["PASSWORD"].ToString();
-                        estudiante.Dni = dataReader["DNI"].ToString();
-                        estudiante.Calle = dataReader["CALLE"].ToString();
-                        estudiante.Altura = dataReader["ALTURA"].ToString();
-                        estudiante.Telefono = dataReader["TELEFONO"].ToString();
-                        estudiante.DebeCambiarPassword = Convert.ToBoolean(dataReader["DEBE_CAMBIAR_PASS"]);
-                        estudiante.Inscripcion = Convert.ToDateTime(dataReader["INSCRIPCION_FECHA"]);
-                        estudiante.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
-                        estudiante.Legajo = Convert.ToInt32(dataReader["LEGAJO"]);
-                        
-                        estudiantes.Add(estudiante);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                BDConexion.conexion.Close();
-            }
-            return estudiantes;
-        }
-    
-
+    //ESTUDIANTES-------------------------------------------------------------------
 
     //LOGGEO DEL ESTUDIANTE
     public static bool LoginEstudiante(string nombreDeUsuario, string password)
@@ -328,142 +341,11 @@ namespace BibliotecaNewSysacad
             return resultado;
         }
 
-        //ACTUALIZAR ESTUDIANTE CON NUEVO PASSWORD
-        public static void ActualizarEstudiante(Estudiante estudianteActualizado)
-        {
-            foreach (Estudiante estudiante in listaEstudiantes)
-            {
-                if (estudianteActualizado.NombreUsuario == estudiante.NombreUsuario && estudianteActualizado.Legajo == estudiante.Legajo)
-                {
-                    estudiante.Password = estudianteActualizado.Password;
-                    estudiante.DebeCambiarPassword = false;
-                    EscribirJSON(dataBaseEstudiantesNombreArchivo, datoDelSistema.estudiante);
-                }
-            }
-
-        }
+        
 
         //-------------------------------------------------------------------------
 
-        //ACTUALIZAR LISTA DE CURSOS
-        public static List<Curso> ActualizarListaCursos()
-        {
-            List<Curso> cursos = new List<Curso>();
-            try
-            {
 
-                BDConexion.conexion.Open();
-                BDConexion.comando.CommandText = actualizarCursos;
-
-                using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
-                {
-                    while (dataReader.Read())
-                    {
-                        Curso curso = new Curso();
-                        curso.Nombre = dataReader["NOMBRE"].ToString();
-                        curso.Descripcion = dataReader["DESCRIPCION"].ToString();
-                        curso.CupoMaximo = Convert.ToInt32(dataReader["CUPO_MAXIMO"]); 
-                        curso.Codigo = Convert.ToInt32(dataReader["CODIGO"]);
-                        curso.DiaCursada = (dia)Convert.ToInt32(dataReader["DIA_CURSADA"]);
-                        curso.TurnoCursada = (turno)Convert.ToInt32(dataReader["TURNO_CURSADA"]);
-                        curso.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
-
-                        cursos.Add(curso);
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                BDConexion.conexion.Close();
-            }
-            return cursos;
-        }
-        //ACTUALIZAR LISTA PAGOS PENDIENTES
-
-        public static List<Pago> ActualizarListaPagosPendientes()
-        {
-            List<Pago> pagosPendientes = new List<Pago>();
-            try
-            {
-
-                BDConexion.conexion.Open();
-                BDConexion.comando.CommandText = actualizarPagosPendientes;
-
-                using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
-                {
-                    while (dataReader.Read())
-                    {
-                        Pago pago = new Pago();
-                        pago.Codigo = (int)dataReader["Codigo"];
-                        pago.Concepto = dataReader["CONCEPTO"].ToString();
-                        pago.Monto = Convert.ToDecimal(dataReader["MONTO"]);
-                        pago.Tipo = (TipoDePago)Convert.ToInt32(dataReader["TIPO"]);
-                        pago.FechaLimite = Convert.ToDateTime(dataReader["FECHA_LIMITE"]);
-                        
-                        pagosPendientes.Add(pago);
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                BDConexion.conexion.Close();
-            }
-            return pagosPendientes;
-        }
-
-        //ACTUALIZAR LISTA PAGOS REALIZADOS
-
-        public static List<Pago> ActualizarListaPagosRealizados()
-        {
-            List<Pago> pagosRealizados = new List<Pago>();
-            try
-            {
-
-                BDConexion.conexion.Open();
-                BDConexion.comando.CommandText = actualizarPagosRealizados;
-
-                using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
-                {
-                    while (dataReader.Read())
-                    {
-                        Pago pago = new Pago();
-                        pago.Codigo = (int)dataReader["Codigo"];
-                        pago.Concepto = dataReader["CONCEPTO"].ToString();
-                        pago.Monto = Convert.ToDecimal(dataReader["MONTO"]);
-                        pago.Tipo = (TipoDePago)Convert.ToInt32(dataReader["TIPO"]);
-                        pago.FechaAbonado = Convert.ToDateTime(dataReader["FECHA_PAGO"]);
-                        pago.TitularPago = dataReader["TITULAR_PAGO"].ToString();
-                        pago.NumeroTransaccion = dataReader["TRANSACCION"].ToString();
-                        pago.TarjetaCuenta = dataReader["TARJETA_CUENTA"].ToString();
-                        pago.LegajoDelEstudiante = Convert.ToInt32(dataReader["LEGAJO_ESTUDIANTE"]);
-                        pago.FechaLimite = Convert.ToDateTime(dataReader["FECHA_LIMITE"]);
-                        pago.FormaDePago = (FormaDePago)Convert.ToInt32(dataReader["FORMA_DE_PAGO"]);
-
-                        pagosRealizados.Add(pago);
-                    }
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                BDConexion.conexion.Close();
-            }
-            return pagosRealizados;
-        }
     }
 
 }

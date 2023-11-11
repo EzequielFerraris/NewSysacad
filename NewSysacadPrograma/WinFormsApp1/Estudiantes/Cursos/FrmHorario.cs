@@ -18,7 +18,7 @@ namespace NewSysacadFront
         {
             InitializeComponent();
             EstudianteUsuario = usuario;
-            EstudianteUsuario.ActualizarCursosInscripto();
+            EstudianteUsuario.ActualizarCodigosCursosInscripto(); 
             ActualizarHorario();
         }
 

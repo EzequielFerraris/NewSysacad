@@ -47,7 +47,7 @@ namespace NewSysacadFront
             if (result == DialogResult.Yes)
             {
 
-                if (admin.EliminarCurso(cursoObj, out string error))
+                if (cursoObj.EliminarDeBD())
                 {
                     string mensaje1 = "Curso eliminado.";
                     string titulo1 = "Eliminar";
@@ -60,7 +60,7 @@ namespace NewSysacadFront
                 }
                 else
                 {
-                    string mensaje2 = $"{error}";
+                    string mensaje2 = $"Curso inexistente. Reinicie el programa para ver los cambios.";
                     string titulo2 = "Eliminar";
                     DialogResult result2 = MessageBox.Show(mensaje2, titulo2);
                 }

@@ -1,23 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 namespace BibliotecaNewSysacad
 {
     
-    public class Curso
+    public class Curso : CRUDInterfase<Curso>
     {
         private string nombre;
         private int codigo;
         private string descripcion;
         private int cupoMaximo;
-        private List<int> estudiantesInscriptos;
         private dia diaCursada;
         private turno turnoCursada;
         private Carrera carrera;
-        private Queue<int> listaDeEspera;
         
+        private string queryAgregarCurso = "INSERT INTO CURSO VALUES (@CODIGO, @NOMBRE, @DESCRIPCION, @CUPO_MAXIMO, @DIA_CURSADA, @TURNO_CURSADA, @CARRERA);";
+        private string queryActualizarCurso = "UPDATE CURSO SET NOMBRE = @NOMBRE, DESCRIPCION = @DESCRIPCION, CUPO_MAXIMO = @CUPO_MAXIMO, DIA_CURSADA = @DIA_CURSADA, TURNO_CURSADA = @TURNO_CURSADA, CARRERA = @CARRERA WHERE CODIGO = @CODIGO;";
+        private string queryEliminarCurso = "DELETE FROM CURSO WHERE CODIGO = @CODIGO;";
+        private string queryEliminarInscripciones = "DELETE FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE CODIGO_CURSO = @CODIGO_CURSO;";
+
+        private string queryActualizarInscriptos = "SELECT * FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE CODIGO_CURSO = @CODIGO_CURSO;";
+        private string queryActualizarListaEspera;
+        
+        private List<int> estudiantesInscriptos;
+        private Queue<int> listaDeEspera;
+
         public Curso()
         {
             this.nombre = string.Empty;
@@ -95,7 +105,11 @@ namespace BibliotecaNewSysacad
 
         public List<int> EstudiantesInscriptos
         {
-            get => estudiantesInscriptos;
+            get
+            {
+                ActualizarLegajosInscriptos();
+                return estudiantesInscriptos;
+            }
             set => estudiantesInscriptos = value;
         }
         public dia DiaCursada
@@ -121,54 +135,18 @@ namespace BibliotecaNewSysacad
             set => listaDeEspera = value;
         }
 
+        //ACTUALIZAR LISTA DE INSCRIPTOS
+
+
+        //ACTUALIZAR LISTA DE ESPERA
+
+
         //CHEQUEO SI HAY LUGAR PARA EL ESTUDIANTE
         public bool ChequearDisponibilidad()
         {
             bool resultado = true;
             if (this.CupoMaximo == this.CantidadInscriptos())
             {
-                resultado = false;
-            }
-            return resultado;
-        }
-
-
-        //INSCRIPCION ESTUDIANTE
-        public bool InscribirEstudiante(Estudiante estudianteNuevo, out string error)
-        {
-            bool resultado = false;
-            error = "";
-
-            if(estudiantesInscriptos.Count() > 0)
-            {
-                foreach (int legajo in estudiantesInscriptos)
-                {
-                    if (legajo == estudianteNuevo.Legajo)
-                    {
-                        error = "Usuario ya inscripto.";
-                        resultado = false;
-                        break;
-                    }
-                    resultado = true;
-                }
-            }
-            else
-            {
-                resultado = true;
-            }
-            
-            if (ChequearDisponibilidad())
-            {
-                if (resultado)
-                {
-                    estudiantesInscriptos.Add(estudianteNuevo.Legajo);
-                    NewSysacad.EscribirJSON(NewSysacad.DataBaseCursosNombreArchivo, datoDelSistema.curso);
-                }
-
-            }
-            else
-            {
-                error = "El curso se encuentra lleno ¿Desea inscribirse en la lista de espera?";
                 resultado = false;
             }
             return resultado;
@@ -198,8 +176,225 @@ namespace BibliotecaNewSysacad
         }
 
         public int CantidadInscriptos()
-        { 
+        {
+            ActualizarLegajosInscriptos();
             return estudiantesInscriptos.Count(); 
+        }
+
+        //VALIDA UN CURSO
+        public bool ValidarCursoNuevo(out string campoRepetido)
+        {
+            NewSysacad.ActualizarLista<Curso>(NewSysacad.ActualizarCursos, NewSysacad.MapeoCurso);
+            campoRepetido = "Ninguno";
+            bool resultado = true;
+            foreach (Curso curso in NewSysacad.ListaCursos)
+            {
+                if (curso.Codigo == this.Codigo)
+                {
+                    campoRepetido = "Codigo";
+                    resultado = false;
+                    break;
+                }
+            }
+            return resultado;
+        }
+
+        public void ActualizarLegajosInscriptos()
+        {
+
+            try
+            {
+                BDConexion.conexion.Open();
+
+                estudiantesInscriptos.Clear();
+
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = queryActualizarInscriptos;
+                sqlCommand.Parameters.AddWithValue("@CODIGO_CURSO", (int)this.Codigo);
+
+                using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+
+                        int legajo = Convert.ToInt32(dataReader["LEGAJO_ESTUDIANTE"]);
+                        estudiantesInscriptos.Add(legajo);
+
+                    }
+                }
+
+                sqlCommand.Parameters.Clear();
+
+            }
+            catch (Exception)
+            {
+                throw;
+
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+
+            }
+        }
+
+
+        //BD-------------------------------------------------------------------------------
+        public bool AgregarABD(out string error)
+        {
+            
+            bool condicion = ValidarCursoNuevo(out string campoRepetido);
+            bool result = false;
+            error = campoRepetido;
+
+            if (condicion)
+            {
+                try
+                {
+                    BDConexion.conexion.Open();
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.Connection = BDConexion.conexion;
+                    sqlCommand.CommandText = queryAgregarCurso;
+
+                    sqlCommand.Parameters.AddWithValue("@CODIGO", (int)this.Codigo);
+                    sqlCommand.Parameters.AddWithValue("@NOMBRE", this.Nombre);
+                    sqlCommand.Parameters.AddWithValue("@DESCRIPCION", this.Descripcion);
+                    sqlCommand.Parameters.AddWithValue("@CUPO_MAXIMO", (int)this.CupoMaximo);
+                    sqlCommand.Parameters.AddWithValue("@DIA_CURSADA", (int)this.DiaCursada);
+                    sqlCommand.Parameters.AddWithValue("@TURNO_CURSADA", (int)this.TurnoCursada);
+                    sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
+
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Parameters.Clear();
+                    result = true;
+
+                }
+                catch (Exception)
+                {
+
+                    result = false;
+                    return result;
+                    throw;
+
+                }
+                finally
+                {
+                    BDConexion.conexion.Close();
+
+                }
+
+            }
+            return result;
+        }
+
+        public bool EliminarDeBD()
+        {
+            bool result = false;
+            ActualizarLegajosInscriptos();
+            if(this.EstudiantesInscriptos.Count() > 0)
+            {
+                //HAY QUE ELIMINAR PRIMERO TODAS LAS INSCRIPCIONES
+                try
+                {
+                    BDConexion.conexion.Open();
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.Connection = BDConexion.conexion;
+                    sqlCommand.CommandText = queryEliminarInscripciones;
+
+                    sqlCommand.Parameters.AddWithValue("@CODIGO_CURSO", (int)this.Codigo);
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Parameters.Clear();
+                    result = true;
+
+                }
+                catch (Exception)
+                {
+
+                    result = false;
+                    return result;
+                    throw;
+
+                }
+                finally
+                {
+                    BDConexion.conexion.Close();
+
+                }
+               
+            }
+            //AHORA ELIMINAMOS EL CURSO
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = queryEliminarCurso;
+
+                sqlCommand.Parameters.AddWithValue("@CODIGO", (int)this.Codigo);
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+
+            }
+            catch (Exception)
+            {
+
+                result = false;
+                return result;
+                throw;
+
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+
+            }
+            return result;
+        }
+
+        public bool ActualizarEnBD()
+        {
+            bool result = false;    
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = queryActualizarCurso;
+
+                sqlCommand.Parameters.AddWithValue("@CODIGO", (int)this.Codigo);
+                sqlCommand.Parameters.AddWithValue("@NOMBRE", this.Nombre);
+                sqlCommand.Parameters.AddWithValue("@DESCRIPCION", this.Descripcion);
+                sqlCommand.Parameters.AddWithValue("@CUPO_MAXIMO", (int)this.CupoMaximo);
+                sqlCommand.Parameters.AddWithValue("@DIA_CURSADA", (int)this.DiaCursada);
+                sqlCommand.Parameters.AddWithValue("@TURNO_CURSADA", (int)this.TurnoCursada);
+                sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+
+            }
+            catch (Exception)
+            {
+
+                result = false;
+                return result;
+                throw;
+
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+
+            }
+            return result;
         }
     }
 

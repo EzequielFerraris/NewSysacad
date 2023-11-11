@@ -33,11 +33,9 @@
             btnCancelar = new Button();
             btnModificar = new Button();
             txbNombre = new TextBox();
-            txbCodigo = new TextBox();
             txbCupoMax = new TextBox();
             txbDescripcion = new TextBox();
             lbNombre = new Label();
-            lblCodigo = new Label();
             lbCupoMaximo = new Label();
             lbDescripcion = new Label();
             cbxDia = new ComboBox();
@@ -113,16 +111,9 @@
             txbNombre.Size = new Size(135, 23);
             txbNombre.TabIndex = 4;
             // 
-            // txbCodigo
-            // 
-            txbCodigo.Location = new Point(121, 120);
-            txbCodigo.Name = "txbCodigo";
-            txbCodigo.Size = new Size(135, 23);
-            txbCodigo.TabIndex = 5;
-            // 
             // txbCupoMax
             // 
-            txbCupoMax.Location = new Point(121, 157);
+            txbCupoMax.Location = new Point(121, 126);
             txbCupoMax.Name = "txbCupoMax";
             txbCupoMax.Size = new Size(135, 23);
             txbCupoMax.TabIndex = 6;
@@ -145,19 +136,10 @@
             lbNombre.TabIndex = 8;
             lbNombre.Text = "Nombre:";
             // 
-            // lblCodigo
-            // 
-            lblCodigo.AutoSize = true;
-            lblCodigo.Location = new Point(27, 120);
-            lblCodigo.Name = "lblCodigo";
-            lblCodigo.Size = new Size(49, 15);
-            lblCodigo.TabIndex = 9;
-            lblCodigo.Text = "Código:";
-            // 
             // lbCupoMaximo
             // 
             lbCupoMaximo.AutoSize = true;
-            lbCupoMaximo.Location = new Point(27, 157);
+            lbCupoMaximo.Location = new Point(27, 126);
             lbCupoMaximo.Name = "lbCupoMaximo";
             lbCupoMaximo.Size = new Size(86, 15);
             lbCupoMaximo.TabIndex = 10;
@@ -175,7 +157,7 @@
             // cbxDia
             // 
             cbxDia.FormattingEnabled = true;
-            cbxDia.Location = new Point(121, 195);
+            cbxDia.Location = new Point(121, 168);
             cbxDia.Name = "cbxDia";
             cbxDia.Size = new Size(135, 23);
             cbxDia.TabIndex = 12;
@@ -183,7 +165,7 @@
             // cbxTurno
             // 
             cbxTurno.FormattingEnabled = true;
-            cbxTurno.Location = new Point(121, 233);
+            cbxTurno.Location = new Point(121, 213);
             cbxTurno.Name = "cbxTurno";
             cbxTurno.Size = new Size(135, 23);
             cbxTurno.TabIndex = 13;
@@ -191,7 +173,7 @@
             // lblDia
             // 
             lblDia.AutoSize = true;
-            lblDia.Location = new Point(27, 195);
+            lblDia.Location = new Point(26, 168);
             lblDia.Name = "lblDia";
             lblDia.Size = new Size(87, 15);
             lblDia.TabIndex = 14;
@@ -200,7 +182,7 @@
             // lblTurno
             // 
             lblTurno.AutoSize = true;
-            lblTurno.Location = new Point(27, 233);
+            lblTurno.Location = new Point(27, 213);
             lblTurno.Name = "lblTurno";
             lblTurno.Size = new Size(41, 15);
             lblTurno.TabIndex = 15;
@@ -239,11 +221,9 @@
             Controls.Add(cbxDia);
             Controls.Add(lbDescripcion);
             Controls.Add(lbCupoMaximo);
-            Controls.Add(lblCodigo);
             Controls.Add(lbNombre);
             Controls.Add(txbDescripcion);
             Controls.Add(txbCupoMax);
-            Controls.Add(txbCodigo);
             Controls.Add(txbNombre);
             Controls.Add(panel1);
             Controls.Add(lblTitulo);
@@ -265,11 +245,9 @@
         private Button btnCancelar;
         private Button btnModificar;
         private TextBox txbNombre;
-        private TextBox txbCodigo;
         private TextBox txbCupoMax;
         private TextBox txbDescripcion;
         private Label lbNombre;
-        private Label lblCodigo;
         private Label lbCupoMaximo;
         private Label lbDescripcion;
         private ComboBox cbxDia;

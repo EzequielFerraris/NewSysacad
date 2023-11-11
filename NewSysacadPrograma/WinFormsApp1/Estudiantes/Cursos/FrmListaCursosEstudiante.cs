@@ -22,8 +22,9 @@ namespace NewSysacadFront
             EstudianteUsuario = usuario;
             cursosAgregados = new List<FrmCursoParaEstudiante>();
             cursosSeleccionados = new List<Curso>();
+            EstudianteUsuario.ActualizarCodigosCursosInscripto();
             ActualizarLista();
-            EstudianteUsuario.ActualizarCursosInscripto();
+            
         }
 
         public void ActualizarLista()
@@ -44,7 +45,7 @@ namespace NewSysacadFront
 
         private void ActualizarListaLocal()
         {
-            List<Curso> lista = EstudianteUsuario.ObtenerCursos();
+            List<Curso> lista = EstudianteUsuario.ObtenerCursosVisibles();
             foreach (Curso curso in lista)
             {
                 FrmCursoParaEstudiante cardCurso = new FrmCursoParaEstudiante(curso, this);
@@ -118,7 +119,7 @@ namespace NewSysacadFront
                     foreach (Curso curso in cursosSeleccionados)
                     {
 
-                        if (EstudianteUsuario.ChequearDisponibilidad(curso))
+                        if (EstudianteUsuario.ChequearDisponibilidadDelEstudiante(curso))
                         {
                             //INSCRIBE AL USUARIO EN LA CLASE CURSO
                             bool inscripcion = curso.ChequearDisponibilidad();
@@ -130,18 +131,11 @@ namespace NewSysacadFront
                             }
                             else
                             {
-                                bool yaInscripto = curso.InscribirEstudiante(EstudianteUsuario, out string errorCurso);
-                                if(!yaInscripto)
-                                {
-                                    listaErrores += $"{curso.Nombre}: {errorCurso}";
-                                }
-                                else
-                                {
-                                    //REGISTRA EL CODIGO DEL CURSO EN LA INFO DEL ESTUDIANTE
-                                    listaInscripciones += $"{curso.Nombre}: Inscripción exitosa.\n";
-                                    EstudianteUsuario.AgregarCurso(curso);
-                                }
                                 
+                                //REGISTRA EL CODIGO DEL CURSO EN LA INFO DEL ESTUDIANTE
+                                listaInscripciones += $"{curso.Nombre}: Inscripción exitosa.\n";
+                                EstudianteUsuario.InscribirEnCurso(curso);
+                                EstudianteUsuario.ActualizarCodigosCursosInscripto();
                             }
                         }
                         else

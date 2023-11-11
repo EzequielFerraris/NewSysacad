@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaNewSysacad
 {
-    public class Estudiante : Persona
+    public class Estudiante : Persona, CRUDInterfase<Estudiante> 
     {
         private string dni;
         private string calle;
@@ -17,8 +19,17 @@ namespace BibliotecaNewSysacad
         private Carrera carrera;
         public bool debeCambiarPassword;
         private int legajo;
+
         private List<int> cursosInscriptoCodigos;
         private List<string> cursosAprobados;
+
+        private string queryAgregarEstudiante = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD);";
+        private string queryActualizarEstudiante = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD WHERE LEGAJO = @LEGAJO;";
+        
+        private string queryInscribirEnCurso = "INSERT INTO ESTUDIANTES_CURSOS_INSCRIPTOS VALUES (@LEGAJO_ESTUDIANTE, @CODIGO_CURSO);";
+        private string queryInscribirListaEspera = "INSERT INTO LISTA_DE_ESPERA VALUES (@CODIGO_CURSO, @LEGAJO_ESTUDIANTE);";
+
+        private string queryObtenerCursosInscripto = "SELECT * FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE LEGAJO_ESTUDIANTE = @LEGAJO;";
 
         public Estudiante()
         {
@@ -128,7 +139,7 @@ namespace BibliotecaNewSysacad
 
         //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
         //LISTA DE CURSOS
-        public List<Curso> ObtenerCursos()
+        public List<Curso> ObtenerCursosVisibles()
         {
             List<Curso> cursosVisibles = new List<Curso>();
 
@@ -142,36 +153,77 @@ namespace BibliotecaNewSysacad
             return cursosVisibles;
         }
 
+        public void ActualizarCodigosCursosInscripto()
+        {
+
+            try
+            {
+                BDConexion.conexion.Open();
+
+                cursosInscriptoCodigos.Clear();
+
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = queryObtenerCursosInscripto;
+                sqlCommand.Parameters.AddWithValue("@LEGAJO", (int)this.Legajo);
+
+                using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        
+                    int codigo = Convert.ToInt32(dataReader["CODIGO_CURSO"]); 
+                    cursosInscriptoCodigos.Add(codigo);
+                        
+                        
+                    }
+                }
+
+                sqlCommand.Parameters.Clear();  
+
+            }
+            catch (Exception)
+            {  
+                throw;
+
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+
+            }
+        }
+
         public List<Curso> ObtenerCursosInscripto()
         {
             List<Curso> cursosInscripto = new List<Curso>();
+            ActualizarCodigosCursosInscripto();
 
-            foreach (Curso curso in NewSysacad.ListaCursos)
+            if(this.cursosInscriptoCodigos.Count() > 0)
             {
-                if (this.Carrera == curso.Carrera)
+                foreach (int codigo in cursosInscriptoCodigos)
                 {
-                    foreach (int codigo in this.cursosInscriptoCodigos)
+                    foreach (Curso curso in NewSysacad.ListaCursos)
                     {
-                        if(codigo == curso.Codigo)
+                        if (curso.Codigo == codigo)
                         {
                             cursosInscripto.Add(curso);
                             break;
                         }
-                       
                     }
-                    
                 }
             }
             return cursosInscripto;
         }
 
-        public bool ChequearDisponibilidad(Curso cursoChequear)
+        public bool ChequearDisponibilidadDelEstudiante(Curso cursoChequear)
         {
             List<Curso> cursos = ObtenerCursosInscripto();
             bool result = true;
-            if(cursosInscriptoCodigos.Count > 0)
+            if (cursos.Count > 0)
             {
-                if(cursoChequear.Carrera != this.Carrera)
+                if (cursoChequear.Carrera != this.Carrera)
                 {
                     result = false;
                 }
@@ -186,54 +238,48 @@ namespace BibliotecaNewSysacad
                             result = false;
                         }
                     }
-                 }
-                
-             }
-            return result;
-          }
-        
-        public void AgregarCurso(Curso curso)
-        {
-            if(ChequearDisponibilidad(curso))
-            {
-                cursosInscriptoCodigos.Add(curso.Codigo);
-                NewSysacad.ActualizarEstudiante(this);
-            }
-            
-        }
-        public void ActualizarCursosInscripto()
-        {
-            foreach(Curso curso in NewSysacad.ListaCursos)
-            {
-                foreach(int estudiante in curso.EstudiantesInscriptos) 
-                { 
-                    if(estudiante == this.Legajo) 
-                    {
-                        AgregarCurso(curso);
-                        break;
-                    }
                 }
-            }
-        }
 
-        //ACTUALIZA UN CURSO YA EXISTENTE CON NUEVOS INSCRIPTOS
-        public bool ActualizarCurso(Curso cursoNuevo)
+            }
+            return result;
+        }
+        public bool InscribirEnCurso(Curso curso)
         {
-            bool resultado = false;
-            foreach (Curso c in NewSysacad.ListaCursos)
+            bool result = false;
+            if(ChequearDisponibilidadDelEstudiante(curso))
             {
-                if (c.Nombre == cursoNuevo.Nombre && c.Codigo == cursoNuevo.Codigo)
+                try
                 {
-                    List<Curso> actualizada = NewSysacad.ListaCursos;
-                    actualizada.Remove(c);
-                    actualizada.Add(cursoNuevo);
-                    NewSysacad.ListaCursos = actualizada;
-                    NewSysacad.EscribirJSON(NewSysacad.DataBaseCursosNombreArchivo, datoDelSistema.curso);
-                    resultado = true;
-                    break;
+                    BDConexion.conexion.Open();
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.Connection = BDConexion.conexion;
+                    sqlCommand.CommandText = queryInscribirEnCurso;
+
+                    sqlCommand.Parameters.AddWithValue("@LEGAJO_ESTUDIANTE", (int)this.Legajo);
+                    sqlCommand.Parameters.AddWithValue("@CODIGO_CURSO", (int)curso.Codigo);
+                    
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Parameters.Clear();
+                    result = true;
+
+                }
+                catch (Exception)
+                {
+
+                    result = false;
+                    return result;
+                    throw;
+
+                }
+                finally
+                {
+                    BDConexion.conexion.Close();
+
                 }
             }
-            return resultado;
+            return result;
+            
         }
         
         //PAGOS---------------------------------------------------------------------------------------------------
@@ -263,7 +309,6 @@ namespace BibliotecaNewSysacad
                         resultado = false;
                         break;
                     }
-
                 }
             }
             return resultado;
@@ -272,12 +317,152 @@ namespace BibliotecaNewSysacad
         //REGISTRAR PAGO REALIZADO
         public void RegistrarPagoRealizado(Pago pagoNuevo)
         {
-            List<Pago> actualizada = this.ObtenerPagosRealizados();
-            actualizada.Add(pagoNuevo);
-            NewSysacad.ListaPagosRealizados = actualizada;
-            NewSysacad.EscribirJSON(NewSysacad.DataBasePagosRealizados, datoDelSistema.pagoRealizado);
+            pagoNuevo.AgregarABD(out string error);
         }
 
-        
+        //BD---------------------------------------------------------------------------------------------------
+
+        private bool ValidarParaAgregar(out string campoRepetido)
+        {
+            campoRepetido = "Ninguno";
+            bool resultado = true;
+            NewSysacad.ActualizarLista<Estudiante>(NewSysacad.ActualizarEstudiantes, NewSysacad.MapeoEstudiante); 
+
+            foreach (Estudiante estudiante in NewSysacad.ListaEstudiantes)
+            {
+                if (estudiante.NombreUsuario == this.NombreUsuario)
+                {
+                    campoRepetido = "Nombre de usuario";
+                    resultado = false;
+                    break;
+                }
+                else if (estudiante.Dni == this.Dni)
+                {
+                    campoRepetido = "DNI";
+                    resultado = false;
+                    break;
+                }
+                else if (estudiante.EMail == this.EMail)
+                {
+                    campoRepetido = "E-Mail";
+                    resultado = false;
+                    break;
+                }
+            }
+            return resultado;
+        }
+
+        public bool AgregarABD(out string error) 
+        {
+            bool condicion = ValidarParaAgregar(out string error1);
+            bool result = false;
+            error = error1;
+            
+            if (condicion)
+            {
+                try
+                {
+                    BDConexion.conexion.Open();
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.Connection = BDConexion.conexion;
+                    sqlCommand.CommandText = queryAgregarEstudiante;
+                    sqlCommand.Parameters.AddWithValue("@DNI", this.Dni);
+                    sqlCommand.Parameters.AddWithValue("@APELLIDO", this.Apellido);
+                    sqlCommand.Parameters.AddWithValue("@NOMBRE", this.Nombre);
+                    sqlCommand.Parameters.AddWithValue("@EMAIL", this.EMail);
+                    sqlCommand.Parameters.AddWithValue("@NOMBRE_USUARIO", this.NombreUsuario);
+                    sqlCommand.Parameters.AddWithValue("@CALLE", this.Calle);
+                    sqlCommand.Parameters.AddWithValue("@ALTURA", this.Altura);
+                    sqlCommand.Parameters.AddWithValue("@TELEFONO", this.Telefono);
+                    sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
+                    sqlCommand.Parameters.AddWithValue("@DEBE_CAMBIAR_PASS", this.DebeCambiarPassword);
+                    sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", this.Inscripcion.ToString("yyyy-MM-dd"));
+                    sqlCommand.Parameters.AddWithValue("@PASSWORD", this.Password);
+
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Parameters.Clear();
+                    result = true;
+
+                }
+                catch (Exception)
+                {
+
+                    result = false;
+                    return result;
+                    throw;
+
+                }
+                finally
+                {
+                    BDConexion.conexion.Close();
+                    
+                }
+                
+            }
+            return result;
+
+        }
+
+        public bool EliminarDeBD()
+        {
+            return false;
+        }
+
+        public bool ActualizarEnBD()
+        {
+            
+            bool result = false;    
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = queryActualizarEstudiante;
+
+                sqlCommand.Parameters.AddWithValue("@DNI", this.Dni);
+                sqlCommand.Parameters.AddWithValue("@APELLIDO", this.Apellido);
+                sqlCommand.Parameters.AddWithValue("@NOMBRE", this.Nombre);
+                sqlCommand.Parameters.AddWithValue("@EMAIL", this.EMail);
+                sqlCommand.Parameters.AddWithValue("@NOMBRE_USUARIO", this.NombreUsuario);
+                sqlCommand.Parameters.AddWithValue("@CALLE", this.Calle);
+                sqlCommand.Parameters.AddWithValue("@ALTURA", this.Altura);
+                sqlCommand.Parameters.AddWithValue("@TELEFONO", this.Telefono);
+                sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
+                sqlCommand.Parameters.AddWithValue("@DEBE_CAMBIAR_PASS", this.DebeCambiarPassword);
+                sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", this.Inscripcion.ToString("yyyy-MM-dd"));
+                sqlCommand.Parameters.AddWithValue("@PASSWORD", this.Password);
+
+                sqlCommand.Parameters.AddWithValue("@LEGAJO", (int)this.Legajo);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+
+            }
+            catch (Exception)
+            {
+
+                result = false;
+                return result;
+                throw;
+
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+
+            }
+            return result;
+        }
+
+        //ENVIA UN CORREO ELECTRONICO AL ESTUDIANTE REGISTRADO (?)
+        public bool EnviarCorreoElectronico()
+        {
+            return true;
+        }
     }
+
+
 }

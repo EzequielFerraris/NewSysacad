@@ -86,12 +86,13 @@ namespace NewSysacadFront
 
                     try
                     {
-                        if (admin.AgregarEstudiante(nuevoEstudiante, out string error))
+                        if (nuevoEstudiante.AgregarABD(out string error))
                         {
                             string mensajeConfirmacion = "Estudiante agregado correctamente.";
                             string tituloConfirmacion = "Inscripción";
                             DialogResult confirmacion = MessageBox.Show(mensajeConfirmacion, tituloConfirmacion);
                             agregado = true;
+                            nuevoEstudiante.EnviarCorreoElectronico();
                             this.Close();
                         }
                         else

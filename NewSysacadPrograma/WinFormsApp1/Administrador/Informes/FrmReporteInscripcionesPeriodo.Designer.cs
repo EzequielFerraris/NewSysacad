@@ -34,13 +34,13 @@
             lbl1 = new Label();
             lbl2 = new Label();
             lbl3 = new Label();
-            lbl4 = new Label();
             label5 = new Label();
             label7 = new Label();
             panel2 = new Panel();
             lblFechaInicio = new Label();
             lblFechaFinal = new Label();
             lblCantidadInscriptos = new Label();
+            lbl4 = new Label();
             lblPorcentaje = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -125,16 +125,6 @@
             lbl3.TabIndex = 4;
             lbl3.Text = "Inscriptos:";
             // 
-            // lbl4
-            // 
-            lbl4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl4.ForeColor = Color.DarkRed;
-            lbl4.Location = new Point(12, 189);
-            lbl4.Name = "lbl4";
-            lbl4.Size = new Size(121, 39);
-            lbl4.TabIndex = 5;
-            lbl4.Text = "Porcentaje respecto año de referencia:";
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -196,6 +186,17 @@
             lblCantidadInscriptos.TabIndex = 12;
             lblCantidadInscriptos.Text = "?";
             // 
+            // lbl4
+            // 
+            lbl4.AutoSize = true;
+            lbl4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl4.ForeColor = Color.DarkRed;
+            lbl4.Location = new Point(12, 189);
+            lbl4.Name = "lbl4";
+            lbl4.Size = new Size(112, 15);
+            lbl4.TabIndex = 13;
+            lbl4.Text = "Porcentaje del total:";
+            // 
             // lblPorcentaje
             // 
             lblPorcentaje.AutoSize = true;
@@ -203,7 +204,7 @@
             lblPorcentaje.Location = new Point(139, 189);
             lblPorcentaje.Name = "lblPorcentaje";
             lblPorcentaje.Size = new Size(12, 15);
-            lblPorcentaje.TabIndex = 13;
+            lblPorcentaje.TabIndex = 14;
             lblPorcentaje.Text = "?";
             // 
             // FrmReporteInscripcionesPeriodo
@@ -213,12 +214,12 @@
             BackColor = Color.FromArgb(102, 97, 130);
             ClientSize = new Size(304, 366);
             Controls.Add(lblPorcentaje);
+            Controls.Add(lbl4);
             Controls.Add(lblCantidadInscriptos);
             Controls.Add(lblFechaFinal);
             Controls.Add(lblFechaInicio);
             Controls.Add(panel2);
             Controls.Add(label5);
-            Controls.Add(lbl4);
             Controls.Add(lbl3);
             Controls.Add(lbl2);
             Controls.Add(lbl1);
@@ -239,14 +240,14 @@
         private Label lbl1;
         private Label lbl2;
         private Label lbl3;
-        private Label lbl4;
         private Label label5;
         private Label label7;
         private Panel panel2;
         private Label lblFechaInicio;
         private Label lblFechaFinal;
         private Label lblCantidadInscriptos;
-        private Label lblPorcentaje;
         private Button btnDescargarPDF;
+        private Label lbl4;
+        private Label lblPorcentaje;
     }
 }

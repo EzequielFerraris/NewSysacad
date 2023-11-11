@@ -37,40 +37,20 @@ namespace NewSysacadFront
 
             if (result == DialogResult.Yes)
             {
-                bool condicion1 = false;
-                string error1 = "El año de comparación es incorrecto. Ingrese un año entre 2000 y la fecha actual.";
-                string titulo1 = "Generar reporte";
 
+                DateTime inicio = dtimerInicio.Value.Date;
+                DateTime final = dtimerFinal.Value.Date;
 
-                if (!int.TryParse(txbAnioComparacion.Text, out int number))
+                if (DateTime.Compare(inicio, final) > 0)
                 {
-                    txbAnioComparacion.Text = "";
+                    string titulo1 = "Generar reporte";
+                    string error1 = "La fecha de inicio es posterior a la de finalización";
                     MessageBox.Show(error1, titulo1);
                 }
                 else
-                {
-                    condicion1 = number >= 2000 && number <= 2023;
-                    if (!condicion1)
-                    {
-                        MessageBox.Show(error1, titulo1);
-                    }
-                    else
-                    {
-                        DateTime inicio = dtimerInicio.Value.Date;
-                        DateTime final = dtimerFinal.Value.Date;
-
-                        if (DateTime.Compare(inicio, final) > 0)
-                        {
-                            string error2 = "La fecha de inicio es posterior a la de finalización";
-                            MessageBox.Show(error2, titulo1);
-                        }
-                        else
-                        {
-                            //ACA VA LA LOGICA
-                            FrmReporteInscripcionesPeriodo informe = new FrmReporteInscripcionesPeriodo();
-                            informe.Show();
-                        }
-                    }
+                { 
+                    FrmReporteInscripcionesPeriodo informe = new FrmReporteInscripcionesPeriodo(this.admin, inicio, final);
+                    informe.Show();
                 }
 
             }

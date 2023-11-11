@@ -30,10 +30,8 @@
         {
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
             dtimerInicio = new DateTimePicker();
             dtimerFinal = new DateTimePicker();
-            txbAnioComparacion = new TextBox();
             fecha = new Label();
             panel1 = new Panel();
             btnGenerar = new Button();
@@ -62,17 +60,6 @@
             label2.TabIndex = 1;
             label2.Text = "Hasta:";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.Brown;
-            label3.Location = new Point(43, 148);
-            label3.Name = "label3";
-            label3.Size = new Size(93, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Año referencia:";
-            // 
             // dtimerInicio
             // 
             dtimerInicio.Location = new Point(155, 43);
@@ -86,13 +73,6 @@
             dtimerFinal.Name = "dtimerFinal";
             dtimerFinal.Size = new Size(224, 23);
             dtimerFinal.TabIndex = 4;
-            // 
-            // txbAnioComparacion
-            // 
-            txbAnioComparacion.Location = new Point(157, 145);
-            txbAnioComparacion.Name = "txbAnioComparacion";
-            txbAnioComparacion.Size = new Size(222, 23);
-            txbAnioComparacion.TabIndex = 5;
             // 
             // fecha
             // 
@@ -136,10 +116,8 @@
             ClientSize = new Size(584, 299);
             Controls.Add(panel1);
             Controls.Add(fecha);
-            Controls.Add(txbAnioComparacion);
             Controls.Add(dtimerFinal);
             Controls.Add(dtimerInicio);
-            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
@@ -154,10 +132,8 @@
 
         private Label label1;
         private Label label2;
-        private Label label3;
         private DateTimePicker dtimerInicio;
         private DateTimePicker dtimerFinal;
-        private TextBox txbAnioComparacion;
         private Label fecha;
         private Panel panel1;
         private Button btnGenerar;
