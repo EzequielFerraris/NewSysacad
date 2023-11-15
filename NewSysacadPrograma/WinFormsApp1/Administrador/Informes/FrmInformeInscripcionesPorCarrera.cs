@@ -48,7 +48,7 @@ namespace NewSysacadFront
                 else
                 {
                     Carrera carreraElegida = (Carrera)cbxCarrera.SelectedIndex;
-                    FrmReporteInscripcionesCarrera informe = new FrmReporteInscripcionesCarrera();
+                    FrmReporteInscripcionesCarrera informe = new FrmReporteInscripcionesCarrera(admin);
                     informe.Show();
                 }
             }

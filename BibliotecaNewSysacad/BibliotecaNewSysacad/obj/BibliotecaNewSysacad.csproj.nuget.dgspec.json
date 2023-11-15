@@ -49,13 +49,17 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
-            "QuestPDF": {
-              "target": "Package",
-              "version": "[2023.10.1, )"
-            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"
+            },
+            "itext7": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "itext7.bouncy-castle-adapter": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             }
           },
           "imports": [

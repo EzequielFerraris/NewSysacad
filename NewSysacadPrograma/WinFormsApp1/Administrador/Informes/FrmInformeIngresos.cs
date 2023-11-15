@@ -60,11 +60,11 @@ namespace NewSysacadFront
                 }
                 else
                 {
-                    FrmReporteIngresos ingresos = new FrmReporteIngresos();
+                    FrmReporteIngresos ingresos = new FrmReporteIngresos(admin, inicio, final, cbxCursos.SelectedValue.ToString());
                     ingresos.Show();
                 }
             }
-            
+
         }
     }
 }

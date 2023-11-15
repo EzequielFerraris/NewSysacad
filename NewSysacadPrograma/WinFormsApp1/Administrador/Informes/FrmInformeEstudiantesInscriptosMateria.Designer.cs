@@ -32,6 +32,8 @@
             btnGenerar = new Button();
             cbxCursos = new ComboBox();
             label1 = new Label();
+            cbxCarrera = new ComboBox();
+            label2 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -65,7 +67,7 @@
             // 
             cbxCursos.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxCursos.FormattingEnabled = true;
-            cbxCursos.Location = new Point(139, 54);
+            cbxCursos.Location = new Point(145, 98);
             cbxCursos.Name = "cbxCursos";
             cbxCursos.Size = new Size(224, 23);
             cbxCursos.TabIndex = 20;
@@ -77,9 +79,31 @@
             label1.ForeColor = Color.Brown;
             label1.Location = new Point(48, 54);
             label1.Name = "label1";
-            label1.Size = new Size(41, 15);
+            label1.Size = new Size(51, 15);
             label1.TabIndex = 15;
-            label1.Text = "Curso:";
+            label1.Text = "Carrera:";
+            // 
+            // cbxCarrera
+            // 
+            cbxCarrera.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxCarrera.FormattingEnabled = true;
+            cbxCarrera.Items.AddRange(new object[] { "Tec. Univ. en Programación", "Tec. Univ. en Sistemas", "Licenciatura en Sistemas", "Ingeniería en Sistemas" });
+            cbxCarrera.Location = new Point(145, 54);
+            cbxCarrera.Name = "cbxCarrera";
+            cbxCarrera.Size = new Size(224, 23);
+            cbxCarrera.TabIndex = 21;
+            cbxCarrera.SelectedIndexChanged += cbxCarrera_SelectedIndexChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.Brown;
+            label2.Location = new Point(48, 98);
+            label2.Name = "label2";
+            label2.Size = new Size(41, 15);
+            label2.TabIndex = 22;
+            label2.Text = "Curso:";
             // 
             // FrmInformeEstudiantesInscriptosMateria
             // 
@@ -87,6 +111,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(125, 121, 163);
             ClientSize = new Size(584, 299);
+            Controls.Add(label2);
+            Controls.Add(cbxCarrera);
             Controls.Add(cbxCursos);
             Controls.Add(label1);
             Controls.Add(panel1);
@@ -104,5 +130,7 @@
         private Button btnGenerar;
         private ComboBox cbxCursos;
         private Label label1;
+        private ComboBox cbxCarrera;
+        private Label label2;
     }
 }

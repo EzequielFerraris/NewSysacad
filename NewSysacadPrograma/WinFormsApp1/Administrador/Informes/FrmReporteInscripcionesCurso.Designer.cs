@@ -28,22 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnDescargarPDF = new Button();
             btnAceptar = new Button();
-            label3 = new Label();
+            lbl2 = new Label();
             label5 = new Label();
-            label7 = new Label();
+            lblTitulo = new Label();
             panel2 = new Panel();
             lblCurso = new Label();
             lblCantidad = new Label();
-            label4 = new Label();
-            txbNombres = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
+            lbl4 = new Label();
+            lbl1 = new Label();
+            lbl3 = new Label();
             lblCarrera = new Label();
+            dgvInscripciones = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInscripciones).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -73,6 +76,7 @@
             btnDescargarPDF.TabIndex = 14;
             btnDescargarPDF.Text = "Descargar PDF";
             btnDescargarPDF.UseVisualStyleBackColor = false;
+            btnDescargarPDF.Click += btnDescargarPDF_Click;
             // 
             // btnAceptar
             // 
@@ -92,16 +96,16 @@
             btnAceptar.UseVisualStyleBackColor = false;
             btnAceptar.Click += btnAceptar_Click;
             // 
-            // label3
+            // lbl2
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.DarkRed;
-            label3.Location = new Point(12, 85);
-            label3.Name = "label3";
-            label3.Size = new Size(57, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Cantidad:";
+            lbl2.AutoSize = true;
+            lbl2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl2.ForeColor = Color.DarkRed;
+            lbl2.Location = new Point(12, 85);
+            lbl2.Name = "lbl2";
+            lbl2.Size = new Size(57, 15);
+            lbl2.TabIndex = 4;
+            lbl2.Text = "Cantidad:";
             // 
             // label5
             // 
@@ -113,21 +117,21 @@
             label5.Size = new Size(0, 15);
             label5.TabIndex = 6;
             // 
-            // label7
+            // lblTitulo
             // 
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.ForeColor = Color.DarkRed;
-            label7.Location = new Point(0, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(304, 48);
-            label7.TabIndex = 8;
-            label7.Text = "INFORME: inscriptos en curso";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitulo.ForeColor = Color.DarkRed;
+            lblTitulo.Location = new Point(0, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(304, 48);
+            lblTitulo.TabIndex = 8;
+            lblTitulo.Text = "INFORME: Inscriptos en curso";
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            panel2.Controls.Add(label7);
+            panel2.Controls.Add(lblTitulo);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -154,51 +158,38 @@
             lblCantidad.TabIndex = 12;
             lblCantidad.Text = "?";
             // 
-            // label4
+            // lbl4
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.ForeColor = Color.DarkRed;
-            label4.Location = new Point(12, 153);
-            label4.Name = "label4";
-            label4.Size = new Size(62, 15);
-            label4.TabIndex = 13;
-            label4.Text = "Inscriptos:";
+            lbl4.AutoSize = true;
+            lbl4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl4.ForeColor = Color.DarkRed;
+            lbl4.Location = new Point(12, 153);
+            lbl4.Name = "lbl4";
+            lbl4.Size = new Size(62, 15);
+            lbl4.TabIndex = 13;
+            lbl4.Text = "Inscriptos:";
             // 
-            // txbNombres
+            // lbl1
             // 
-            txbNombres.BackColor = Color.FromArgb(102, 97, 140);
-            txbNombres.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            txbNombres.ForeColor = Color.DarkRed;
-            txbNombres.Location = new Point(12, 171);
-            txbNombres.Multiline = true;
-            txbNombres.Name = "txbNombres";
-            txbNombres.ReadOnly = true;
-            txbNombres.ScrollBars = ScrollBars.Vertical;
-            txbNombres.Size = new Size(280, 124);
-            txbNombres.TabIndex = 14;
+            lbl1.AutoSize = true;
+            lbl1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl1.ForeColor = Color.DarkRed;
+            lbl1.Location = new Point(12, 60);
+            lbl1.Name = "lbl1";
+            lbl1.Size = new Size(40, 15);
+            lbl1.TabIndex = 2;
+            lbl1.Text = "Curso:";
             // 
-            // label1
+            // lbl3
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.DarkRed;
-            label1.Location = new Point(12, 60);
-            label1.Name = "label1";
-            label1.Size = new Size(40, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Curso:";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.ForeColor = Color.DarkRed;
-            label2.Location = new Point(12, 109);
-            label2.Name = "label2";
-            label2.Size = new Size(47, 15);
-            label2.TabIndex = 15;
-            label2.Text = "Carrera:";
+            lbl3.AutoSize = true;
+            lbl3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl3.ForeColor = Color.DarkRed;
+            lbl3.Location = new Point(12, 109);
+            lbl3.Name = "lbl3";
+            lbl3.Size = new Size(47, 15);
+            lbl3.TabIndex = 15;
+            lbl3.Text = "Carrera:";
             // 
             // lblCarrera
             // 
@@ -210,28 +201,64 @@
             lblCarrera.TabIndex = 16;
             lblCarrera.Text = "?";
             // 
+            // dgvInscripciones
+            // 
+            dgvInscripciones.AllowUserToAddRows = false;
+            dgvInscripciones.AllowUserToDeleteRows = false;
+            dgvInscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvInscripciones.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvInscripciones.BackgroundColor = Color.FromArgb(158, 153, 186);
+            dgvInscripciones.BorderStyle = BorderStyle.None;
+            dgvInscripciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle3.SelectionForeColor = Color.DarkRed;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvInscripciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvInscripciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInscripciones.EnableHeadersVisualStyles = false;
+            dgvInscripciones.GridColor = Color.FromArgb(125, 121, 163);
+            dgvInscripciones.Location = new Point(12, 180);
+            dgvInscripciones.Name = "dgvInscripciones";
+            dgvInscripciones.ReadOnly = true;
+            dgvInscripciones.RowHeadersVisible = false;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(158, 153, 186);
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(102, 97, 130);
+            dataGridViewCellStyle4.SelectionForeColor = Color.LightCoral;
+            dgvInscripciones.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvInscripciones.RowTemplate.Height = 25;
+            dgvInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInscripciones.Size = new Size(281, 106);
+            dgvInscripciones.TabIndex = 17;
+            // 
             // FrmReporteInscripcionesCurso
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(102, 97, 130);
             ClientSize = new Size(304, 366);
+            Controls.Add(dgvInscripciones);
             Controls.Add(lblCarrera);
-            Controls.Add(label2);
-            Controls.Add(txbNombres);
-            Controls.Add(label4);
+            Controls.Add(lbl3);
+            Controls.Add(lbl4);
             Controls.Add(lblCantidad);
             Controls.Add(lblCurso);
             Controls.Add(panel2);
             Controls.Add(label5);
-            Controls.Add(label3);
-            Controls.Add(label1);
+            Controls.Add(lbl2);
+            Controls.Add(lbl1);
             Controls.Add(panel1);
             Name = "FrmReporteInscripcionesCurso";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Comprobante";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvInscripciones).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -240,17 +267,17 @@
 
         private Panel panel1;
         private Button btnAceptar;
-        private Label label3;
+        private Label lbl2;
         private Label label5;
-        private Label label7;
+        private Label lblTitulo;
         private Panel panel2;
         private Label lblCurso;
         private Label lblCantidad;
         private Button btnDescargarPDF;
-        private Label label4;
-        private TextBox txbNombres;
-        private Label label1;
-        private Label label2;
+        private Label lbl4;
+        private Label lbl1;
+        private Label lbl3;
         private Label lblCarrera;
+        private DataGridView dgvInscripciones;
     }
 }

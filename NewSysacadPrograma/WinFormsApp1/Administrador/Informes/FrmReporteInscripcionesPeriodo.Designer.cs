@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnDescargarPDF = new Button();
             btnAceptar = new Button();
@@ -35,15 +37,15 @@
             lbl2 = new Label();
             lbl3 = new Label();
             label5 = new Label();
-            label7 = new Label();
+            lblTitulo = new Label();
             panel2 = new Panel();
             lblFechaInicio = new Label();
             lblFechaFinal = new Label();
             lblCantidadInscriptos = new Label();
-            lbl4 = new Label();
-            lblPorcentaje = new Label();
+            dgvInscripciones = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInscripciones).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -67,12 +69,13 @@
             btnDescargarPDF.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnDescargarPDF.ForeColor = Color.Brown;
             btnDescargarPDF.ImageAlign = ContentAlignment.TopRight;
-            btnDescargarPDF.Location = new Point(12, 6);
+            btnDescargarPDF.Location = new Point(12, 5);
             btnDescargarPDF.Name = "btnDescargarPDF";
             btnDescargarPDF.Size = new Size(121, 54);
             btnDescargarPDF.TabIndex = 14;
             btnDescargarPDF.Text = "Descargar PDF";
             btnDescargarPDF.UseVisualStyleBackColor = false;
+            btnDescargarPDF.Click += btnDescargarPDF_Click;
             // 
             // btnAceptar
             // 
@@ -84,7 +87,7 @@
             btnAceptar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnAceptar.ForeColor = Color.Brown;
             btnAceptar.ImageAlign = ContentAlignment.TopRight;
-            btnAceptar.Location = new Point(171, 6);
+            btnAceptar.Location = new Point(171, 5);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(121, 54);
             btnAceptar.TabIndex = 0;
@@ -135,21 +138,21 @@
             label5.Size = new Size(0, 15);
             label5.TabIndex = 6;
             // 
-            // label7
+            // lblTitulo
             // 
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.ForeColor = Color.DarkRed;
-            label7.Location = new Point(0, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(304, 48);
-            label7.TabIndex = 8;
-            label7.Text = "INFORME: inscripciones";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitulo.ForeColor = Color.DarkRed;
+            lblTitulo.Location = new Point(0, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(304, 48);
+            lblTitulo.TabIndex = 8;
+            lblTitulo.Text = "INFORME: Inscripciones";
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            panel2.Controls.Add(label7);
+            panel2.Controls.Add(lblTitulo);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -186,26 +189,40 @@
             lblCantidadInscriptos.TabIndex = 12;
             lblCantidadInscriptos.Text = "?";
             // 
-            // lbl4
+            // dgvInscripciones
             // 
-            lbl4.AutoSize = true;
-            lbl4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl4.ForeColor = Color.DarkRed;
-            lbl4.Location = new Point(12, 189);
-            lbl4.Name = "lbl4";
-            lbl4.Size = new Size(112, 15);
-            lbl4.TabIndex = 13;
-            lbl4.Text = "Porcentaje del total:";
-            // 
-            // lblPorcentaje
-            // 
-            lblPorcentaje.AutoSize = true;
-            lblPorcentaje.ForeColor = Color.Brown;
-            lblPorcentaje.Location = new Point(139, 189);
-            lblPorcentaje.Name = "lblPorcentaje";
-            lblPorcentaje.Size = new Size(12, 15);
-            lblPorcentaje.TabIndex = 14;
-            lblPorcentaje.Text = "?";
+            dgvInscripciones.AllowUserToAddRows = false;
+            dgvInscripciones.AllowUserToDeleteRows = false;
+            dgvInscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvInscripciones.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvInscripciones.BackgroundColor = Color.FromArgb(158, 153, 186);
+            dgvInscripciones.BorderStyle = BorderStyle.None;
+            dgvInscripciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle1.SelectionForeColor = Color.DarkRed;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvInscripciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvInscripciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInscripciones.EnableHeadersVisualStyles = false;
+            dgvInscripciones.GridColor = Color.FromArgb(125, 121, 163);
+            dgvInscripciones.Location = new Point(11, 184);
+            dgvInscripciones.Name = "dgvInscripciones";
+            dgvInscripciones.ReadOnly = true;
+            dgvInscripciones.RowHeadersVisible = false;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(158, 153, 186);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(102, 97, 130);
+            dataGridViewCellStyle2.SelectionForeColor = Color.LightCoral;
+            dgvInscripciones.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dgvInscripciones.RowTemplate.Height = 25;
+            dgvInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInscripciones.Size = new Size(281, 106);
+            dgvInscripciones.TabIndex = 13;
             // 
             // FrmReporteInscripcionesPeriodo
             // 
@@ -213,8 +230,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(102, 97, 130);
             ClientSize = new Size(304, 366);
-            Controls.Add(lblPorcentaje);
-            Controls.Add(lbl4);
+            Controls.Add(dgvInscripciones);
             Controls.Add(lblCantidadInscriptos);
             Controls.Add(lblFechaFinal);
             Controls.Add(lblFechaInicio);
@@ -229,6 +245,7 @@
             Text = "Comprobante";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvInscripciones).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -241,13 +258,12 @@
         private Label lbl2;
         private Label lbl3;
         private Label label5;
-        private Label label7;
+        private Label lblTitulo;
         private Panel panel2;
         private Label lblFechaInicio;
         private Label lblFechaFinal;
         private Label lblCantidadInscriptos;
         private Button btnDescargarPDF;
-        private Label lbl4;
-        private Label lblPorcentaje;
+        private DataGridView dgvInscripciones;
     }
 }

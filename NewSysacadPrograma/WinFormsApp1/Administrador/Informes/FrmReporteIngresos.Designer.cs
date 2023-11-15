@@ -28,24 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnDescargarPDF = new Button();
             btnAceptar = new Button();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
+            lbl1 = new Label();
+            lbl2 = new Label();
+            lbl4 = new Label();
+            lbl3 = new Label();
             label5 = new Label();
-            label7 = new Label();
+            lblTitulo = new Label();
             panel2 = new Panel();
             lblFechaInicio = new Label();
             lblFechaFinal = new Label();
             lblMontoTotal = new Label();
             lblConcepto = new Label();
-            label6 = new Label();
-            txbPagos = new TextBox();
+            lbl5 = new Label();
+            dgvPagos = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPagos).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -75,6 +78,7 @@
             btnDescargarPDF.TabIndex = 14;
             btnDescargarPDF.Text = "Descargar PDF";
             btnDescargarPDF.UseVisualStyleBackColor = false;
+            btnDescargarPDF.Click += btnDescargarPDF_Click;
             // 
             // btnAceptar
             // 
@@ -94,49 +98,49 @@
             btnAceptar.UseVisualStyleBackColor = false;
             btnAceptar.Click += btnAceptar_Click;
             // 
-            // label1
+            // lbl1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.DarkRed;
-            label1.Location = new Point(12, 69);
-            label1.Name = "label1";
-            label1.Size = new Size(74, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Fecha Inicio:";
+            lbl1.AutoSize = true;
+            lbl1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl1.ForeColor = Color.DarkRed;
+            lbl1.Location = new Point(11, 51);
+            lbl1.Name = "lbl1";
+            lbl1.Size = new Size(74, 15);
+            lbl1.TabIndex = 2;
+            lbl1.Text = "Fecha Inicio:";
             // 
-            // label2
+            // lbl2
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.ForeColor = Color.DarkRed;
-            label2.Location = new Point(12, 96);
-            label2.Name = "label2";
-            label2.Size = new Size(69, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Fecha Final:";
+            lbl2.AutoSize = true;
+            lbl2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl2.ForeColor = Color.DarkRed;
+            lbl2.Location = new Point(11, 79);
+            lbl2.Name = "lbl2";
+            lbl2.Size = new Size(69, 15);
+            lbl2.TabIndex = 3;
+            lbl2.Text = "Fecha Final:";
             // 
-            // label3
+            // lbl4
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.ForeColor = Color.DarkRed;
-            label3.Location = new Point(13, 155);
-            label3.Name = "label3";
-            label3.Size = new Size(73, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Monto total:";
+            lbl4.AutoSize = true;
+            lbl4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl4.ForeColor = Color.DarkRed;
+            lbl4.Location = new Point(152, 79);
+            lbl4.Name = "lbl4";
+            lbl4.Size = new Size(73, 15);
+            lbl4.TabIndex = 4;
+            lbl4.Text = "Monto total:";
             // 
-            // label4
+            // lbl3
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.ForeColor = Color.DarkRed;
-            label4.Location = new Point(12, 127);
-            label4.Name = "label4";
-            label4.Size = new Size(61, 15);
-            label4.TabIndex = 5;
-            label4.Text = "Concepto:";
+            lbl3.AutoSize = true;
+            lbl3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl3.ForeColor = Color.DarkRed;
+            lbl3.Location = new Point(152, 51);
+            lbl3.Name = "lbl3";
+            lbl3.Size = new Size(61, 15);
+            lbl3.TabIndex = 5;
+            lbl3.Text = "Concepto:";
             // 
             // label5
             // 
@@ -148,21 +152,21 @@
             label5.Size = new Size(0, 15);
             label5.TabIndex = 6;
             // 
-            // label7
+            // lblTitulo
             // 
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.ForeColor = Color.DarkRed;
-            label7.Location = new Point(0, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(304, 48);
-            label7.TabIndex = 8;
-            label7.Text = "INFORME: ingresos";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitulo.Dock = DockStyle.Fill;
+            lblTitulo.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitulo.ForeColor = Color.DarkRed;
+            lblTitulo.Location = new Point(0, 0);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(304, 48);
+            lblTitulo.TabIndex = 8;
+            lblTitulo.Text = "INFORME: Ingresos";
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            panel2.Controls.Add(label7);
+            panel2.Controls.Add(lblTitulo);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -173,7 +177,7 @@
             // 
             lblFechaInicio.AutoSize = true;
             lblFechaInicio.ForeColor = Color.Brown;
-            lblFechaInicio.Location = new Point(121, 69);
+            lblFechaInicio.Location = new Point(82, 51);
             lblFechaInicio.Name = "lblFechaInicio";
             lblFechaInicio.Size = new Size(12, 15);
             lblFechaInicio.TabIndex = 10;
@@ -183,7 +187,7 @@
             // 
             lblFechaFinal.AutoSize = true;
             lblFechaFinal.ForeColor = Color.Brown;
-            lblFechaFinal.Location = new Point(121, 96);
+            lblFechaFinal.Location = new Point(82, 79);
             lblFechaFinal.Name = "lblFechaFinal";
             lblFechaFinal.Size = new Size(12, 15);
             lblFechaFinal.TabIndex = 11;
@@ -193,7 +197,7 @@
             // 
             lblMontoTotal.AutoSize = true;
             lblMontoTotal.ForeColor = Color.Brown;
-            lblMontoTotal.Location = new Point(121, 155);
+            lblMontoTotal.Location = new Point(225, 79);
             lblMontoTotal.Name = "lblMontoTotal";
             lblMontoTotal.Size = new Size(12, 15);
             lblMontoTotal.TabIndex = 12;
@@ -203,35 +207,57 @@
             // 
             lblConcepto.AutoSize = true;
             lblConcepto.ForeColor = Color.Brown;
-            lblConcepto.Location = new Point(121, 127);
+            lblConcepto.Location = new Point(213, 51);
             lblConcepto.Name = "lblConcepto";
             lblConcepto.Size = new Size(12, 15);
             lblConcepto.TabIndex = 13;
             lblConcepto.Text = "?";
             // 
-            // label6
+            // lbl5
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.ForeColor = Color.DarkRed;
-            label6.Location = new Point(13, 180);
-            label6.Name = "label6";
-            label6.Size = new Size(42, 15);
-            label6.TabIndex = 14;
-            label6.Text = "Pagos:";
+            lbl5.AutoSize = true;
+            lbl5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl5.ForeColor = Color.DarkRed;
+            lbl5.Location = new Point(11, 112);
+            lbl5.Name = "lbl5";
+            lbl5.Size = new Size(42, 15);
+            lbl5.TabIndex = 14;
+            lbl5.Text = "Pagos:";
             // 
-            // txbPagos
+            // dgvPagos
             // 
-            txbPagos.BackColor = Color.FromArgb(102, 97, 140);
-            txbPagos.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            txbPagos.ForeColor = Color.DarkRed;
-            txbPagos.Location = new Point(13, 198);
-            txbPagos.Multiline = true;
-            txbPagos.Name = "txbPagos";
-            txbPagos.ReadOnly = true;
-            txbPagos.ScrollBars = ScrollBars.Vertical;
-            txbPagos.Size = new Size(280, 82);
-            txbPagos.TabIndex = 15;
+            dgvPagos.AllowUserToAddRows = false;
+            dgvPagos.AllowUserToDeleteRows = false;
+            dgvPagos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvPagos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvPagos.BackgroundColor = Color.FromArgb(158, 153, 186);
+            dgvPagos.BorderStyle = BorderStyle.None;
+            dgvPagos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle1.SelectionForeColor = Color.DarkRed;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvPagos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvPagos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPagos.EnableHeadersVisualStyles = false;
+            dgvPagos.GridColor = Color.FromArgb(125, 121, 163);
+            dgvPagos.Location = new Point(11, 141);
+            dgvPagos.Name = "dgvPagos";
+            dgvPagos.ReadOnly = true;
+            dgvPagos.RowHeadersVisible = false;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(158, 153, 186);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(102, 97, 130);
+            dataGridViewCellStyle2.SelectionForeColor = Color.LightCoral;
+            dgvPagos.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dgvPagos.RowTemplate.Height = 25;
+            dgvPagos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPagos.Size = new Size(281, 154);
+            dgvPagos.TabIndex = 15;
             // 
             // FrmReporteIngresos
             // 
@@ -239,24 +265,25 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(102, 97, 130);
             ClientSize = new Size(304, 366);
-            Controls.Add(txbPagos);
-            Controls.Add(label6);
+            Controls.Add(dgvPagos);
+            Controls.Add(lbl5);
             Controls.Add(lblConcepto);
             Controls.Add(lblMontoTotal);
             Controls.Add(lblFechaFinal);
             Controls.Add(lblFechaInicio);
             Controls.Add(panel2);
             Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(lbl3);
+            Controls.Add(lbl4);
+            Controls.Add(lbl2);
+            Controls.Add(lbl1);
             Controls.Add(panel1);
             Name = "FrmReporteIngresos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Comprobante";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvPagos).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -265,19 +292,19 @@
 
         private Panel panel1;
         private Button btnAceptar;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
+        private Label lbl1;
+        private Label lbl2;
+        private Label lbl4;
+        private Label lbl3;
         private Label label5;
-        private Label label7;
+        private Label lblTitulo;
         private Panel panel2;
         private Label lblFechaInicio;
         private Label lblFechaFinal;
         private Label lblMontoTotal;
         private Label lblConcepto;
         private Button btnDescargarPDF;
-        private Label label6;
-        private TextBox txbPagos;
+        private Label lbl5;
+        private DataGridView dgvPagos;
     }
 }

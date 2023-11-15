@@ -67,6 +67,8 @@
             // 
             // dtimerFinal
             // 
+            dtimerFinal.CalendarForeColor = Color.DarkRed;
+            dtimerFinal.CalendarMonthBackground = Color.FromArgb(158, 153, 186);
             dtimerFinal.Location = new Point(171, 110);
             dtimerFinal.Name = "dtimerFinal";
             dtimerFinal.Size = new Size(224, 23);
@@ -74,6 +76,8 @@
             // 
             // dtimerInicio
             // 
+            dtimerInicio.CalendarForeColor = Color.DarkRed;
+            dtimerInicio.CalendarMonthBackground = Color.FromArgb(158, 153, 186);
             dtimerInicio.Location = new Point(171, 61);
             dtimerInicio.Name = "dtimerInicio";
             dtimerInicio.Size = new Size(224, 23);
@@ -106,7 +110,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.ForeColor = Color.Brown;
-            label3.Location = new Point(65, 170);
+            label3.Location = new Point(61, 170);
             label3.Name = "label3";
             label3.Size = new Size(63, 15);
             label3.TabIndex = 13;
@@ -114,7 +118,9 @@
             // 
             // cbxCursos
             // 
+            cbxCursos.BackColor = Color.White;
             cbxCursos.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxCursos.ForeColor = Color.Black;
             cbxCursos.FormattingEnabled = true;
             cbxCursos.Location = new Point(171, 170);
             cbxCursos.Name = "cbxCursos";

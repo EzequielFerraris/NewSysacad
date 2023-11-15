@@ -13,10 +13,11 @@ namespace NewSysacadFront
 {
     public partial class FrmReporteInscripcionesCarrera : Form
     {
-        public FrmReporteInscripcionesCarrera()
+        private Administrador admin;
+        public FrmReporteInscripcionesCarrera(Administrador admin)
         {
             InitializeComponent();
-
+            this.admin = admin;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

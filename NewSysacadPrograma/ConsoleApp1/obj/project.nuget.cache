@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "Cpcp7x/llOF3cHm9p3zJMpBKNqbHKRIXSSiR/hwW8j6sT/L+DYjULk3IAtyFfzot2m3cavyvbZQ5hx0kbkaxag==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ezef_\\Documents\\Eze\\Programacion\\UTN\\Programacion_II\\ProgramaNewSysacad\\NewSysacadPrograma\\ConsoleApp1\\ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ezef_\\.nuget\\packages\\harfbuzzsharp\\7.3.0\\harfbuzzsharp.7.3.0.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\7.3.0\\harfbuzzsharp.nativeassets.macos.7.3.0.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\7.3.0\\harfbuzzsharp.nativeassets.win32.7.3.0.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\questpdf\\2023.10.1\\questpdf.2023.10.1.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\skiasharp\\2.88.6\\skiasharp.2.88.6.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\skiasharp.harfbuzz\\2.88.6\\skiasharp.harfbuzz.2.88.6.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\skiasharp.nativeassets.macos\\2.88.6\\skiasharp.nativeassets.macos.2.88.6.nupkg.sha512",
+    "C:\\Users\\ezef_\\.nuget\\packages\\skiasharp.nativeassets.win32\\2.88.6\\skiasharp.nativeassets.win32.2.88.6.nupkg.sha512"
+  ],
+  "logs": []
+}

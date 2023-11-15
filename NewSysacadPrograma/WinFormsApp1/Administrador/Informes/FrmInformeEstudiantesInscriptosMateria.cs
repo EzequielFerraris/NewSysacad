@@ -1,4 +1,5 @@
 ﻿using BibliotecaNewSysacad;
+using iText.Kernel.Colors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,20 +14,98 @@ namespace NewSysacadFront
 {
     public partial class FrmInformeEstudiantesInscriptosMateria : Form
     {
-        private List<string> nombresCursos;
+        private List<string> nombresCursos0 = new List<string>();
+        private List<string> nombresCursos1 = new List<string>();
+        private List<string> nombresCursos2 = new List<string>();
+        private List<string> nombresCursos3 = new List<string>();
+
+
         private Administrador admin;
         public FrmInformeEstudiantesInscriptosMateria(Administrador admin)
         {
             InitializeComponent();
             this.admin = admin;
+            ObtenerCursosCarrera();
 
-            nombresCursos = new List<string>();
+            cbxCarrera.SelectedIndex = 0;
+            cbxCursos.DataSource = nombresCursos0;
+
+        }
+
+        private void ObtenerCursosCarrera()
+        {
             foreach (Curso curso in admin.ObtenerCursos())
             {
-                nombresCursos.Add(curso.Nombre);
+                switch ((int)curso.Carrera)
+                {
+                    case 0:
+                        nombresCursos0.Add(curso.Nombre);
+                        break;
+                    case 1:
+                        nombresCursos1.Add(curso.Nombre);
+                        break;
+                    case 2:
+                        nombresCursos2.Add(curso.Nombre);
+                        break;
+                    case 3:
+                        nombresCursos3.Add(curso.Nombre);
+                        break;
+
+                }
             }
 
-            cbxCursos.DataSource = nombresCursos;
+        }
+
+        private void cbxCarrera_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbxCarrera.SelectedIndex)
+            {
+                case 0:
+                    cbxCursos.DataSource = nombresCursos0;
+                    if(nombresCursos0.Count() < 1)
+                    {
+                        btnGenerar.Enabled = false;
+                    }
+                    else
+                    {
+                        btnGenerar.Enabled = true;
+                    }
+                    break;
+                case 1:
+                    cbxCursos.DataSource = nombresCursos1;
+                    if (nombresCursos1.Count() < 1)
+                    {
+                        btnGenerar.Enabled = false;
+                    }
+                    else
+                    {
+                        btnGenerar.Enabled = true;
+                    }
+                    break;
+                case 2:
+                    cbxCursos.DataSource = nombresCursos2;
+                    if (nombresCursos2.Count() < 1)
+                    {
+                        btnGenerar.Enabled = false;
+                    }
+                    else
+                    {
+                        btnGenerar.Enabled = true;
+                    }
+                    break;
+                case 3:
+                    cbxCursos.DataSource = nombresCursos3;
+                    if (nombresCursos3.Count() < 1)
+                    {
+                        btnGenerar.Enabled = false;
+                    }
+                    else
+                    {
+                        btnGenerar.Enabled = true;
+                    }
+                    break;
+
+            }
 
         }
 
@@ -39,10 +118,20 @@ namespace NewSysacadFront
 
             if (result == DialogResult.Yes)
             {
-                FrmReporteInscripcionesCurso reporte = new FrmReporteInscripcionesCurso();
-                reporte.Show();
+
+                foreach (Curso curso in admin.ObtenerCursos())
+                {
+                    if(curso.Nombre == cbxCursos.SelectedValue.ToString() && curso.Carrera == (Carrera)cbxCarrera.SelectedIndex)
+                    {
+                        FrmReporteInscripcionesCurso reporte = new FrmReporteInscripcionesCurso(curso, admin);
+                        reporte.Show();
+                    }
+
+                }
+                    
+                
             }
-            
+
         }
     }
 }
