@@ -15,6 +15,7 @@ using iText.Layout;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using System.Diagnostics;
+using iText.Layout.Element;
 
 namespace NewSysacadFront
 {
@@ -46,6 +47,7 @@ namespace NewSysacadFront
             cuerpo += this.lbl2.Text + "    " + this.lblFechaFinal.Text + '\n';
             cuerpo += this.lbl3.Text + "    " + this.lblCantidadInscriptos.Text + '\n';
 
+            Table tablaDatos = PDFMetodos.TablaPDFdesdeDGV(this.dgvInscripciones, new float[] { 1, 1, 1, 1 }, 100);
 
             SaveFileDialog guardar = new SaveFileDialog();
             guardar.FileName = DateTime.Now.ToString("dd-MM-yyyy") + "inscriptosPorPeriodo" + ".pdf";
@@ -60,7 +62,7 @@ namespace NewSysacadFront
                 {
                     using (var pdf = new PdfDocument(writer))
                     {
-                        var doc = InformesConsultas.CrearPdf(pdf, titulo, cuerpo);
+                        var doc = PDFMetodos.CrearPdf(pdf, titulo, cuerpo, tablaDatos);
 
                     }
                 }
@@ -68,9 +70,6 @@ namespace NewSysacadFront
             }
 
         }
-
-
-
 
     }
 }

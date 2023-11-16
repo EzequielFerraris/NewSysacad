@@ -38,6 +38,7 @@ namespace NewSysacadFront
             {
                 DateTime inicio = dtimerInicio.Value.Date;
                 DateTime final = dtimerFinal.Value.Date;
+                Carrera carrera = (Carrera)cbxCarrera.SelectedIndex;
 
                 if (DateTime.Compare(inicio, final) > 0)
                 {
@@ -48,7 +49,7 @@ namespace NewSysacadFront
                 else
                 {
                     Carrera carreraElegida = (Carrera)cbxCarrera.SelectedIndex;
-                    FrmReporteInscripcionesCarrera informe = new FrmReporteInscripcionesCarrera(admin);
+                    FrmReporteInscripcionesCarrera informe = new FrmReporteInscripcionesCarrera(admin, carrera, inicio, final);
                     informe.Show();
                 }
             }

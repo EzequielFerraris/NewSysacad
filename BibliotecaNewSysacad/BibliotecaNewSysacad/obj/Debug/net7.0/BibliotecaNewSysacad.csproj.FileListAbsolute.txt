@@ -32,3 +32,4 @@ C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\BibliotecaNewSysacad\BibliotecaNewSysacad\obj\Debug\net7.0\BibliotecaNewSysacad.pdb
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\BibliotecaNewSysacad\BibliotecaNewSysacad\obj\Debug\net7.0\ref\BibliotecaNewSysacad.dll
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\BibliotecaNewSysacad\BibliotecaNewSysacad\obj\Debug\net7.0\BibliotecaNewSysacad.csproj.AssemblyReference.cache
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\BibliotecaNewSysacad\BibliotecaNewSysacad\obj\Debug\net7.0\BibliotecaNewSysacad.csproj.ResolveComReference.cache

@@ -1,5 +1,6 @@
 ﻿using BibliotecaNewSysacad;
 using iText.Kernel.Pdf;
+using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +37,9 @@ namespace NewSysacadFront
             string cuerpo = this.lbl1.Text + "    " + this.lblCurso.Text + '\n';
             cuerpo += this.lbl2.Text + "    " + this.lblCantidad.Text + '\n';
             cuerpo += this.lbl3.Text + "    " + this.lblCarrera.Text + '\n';
+            cuerpo += this.lbl4.Text;
 
+            Table tablaDatos = PDFMetodos.TablaPDFdesdeDGV(this.dgvInscripciones, new float[] { 1, 1, 1 }, 100);
 
             SaveFileDialog guardar = new SaveFileDialog();
             guardar.FileName = DateTime.Now.ToString("dd-MM-yyyy") + "inscriptosPorCurso" + ".pdf";
@@ -51,7 +54,7 @@ namespace NewSysacadFront
                 {
                     using (var pdf = new PdfDocument(writer))
                     {
-                        var doc = InformesConsultas.CrearPdf(pdf, titulo, cuerpo);
+                        var doc = PDFMetodos.CrearPdf(pdf, titulo, cuerpo, tablaDatos);
 
                     }
                 }

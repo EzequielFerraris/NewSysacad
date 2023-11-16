@@ -62,10 +62,10 @@ namespace BibliotecaNewSysacad
             switch (carrera)
             {
                 case Carrera.TUP:
-                    result = "Tecnicatura Universitaria en Programación";
+                    result = "Tec. Univ. en Programación";
                     break;
                 case Carrera.TUSI:
-                    result = "Tecnicatura Universitaria en Sistemas de la Información";
+                    result = "Tec. Univ. en Sistemas";
                     break;
                 case Carrera.LS:
                     result = "Licenciatura en Sistemas";

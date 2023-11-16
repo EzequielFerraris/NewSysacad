@@ -1,5 +1,6 @@
 ﻿using BibliotecaNewSysacad;
 using iText.Kernel.Pdf;
+using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,6 +50,8 @@ namespace NewSysacadFront
             cuerpo += this.lbl3.Text + "    " + this.lblConcepto.Text + '\n';
             cuerpo += this.lbl4.Text + "    " + this.lblMontoTotal.Text + '\n';
 
+            Table tablaDatos = PDFMetodos.TablaPDFdesdeDGV(this.dgvPagos, new float[] { 1, 1, 1, 1, 1, 1, 1 }, 100);
+
             SaveFileDialog guardar = new SaveFileDialog();
             guardar.FileName = DateTime.Now.ToString("dd-MM-yyyy") + "ingresos" + ".pdf";
 
@@ -62,7 +65,7 @@ namespace NewSysacadFront
                 {
                     using (var pdf = new PdfDocument(writer))
                     {
-                        var doc = InformesConsultas.CrearPdf(pdf, titulo, cuerpo);
+                        var doc = PDFMetodos.CrearPdf(pdf, titulo, cuerpo, tablaDatos);
 
                     }
                 }
