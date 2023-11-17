@@ -119,6 +119,7 @@
             // lbNombre
             // 
             lbNombre.AutoSize = true;
+            lbNombre.ForeColor = Color.DarkRed;
             lbNombre.Location = new Point(38, 83);
             lbNombre.Name = "lbNombre";
             lbNombre.Size = new Size(54, 15);
@@ -128,6 +129,7 @@
             // lblCodigo
             // 
             lblCodigo.AutoSize = true;
+            lblCodigo.ForeColor = Color.DarkRed;
             lblCodigo.Location = new Point(38, 121);
             lblCodigo.Name = "lblCodigo";
             lblCodigo.Size = new Size(49, 15);
@@ -137,6 +139,7 @@
             // lbCupoMaximo
             // 
             lbCupoMaximo.AutoSize = true;
+            lbCupoMaximo.ForeColor = Color.DarkRed;
             lbCupoMaximo.Location = new Point(38, 161);
             lbCupoMaximo.Name = "lbCupoMaximo";
             lbCupoMaximo.Size = new Size(86, 15);
@@ -146,6 +149,7 @@
             // lbDescripcion
             // 
             lbDescripcion.AutoSize = true;
+            lbDescripcion.ForeColor = Color.DarkRed;
             lbDescripcion.Location = new Point(297, 156);
             lbDescripcion.Name = "lbDescripcion";
             lbDescripcion.Size = new Size(72, 15);
@@ -174,6 +178,7 @@
             // lblDia
             // 
             lblDia.AutoSize = true;
+            lblDia.ForeColor = Color.DarkRed;
             lblDia.Location = new Point(38, 200);
             lblDia.Name = "lblDia";
             lblDia.Size = new Size(87, 15);
@@ -183,6 +188,7 @@
             // lblTurno
             // 
             lblTurno.AutoSize = true;
+            lblTurno.ForeColor = Color.DarkRed;
             lblTurno.Location = new Point(38, 239);
             lblTurno.Name = "lblTurno";
             lblTurno.Size = new Size(41, 15);
@@ -192,6 +198,7 @@
             // lbl6
             // 
             lbl6.AutoSize = true;
+            lbl6.ForeColor = Color.DarkRed;
             lbl6.Location = new Point(297, 83);
             lbl6.Name = "lbl6";
             lbl6.Size = new Size(48, 15);

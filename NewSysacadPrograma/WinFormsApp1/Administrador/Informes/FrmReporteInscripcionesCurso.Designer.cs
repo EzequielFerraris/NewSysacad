@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnDescargarPDF = new Button();
             btnAceptar = new Button();
@@ -205,19 +205,19 @@
             // 
             dgvInscripciones.AllowUserToAddRows = false;
             dgvInscripciones.AllowUserToDeleteRows = false;
-            dgvInscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvInscripciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvInscripciones.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvInscripciones.BackgroundColor = Color.FromArgb(158, 153, 186);
             dgvInscripciones.BorderStyle = BorderStyle.None;
             dgvInscripciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(125, 121, 163);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.DarkRed;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(125, 121, 163);
-            dataGridViewCellStyle3.SelectionForeColor = Color.DarkRed;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvInscripciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(125, 121, 163);
+            dataGridViewCellStyle1.SelectionForeColor = Color.DarkRed;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvInscripciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvInscripciones.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvInscripciones.EnableHeadersVisualStyles = false;
             dgvInscripciones.GridColor = Color.FromArgb(125, 121, 163);
@@ -225,12 +225,12 @@
             dgvInscripciones.Name = "dgvInscripciones";
             dgvInscripciones.ReadOnly = true;
             dgvInscripciones.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(158, 153, 186);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = Color.DarkRed;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(102, 97, 130);
-            dataGridViewCellStyle4.SelectionForeColor = Color.LightCoral;
-            dgvInscripciones.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(158, 153, 186);
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.DarkRed;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(102, 97, 130);
+            dataGridViewCellStyle2.SelectionForeColor = Color.LightCoral;
+            dgvInscripciones.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvInscripciones.RowTemplate.Height = 25;
             dgvInscripciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvInscripciones.Size = new Size(281, 106);

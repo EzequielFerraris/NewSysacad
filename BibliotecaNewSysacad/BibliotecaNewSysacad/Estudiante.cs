@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BibliotecaNewSysacad
 {
@@ -22,14 +24,7 @@ namespace BibliotecaNewSysacad
 
         private List<int> cursosInscriptoCodigos;
         private List<string> cursosAprobados;
-
-        private string queryAgregarEstudiante = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD);";
-        private string queryActualizarEstudiante = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD WHERE LEGAJO = @LEGAJO;";
-        
-        private string queryInscribirEnCurso = "INSERT INTO ESTUDIANTES_CURSOS_INSCRIPTOS VALUES (@LEGAJO_ESTUDIANTE, @CODIGO_CURSO);";
-        private string queryInscribirListaEspera = "INSERT INTO LISTA_DE_ESPERA VALUES (@CODIGO_CURSO, @LEGAJO_ESTUDIANTE);";
-
-        private string queryObtenerCursosInscripto = "SELECT * FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE LEGAJO_ESTUDIANTE = @LEGAJO;";
+        private List<int> enListaDeEspera;
 
         public Estudiante()
         {
@@ -45,8 +40,10 @@ namespace BibliotecaNewSysacad
             this.carrera = Carrera.TUP;
 
             cursosInscriptoCodigos = new List<int>();
-            cursosAprobados = new List<string>();   
- 
+            cursosAprobados = new List<string>();
+            enListaDeEspera = new List<int>();
+
+
         }
         
         public string Dni 
@@ -71,7 +68,6 @@ namespace BibliotecaNewSysacad
                 }
             }
         }
-
         public string Altura
         {
             get => altura;
@@ -94,13 +90,11 @@ namespace BibliotecaNewSysacad
                 }
             } 
         }
-
         public bool DebeCambiarPassword
         {
             get => debeCambiarPassword;
             set => debeCambiarPassword = value;
         }
-
         public int Legajo
         {
             get => legajo;
@@ -112,30 +106,33 @@ namespace BibliotecaNewSysacad
                 }
             }
         }
-
         public DateTime Inscripcion
         {
             get => inscripcion;
             set => inscripcion = value;
         }
-
         public List<int> CursosInscriptoCodigos
         { 
             get => cursosInscriptoCodigos; 
             set => cursosInscriptoCodigos = value;
         }
-
         public Carrera Carrera
         {
             get => carrera;
             set => carrera = value;
         }
-
         public List<string> CursosAprobados
         {
             get => cursosAprobados;
             set => cursosAprobados = value;
         }
+
+        public List<int> EnListaDeEspera
+        {
+            get => enListaDeEspera;
+            set => enListaDeEspera = value;
+        }
+
 
         //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
         //LISTA DE CURSOS
@@ -155,7 +152,7 @@ namespace BibliotecaNewSysacad
 
         public void ActualizarCodigosCursosInscripto()
         {
-
+            string query = "SELECT * FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE LEGAJO_ESTUDIANTE = @LEGAJO;";
             try
             {
                 BDConexion.conexion.Open();
@@ -165,7 +162,7 @@ namespace BibliotecaNewSysacad
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = System.Data.CommandType.Text;
                 sqlCommand.Connection = BDConexion.conexion;
-                sqlCommand.CommandText = queryObtenerCursosInscripto;
+                sqlCommand.CommandText = query;
                 sqlCommand.Parameters.AddWithValue("@LEGAJO", (int)this.Legajo);
 
                 using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
@@ -186,12 +183,10 @@ namespace BibliotecaNewSysacad
             catch (Exception)
             {  
                 throw;
-
             }
             finally
             {
                 BDConexion.conexion.Close();
-
             }
         }
 
@@ -250,11 +245,12 @@ namespace BibliotecaNewSysacad
             {
                 try
                 {
+                    string query = "INSERT INTO ESTUDIANTES_CURSOS_INSCRIPTOS VALUES (@LEGAJO_ESTUDIANTE, @CODIGO_CURSO);";
                     BDConexion.conexion.Open();
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = System.Data.CommandType.Text;
                     sqlCommand.Connection = BDConexion.conexion;
-                    sqlCommand.CommandText = queryInscribirEnCurso;
+                    sqlCommand.CommandText = query;
 
                     sqlCommand.Parameters.AddWithValue("@LEGAJO_ESTUDIANTE", (int)this.Legajo);
                     sqlCommand.Parameters.AddWithValue("@CODIGO_CURSO", (int)curso.Codigo);
@@ -266,7 +262,6 @@ namespace BibliotecaNewSysacad
                 }
                 catch (Exception)
                 {
-
                     result = false;
                     return result;
                     throw;
@@ -281,7 +276,72 @@ namespace BibliotecaNewSysacad
             return result;
             
         }
-        
+
+        //LISTAS DE ESPERA-------------------------------------------------------
+
+        private int MapeoCursosEnEspera(IDataReader dataReader)
+        {
+            int codigo = Convert.ToInt32(dataReader["CODIGO_CURSO"]);
+
+            return codigo;
+        }
+
+        private void ObtenerCursosEnListaEspera()
+        {
+            string query = "SELECT CODIGO_CURSO FROM LISTAS_DE_ESPERA WHERE LEGAJO_ESTUDIANTE = @LEGAJO;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = System.Data.CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@LEGAJO", this.Legajo);
+
+            EnListaDeEspera = ConsultasBD.ObtenerLista(sqlCommand, MapeoCursosEnEspera);
+        }
+
+        public bool ChequearListaEspera(int codigo)
+        {
+            bool resultado = true;
+            ObtenerCursosEnListaEspera();
+
+            foreach (int codigoCurso in EnListaDeEspera)
+            {
+                if (codigoCurso == codigo) 
+                { 
+                    resultado = false; break; 
+                }
+            }
+
+            return resultado;
+        }
+
+        public void InscribirEnListaEspera(int codigo)
+        {
+            try
+            {
+                string query = "INSERT INTO LISTAS_DE_ESPERA VALUES(@CODIGO_CURSO, @LEGAJO_ESTUDIANTE, @FECHA_INSCRIPCION);";
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+
+                sqlCommand.Parameters.AddWithValue("@CODIGO_CURSO", codigo);
+                sqlCommand.Parameters.AddWithValue("@LEGAJO_ESTUDIANTE", this.Legajo);  
+                sqlCommand.Parameters.AddWithValue("@FECHA_INSCRIPCION", DateTime.Now.ToString("yyyy-MM-dd"));
+                
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+        }
+
         //PAGOS---------------------------------------------------------------------------------------------------
 
         public List<Pago> ObtenerPagosPendientes()
@@ -291,7 +351,16 @@ namespace BibliotecaNewSysacad
 
         public List<Pago> ObtenerPagosRealizados()
         {
-            return NewSysacad.ListaPagosRealizados;
+            List <Pago> listaPendientes = new List<Pago>();
+            foreach (Pago pago in NewSysacad.ListaPagosRealizados)
+            {
+                if(pago.LegajoDelEstudiante == this.Legajo)
+                {
+                    listaPendientes.Add(pago);
+                }
+            }
+
+            return listaPendientes;
         }
 
         //VALIDAR PAGOS REALIZADOS
@@ -362,11 +431,12 @@ namespace BibliotecaNewSysacad
             {
                 try
                 {
+                    string query = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD);";
                     BDConexion.conexion.Open();
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = System.Data.CommandType.Text;
                     sqlCommand.Connection = BDConexion.conexion;
-                    sqlCommand.CommandText = queryAgregarEstudiante;
+                    sqlCommand.CommandText = query;
                     sqlCommand.Parameters.AddWithValue("@DNI", this.Dni);
                     sqlCommand.Parameters.AddWithValue("@APELLIDO", this.Apellido);
                     sqlCommand.Parameters.AddWithValue("@NOMBRE", this.Nombre);
@@ -401,7 +471,6 @@ namespace BibliotecaNewSysacad
                 
             }
             return result;
-
         }
 
         public bool EliminarDeBD()
@@ -415,11 +484,12 @@ namespace BibliotecaNewSysacad
             bool result = false;    
             try
             {
+                string query = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD WHERE LEGAJO = @LEGAJO;";
                 BDConexion.conexion.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = System.Data.CommandType.Text;
                 sqlCommand.Connection = BDConexion.conexion;
-                sqlCommand.CommandText = queryActualizarEstudiante;
+                sqlCommand.CommandText = query;
 
                 sqlCommand.Parameters.AddWithValue("@DNI", this.Dni);
                 sqlCommand.Parameters.AddWithValue("@APELLIDO", this.Apellido);

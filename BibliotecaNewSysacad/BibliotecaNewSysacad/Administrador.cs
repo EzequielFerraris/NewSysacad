@@ -48,7 +48,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.ObtenerCantidad(sqlCommand);
+            return ConsultasBD.ObtenerCantidad(sqlCommand);
         }
 
         public DataTable CompletarListaInscripcionesPeriodo(DateTime date1, DateTime date2)
@@ -61,7 +61,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.ObtenerDataTabla(sqlCommand);
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
 
         // INSCRIPCIONES POR CURSO --------------------------------------------------------------
@@ -75,7 +75,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.CommandText = query;
             sqlCommand.Parameters.AddWithValue("@CURSO", curso.Codigo);
 
-            return InformesConsultas.ObtenerCantidad(sqlCommand);
+            return ConsultasBD.ObtenerCantidad(sqlCommand);
         }
 
         public DataTable CompletarListaInscripcionesCurso(Curso curso)
@@ -87,7 +87,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.CommandText = query;
             sqlCommand.Parameters.AddWithValue("@CURSO", curso.Codigo);
 
-            return InformesConsultas.ObtenerDataTabla(sqlCommand);
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
 
         //INGRESOS-----------------------------------------------------------------
@@ -102,7 +102,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.SumaMonto(sqlCommand);
+            return ConsultasBD.SumaMonto(sqlCommand);
         }
 
         public decimal ObtenerSumaMontoTotal(DateTime date1, DateTime date2)
@@ -115,7 +115,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.SumaMonto(sqlCommand);
+            return ConsultasBD.SumaMonto(sqlCommand);
         }
         
         public DataTable ObtenerPagosPeriodo(DateTime date1, DateTime date2)
@@ -128,7 +128,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.ObtenerDataTabla(sqlCommand);
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
 
         public DataTable ObtenerPagosPorCategoria(DateTime date1, DateTime date2, string categoria)
@@ -142,7 +142,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.ObtenerDataTabla(sqlCommand);
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
 
         public int ObtenerNumeroInscripcionesCarrera(Carrera carrera)
@@ -154,7 +154,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.CommandText = query;
             sqlCommand.Parameters.AddWithValue("@CARRERA", (int)carrera);
 
-            return InformesConsultas.ObtenerCantidad(sqlCommand);
+            return ConsultasBD.ObtenerCantidad(sqlCommand);
         }
 
 
@@ -169,7 +169,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.ObtenerCantidad(sqlCommand);
+            return ConsultasBD.ObtenerCantidad(sqlCommand);
         }
 
 
@@ -184,7 +184,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.Parameters.AddWithValue("@DATE1", date1);
             sqlCommand.Parameters.AddWithValue("@DATE2", date2);
 
-            return InformesConsultas.ObtenerDataTabla(sqlCommand);
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
         // LISTA DE ESPERA ---------------------------------------------------------------------
         public int InscriptosListaEspera(int codigo)
@@ -197,7 +197,7 @@ namespace BibliotecaNewSysacad
             sqlCommand.CommandText = query;
             sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
 
-            return InformesConsultas.ObtenerCantidad(sqlCommand);
+            return ConsultasBD.ObtenerCantidad(sqlCommand);
 
         }
 
@@ -210,10 +210,85 @@ namespace BibliotecaNewSysacad
             sqlCommand.CommandText = query;
             sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
 
-            return InformesConsultas.ObtenerDataTabla(sqlCommand);
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
-        
 
+        //REQUISITOS ACADÉMICOS------------------------------------------------------
+        public DataTable ObtenerCorrelativas(Curso curso)
+        {
+            string query = "SELECT DISTINCT CURSO.NOMBRE, CURSO.CARRERA FROM CORRELATIVIDAD JOIN CURSO ON CORRELATIVIDAD.CORRELATIVIDAD = CURSO.CODIGO WHERE CORRELATIVIDAD.CODIGO_CURSO = @CODIGO;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@CODIGO", curso.Codigo);
+
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
+        }
+
+        public bool RegistrarCorrelatividad(int codigo, int correlatividad)
+        {
+            bool result = false;
+            string query = "INSERT INTO CORRELATIVIDAD VALUES (@CODIGO, @CORRELATIVIDAD);";
+            
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+                sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
+                sqlCommand.Parameters.AddWithValue("@CORRELATIVIDAD", correlatividad);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+                return result;
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+            return result;
+        }
+
+        public bool EliminarCorrelatividad(int codigo, int correlatividad)
+        {
+            bool result = false;
+            string query = "DELETE FROM CORRELATIVIDAD WHERE CODIGO_CURSO = @CODIGO AND CORRELATIVIDAD = @CORRELATIVIDAD;";
+
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+                sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
+                sqlCommand.Parameters.AddWithValue("@CORRELATIVIDAD", correlatividad);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+                return result;
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+            return result;
+        }
     }
 
 }

@@ -13,11 +13,12 @@ namespace NewSysacadFront
 {
     public partial class FrmHomeAdministrador : Form
     {
-        public FrmListaDeCursos listaDeCursos;
+        private FrmListaDeCursos listaDeCursos;
         private Administrador admin;
         private FrmAgregarEstudiante formAgregarEstudiante;
         private FrmAgregarCurso formAgregarCurso;
         private FrmControlReportes frmControlReportes;
+        private FrmListaDeRequisitos listaDeRequisitos;
 
 
         public FrmHomeAdministrador(Administrador admin)
@@ -46,6 +47,11 @@ namespace NewSysacadFront
             formAgregarCurso.TopLevel = false;
             pnlDisplay.Controls.Add(formAgregarCurso);
             formAgregarCurso.Hide();
+
+            listaDeRequisitos = new FrmListaDeRequisitos(admin);
+            listaDeRequisitos.TopLevel = false;
+            pnlDisplay.Controls.Add(listaDeRequisitos);
+            listaDeRequisitos.Hide();
 
         }
 
@@ -81,6 +87,7 @@ namespace NewSysacadFront
             listaDeCursos.Hide(); //Esconde la lista de cursos
             frmControlReportes.Hide();
             formAgregarCurso.Hide();
+            listaDeRequisitos.Hide();
 
             if (formAgregarEstudiante.agregado)
             {
@@ -98,6 +105,7 @@ namespace NewSysacadFront
             MostrarSubMenu(pnlSubMenuGE);
             formAgregarEstudiante.Hide();
             frmControlReportes.Hide();
+            listaDeRequisitos.Hide();
             listaDeCursos.ActualizarLista();
             listaDeCursos.Show();
 
@@ -126,7 +134,19 @@ namespace NewSysacadFront
             listaDeCursos.Hide(); //Esconde la lista de cursos
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
+            listaDeRequisitos.Hide();
             frmControlReportes.Show();
+        }
+
+        private void btnRequisitosAcademicos_Click(object sender, EventArgs e)
+        {
+            EsconderSubMenus();
+            listaDeCursos.Hide();
+            formAgregarEstudiante.Hide();
+            formAgregarCurso.Hide();
+            frmControlReportes.Hide();
+            listaDeRequisitos.ActualizarLista();
+            listaDeRequisitos.Show();
         }
 
         //SALIR
@@ -142,13 +162,6 @@ namespace NewSysacadFront
             }
         }
 
-        private void btnRequisitosAcademicos_Click(object sender, EventArgs e)
-        {
-            EsconderSubMenus(); 
-            listaDeCursos.Hide(); 
-            formAgregarEstudiante.Hide();
-            formAgregarCurso.Hide();
-            frmControlReportes.Hide();
-        }
+        
     }
 }

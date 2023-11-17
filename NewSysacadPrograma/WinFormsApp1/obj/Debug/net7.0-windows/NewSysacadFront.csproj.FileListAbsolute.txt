@@ -102,3 +102,6 @@ C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\bin\Debug\net7.0-windows\BouncyCastle.Cryptography.dll
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\bin\Debug\net7.0-windows\itext.bouncy-castle-adapter.dll
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmReporteListaDeEspera.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmListaDeRequisitos.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmRequisitosCurso.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmEditarRequisitos.resources

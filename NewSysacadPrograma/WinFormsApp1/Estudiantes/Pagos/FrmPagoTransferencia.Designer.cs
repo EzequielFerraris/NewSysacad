@@ -54,6 +54,7 @@
             // 
             // txbTitular
             // 
+            txbTitular.CharacterCasing = CharacterCasing.Upper;
             txbTitular.Location = new Point(437, 92);
             txbTitular.Name = "txbTitular";
             txbTitular.Size = new Size(135, 23);

@@ -169,7 +169,17 @@ namespace BibliotecaNewSysacad
             if (numero < 23 || numero > 40)
                 return false;
             return true;
-
         }
+
+        public static bool ValidarDecimal(string flotante)
+        {
+            if (!decimal.TryParse(flotante, out var numero))
+                return false;
+
+            if (numero < 0 || numero > 10)
+                return false;
+            return true;
+        }
+
     }
 }

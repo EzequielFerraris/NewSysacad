@@ -154,6 +154,7 @@
             // 
             // cbxCambiarPassword
             // 
+            cbxCambiarPassword.ForeColor = Color.DarkRed;
             cbxCambiarPassword.Location = new Point(282, 237);
             cbxCambiarPassword.Name = "cbxCambiarPassword";
             cbxCambiarPassword.Size = new Size(278, 45);
@@ -164,6 +165,7 @@
             // lblNomble
             // 
             lblNomble.AutoSize = true;
+            lblNomble.ForeColor = Color.DarkRed;
             lblNomble.Location = new Point(12, 114);
             lblNomble.Name = "lblNomble";
             lblNomble.Size = new Size(54, 15);
@@ -173,6 +175,7 @@
             // lblApellido
             // 
             lblApellido.AutoSize = true;
+            lblApellido.ForeColor = Color.DarkRed;
             lblApellido.Location = new Point(12, 72);
             lblApellido.Name = "lblApellido";
             lblApellido.Size = new Size(54, 15);
@@ -182,6 +185,7 @@
             // lblDni
             // 
             lblDni.AutoSize = true;
+            lblDni.ForeColor = Color.DarkRed;
             lblDni.Location = new Point(12, 156);
             lblDni.Name = "lblDni";
             lblDni.Size = new Size(30, 15);
@@ -191,6 +195,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
+            lblEmail.ForeColor = Color.DarkRed;
             lblEmail.Location = new Point(12, 193);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(44, 15);
@@ -200,6 +205,7 @@
             // lblNombreUsuario
             // 
             lblNombreUsuario.AutoSize = true;
+            lblNombreUsuario.ForeColor = Color.DarkRed;
             lblNombreUsuario.Location = new Point(282, 75);
             lblNombreUsuario.Name = "lblNombreUsuario";
             lblNombreUsuario.Size = new Size(97, 15);
@@ -209,6 +215,7 @@
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
+            lblTelefono.ForeColor = Color.DarkRed;
             lblTelefono.Location = new Point(12, 237);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(55, 15);
@@ -218,6 +225,7 @@
             // lblDireccion
             // 
             lblDireccion.AutoSize = true;
+            lblDireccion.ForeColor = Color.DarkRed;
             lblDireccion.Location = new Point(282, 114);
             lblDireccion.Name = "lblDireccion";
             lblDireccion.Size = new Size(36, 15);
@@ -227,6 +235,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.ForeColor = Color.DarkRed;
             label1.Location = new Point(282, 159);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
@@ -243,6 +252,7 @@
             // label2
             // 
             label2.AutoSize = true;
+            label2.ForeColor = Color.DarkRed;
             label2.Location = new Point(282, 204);
             label2.Name = "label2";
             label2.Size = new Size(48, 15);

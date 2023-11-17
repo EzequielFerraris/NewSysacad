@@ -16,14 +16,7 @@ namespace BibliotecaNewSysacad
         private dia diaCursada;
         private turno turnoCursada;
         private Carrera carrera;
-        
-        private string queryAgregarCurso = "INSERT INTO CURSO VALUES (@CODIGO, @NOMBRE, @DESCRIPCION, @CUPO_MAXIMO, @DIA_CURSADA, @TURNO_CURSADA, @CARRERA);";
-        private string queryActualizarCurso = "UPDATE CURSO SET NOMBRE = @NOMBRE, DESCRIPCION = @DESCRIPCION, CUPO_MAXIMO = @CUPO_MAXIMO, DIA_CURSADA = @DIA_CURSADA, TURNO_CURSADA = @TURNO_CURSADA, CARRERA = @CARRERA WHERE CODIGO = @CODIGO;";
-        private string queryEliminarCurso = "DELETE FROM CURSO WHERE CODIGO = @CODIGO;";
-        private string queryEliminarInscripciones = "DELETE FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE CODIGO_CURSO = @CODIGO_CURSO;";
-
-        private string queryActualizarInscriptos = "SELECT * FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE CODIGO_CURSO = @CODIGO_CURSO;";
-        private string queryActualizarListaEspera;
+        private decimal promedioMinimo;
         
         private List<int> estudiantesInscriptos;
         private Queue<int> listaDeEspera;
@@ -36,6 +29,7 @@ namespace BibliotecaNewSysacad
             this.codigo = 0;
             estudiantesInscriptos = new List<int>();
             listaDeEspera = new Queue<int>();
+            this.promedioMinimo = 0;
 
         }
         public Curso(string nombre, string descripcion, 
@@ -49,11 +43,11 @@ namespace BibliotecaNewSysacad
             this.diaCursada = diaCursada;
             this.turnoCursada = turnoCursada;
             this.carrera = carrera;
+            this.promedioMinimo = 0;
+
             estudiantesInscriptos = new List<int>();
             listaDeEspera = new Queue<int>();
         }
-
-
 
         public string Nombre 
         { 
@@ -135,11 +129,17 @@ namespace BibliotecaNewSysacad
             set => listaDeEspera = value;
         }
 
-        //ACTUALIZAR LISTA DE INSCRIPTOS
-
-
-        //ACTUALIZAR LISTA DE ESPERA
-
+        public decimal PromedioMinimo
+        {
+            get => promedioMinimo;
+            set
+            {
+                if (value >= 0 && value <= 10)
+                {
+                    promedioMinimo = value;
+                }
+            }
+        }
 
         //CHEQUEO SI HAY LUGAR PARA EL ESTUDIANTE
         public bool ChequearDisponibilidad()
@@ -205,6 +205,8 @@ namespace BibliotecaNewSysacad
             try
             {
                 BDConexion.conexion.Open();
+                string queryActualizarInscriptos = "SELECT * FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE CODIGO_CURSO = @CODIGO_CURSO;";
+
 
                 estudiantesInscriptos.Clear();
 
@@ -248,6 +250,7 @@ namespace BibliotecaNewSysacad
             bool condicion = ValidarCursoNuevo(out string campoRepetido);
             bool result = false;
             error = campoRepetido;
+            string queryAgregarCurso = "INSERT INTO CURSO VALUES (@CODIGO, @NOMBRE, @DESCRIPCION, @CUPO_MAXIMO, @DIA_CURSADA, @TURNO_CURSADA, @CARRERA, @PROMEDIO_MINIMO);";
 
             if (condicion)
             {
@@ -266,6 +269,7 @@ namespace BibliotecaNewSysacad
                     sqlCommand.Parameters.AddWithValue("@DIA_CURSADA", (int)this.DiaCursada);
                     sqlCommand.Parameters.AddWithValue("@TURNO_CURSADA", (int)this.TurnoCursada);
                     sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
+                    sqlCommand.Parameters.AddWithValue("@PROMEDIO_MINIMO", (decimal)this.PromedioMinimo);
 
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
@@ -293,12 +297,14 @@ namespace BibliotecaNewSysacad
         public bool EliminarDeBD()
         {
             bool result = false;
+            
             ActualizarLegajosInscriptos();
             if(this.EstudiantesInscriptos.Count() > 0)
             {
                 //HAY QUE ELIMINAR PRIMERO TODAS LAS INSCRIPCIONES
                 try
                 {
+                    string queryEliminarInscripciones = "DELETE FROM ESTUDIANTES_CURSOS_INSCRIPTOS WHERE CODIGO_CURSO = @CODIGO_CURSO;";
                     BDConexion.conexion.Open();
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = System.Data.CommandType.Text;
@@ -329,6 +335,7 @@ namespace BibliotecaNewSysacad
             //AHORA ELIMINAMOS EL CURSO
             try
             {
+                string queryEliminarCurso = "DELETE FROM CURSO WHERE CODIGO = @CODIGO;";
                 BDConexion.conexion.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = System.Data.CommandType.Text;
@@ -359,7 +366,9 @@ namespace BibliotecaNewSysacad
 
         public bool ActualizarEnBD()
         {
-            bool result = false;    
+            bool result = false;
+            string queryActualizarCurso = "UPDATE CURSO SET NOMBRE = @NOMBRE, DESCRIPCION = @DESCRIPCION, CUPO_MAXIMO = @CUPO_MAXIMO, DIA_CURSADA = @DIA_CURSADA, TURNO_CURSADA = @TURNO_CURSADA, CARRERA = @CARRERA, PROMEDIO_MINIMO = @PROMEDIO_MINIMO WHERE CODIGO = @CODIGO;";
+            
             try
             {
                 BDConexion.conexion.Open();
@@ -375,6 +384,7 @@ namespace BibliotecaNewSysacad
                 sqlCommand.Parameters.AddWithValue("@DIA_CURSADA", (int)this.DiaCursada);
                 sqlCommand.Parameters.AddWithValue("@TURNO_CURSADA", (int)this.TurnoCursada);
                 sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
+                sqlCommand.Parameters.AddWithValue("@PROMEDIO_MINIMO", (decimal)this.PromedioMinimo);
 
                 sqlCommand.ExecuteNonQuery();
                 sqlCommand.Parameters.Clear();

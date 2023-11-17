@@ -22,10 +22,7 @@ namespace BibliotecaNewSysacad
         private static List<Curso> listaCursos;
         private static List<Pago> listaPagosPendientes;
         private static List<Pago> listaPagosRealizados;
-        private static string dataBaseEstudiantesNombreArchivo = "DBEstudiantes.json";
-        private static string dataBaseCursosNombreArchivo = "DBCursos.json";
-        private static string dataBasePagosPendientes = "DBPagosPendientes.json";
-        private static string dataBasePagosRealizados = "DBPagosRealizados.json";
+        
         private static string actualizarEstudiantes = "SELECT * FROM ESTUDIANTE;";
         private static string actualizarAdministrador = "SELECT * FROM ADMINISTRADOR;";
         private static string actualizarCursos = "SELECT * FROM CURSO;";
@@ -84,26 +81,6 @@ namespace BibliotecaNewSysacad
             set => listaPagosPendientes = value;
         }
 
-        public static string DataBaseEstudiantesNombreArchivo
-        {
-            get => dataBaseEstudiantesNombreArchivo;
-        }
-
-        public static string DataBaseCursosNombreArchivo
-        {
-            get => dataBaseCursosNombreArchivo;
-        }
-
-        public static string DataBasePagosPendientes
-        {
-            get => dataBasePagosPendientes;
-        }
-
-        public static string DataBasePagosRealizados
-        {
-            get => dataBasePagosRealizados;
-        }
-
         public static string ActualizarEstudiantes
         {
             get => actualizarEstudiantes;
@@ -117,14 +94,14 @@ namespace BibliotecaNewSysacad
         //BD-------------------------------------------------------------------------------
 
         //LECTURA GENÉRICA DESDE LA BD
-        public static List<T> ActualizarLista<T>(string comandoCrearLista, Func<IDataReader, T> funcionMapeo)
+        public static List<T> ActualizarLista<T>(string query, Func<IDataReader, T> funcionMapeo)
         {
             List<T> lista = new List<T>();
             try
             {
 
                 BDConexion.conexion.Open();
-                BDConexion.comando.CommandText = comandoCrearLista;
+                BDConexion.comando.CommandText = query;
 
                 using (SqlDataReader dataReader = BDConexion.comando.ExecuteReader())
                 {
@@ -189,6 +166,7 @@ namespace BibliotecaNewSysacad
             curso.DiaCursada = (dia)Convert.ToInt32(dataReader["DIA_CURSADA"]);
             curso.TurnoCursada = (turno)Convert.ToInt32(dataReader["TURNO_CURSADA"]);
             curso.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
+            curso.PromedioMinimo = Convert.ToDecimal(dataReader["PROMEDIO_MINIMO"]);
 
             return curso;
         }
@@ -267,47 +245,7 @@ namespace BibliotecaNewSysacad
             return path;
         }
 
-        //ESCRIBE LOS ARCHIVOS DONDE PERSISTEN LOS DATOS
-        public static void EscribirJSON(string file, datoDelSistema tipo)
-        {
-            try
-            {
-                using (var writer = new StreamWriter(Combinar(file)))
-                {
-                    var options = new JsonSerializerOptions();
-                    options.WriteIndented = true;
-
-                    switch (tipo)
-                    {
-                        case datoDelSistema.estudiante:
-                            var json1 = JsonSerializer.Serialize(NewSysacad.listaEstudiantes, options);
-                            writer.Write(json1);
-                            break;
-                        case datoDelSistema.administrador:
-                            var json2 = JsonSerializer.Serialize(NewSysacad.listaAdministradores, options);
-                            writer.Write(json2);
-                            break;
-                        case datoDelSistema.curso:
-                            var json3 = JsonSerializer.Serialize(NewSysacad.listaCursos, options);
-                            writer.Write(json3);
-                            break;
-                        case datoDelSistema.pagoPendiente:
-                            var json4 = JsonSerializer.Serialize(NewSysacad.listaPagosPendientes, options);
-                            writer.Write(json4);
-                            break;
-                        case datoDelSistema.pagoRealizado:
-                            var json5 = JsonSerializer.Serialize(NewSysacad.listaPagosRealizados, options);
-                            writer.Write(json5);
-                            break;
-                    }
-                }
-            }
-            catch 
-            { 
-            
-            }
-            
-        }
+        
 
     //ESTUDIANTES-------------------------------------------------------------------
 

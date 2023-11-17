@@ -61,5 +61,7 @@ namespace NewSysacadFront
             get => txbTitular.Text;
             set => txbTitular.Text = string.Empty;
         }
+
+
     }
 }

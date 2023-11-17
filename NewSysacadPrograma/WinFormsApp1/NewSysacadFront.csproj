@@ -21,6 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Administrador\GestionRequisitosAcademicos\FrmEditarRequisitos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Administrador\GestionRequisitosAcademicos\FrmRequisitosCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Administrador\GestionRequisitosAcademicos\FrmListaDeRequisitos.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Administrador\Informes\FrmReporteInscripcionesCurso.cs">
       <SubType>Form</SubType>
     </Compile>

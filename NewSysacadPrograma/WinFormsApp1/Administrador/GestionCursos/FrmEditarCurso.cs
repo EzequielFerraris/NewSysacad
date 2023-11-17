@@ -32,7 +32,7 @@ namespace NewSysacadFront
             cbxDia.SelectedItem = cursoAEditar.DiaCursada;
             cbxTurno.SelectedItem = cursoAEditar.TurnoCursada;
             cbxCarrera.SelectedIndex = (int)cursoAEditar.Carrera;
-            
+
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -61,6 +61,7 @@ namespace NewSysacadFront
                 nuevoCurso.DiaCursada = (dia)cbxDia.SelectedValue;
                 nuevoCurso.TurnoCursada = (turno)cbxTurno.SelectedValue;
                 nuevoCurso.Carrera = (Carrera)this.cbxCarrera.SelectedIndex;
+                nuevoCurso.PromedioMinimo = cursoAEditar.PromedioMinimo;
 
                 List<string> props = new List<string> { nuevoCurso.Nombre, nuevoCurso.Descripcion };
                 List<int> props2 = new List<int> { nuevoCurso.CupoMaximo };
@@ -99,7 +100,7 @@ namespace NewSysacadFront
                 txbNombre.Text = nuevoCurso.Nombre;
                 txbDescripcion.Text = nuevoCurso.Descripcion;
                 txbCupoMax.Text = nuevoCurso.CupoMaximo.ToString();
-                
+
 
                 if (validados)
                 {
