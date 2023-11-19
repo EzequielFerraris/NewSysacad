@@ -27,7 +27,7 @@ namespace NewSysacadFront
             lblCarrera.Text = cursoObj.Carrera.ToString();
             lblPromedioMinimo.Text = cursoObj.PromedioMinimo.ToString();
 
-            dgvCorrelatividades.DataSource = admin.ObtenerCorrelativas(cursoObj);
+            dgvCorrelatividades.DataSource = cursoObj.ObtenerCorrelativas();
 
             listaPadre = lista;
         }

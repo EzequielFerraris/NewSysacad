@@ -73,7 +73,7 @@ namespace NewSysacadFront
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.tbxNombreUsuario.Text = "est1";
+            this.tbxNombreUsuario.Text = "est";
             this.txbPassword.Text = "1234";
             this.cbxUsuario.SelectedIndex = 0;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace BibliotecaNewSysacad
         
         private List<int> estudiantesInscriptos;
         private Queue<int> listaDeEspera;
+        private List<string> listaCorrelatividades;
 
         public Curso()
         {
@@ -30,6 +32,7 @@ namespace BibliotecaNewSysacad
             estudiantesInscriptos = new List<int>();
             listaDeEspera = new Queue<int>();
             this.promedioMinimo = 0;
+            listaCorrelatividades = new List<string>(); 
 
         }
         public Curso(string nombre, string descripcion, 
@@ -47,6 +50,7 @@ namespace BibliotecaNewSysacad
 
             estudiantesInscriptos = new List<int>();
             listaDeEspera = new Queue<int>();
+            listaCorrelatividades = new List<string>();
         }
 
         public string Nombre 
@@ -139,6 +143,16 @@ namespace BibliotecaNewSysacad
                     promedioMinimo = value;
                 }
             }
+        }
+
+        public List<string> ListaCorrelatividades
+        {
+            get
+            {
+                ActualizarListaCorrelatividades();
+                return listaCorrelatividades;
+            }
+            set => listaCorrelatividades = value;
         }
 
         //CHEQUEO SI HAY LUGAR PARA EL ESTUDIANTE
@@ -242,6 +256,112 @@ namespace BibliotecaNewSysacad
             }
         }
 
+        //CORRELATIVIDADES--------------------------------------------------------------
+
+
+        public DataTable ObtenerCorrelativas()
+        {
+            string query = "SELECT DISTINCT CURSO.NOMBRE, NOMBRE_CARRERAS.CARRERA, CURSO.CARRERA AS 'ID CARRERA' FROM CORRELATIVIDAD JOIN CURSO ON CORRELATIVIDAD.CORRELATIVIDAD = CURSO.CODIGO JOIN NOMBRE_CARRERAS ON CURSO.CARRERA = NOMBRE_CARRERAS.ID WHERE CORRELATIVIDAD.CODIGO_CURSO = @CODIGO;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@CODIGO", this.Codigo);
+
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
+        }
+
+        public bool RegistrarCorrelatividad(int codigo, int correlatividad)
+        {
+            bool result = false;
+            string query = "INSERT INTO CORRELATIVIDAD VALUES (@CODIGO, @CORRELATIVIDAD);";
+
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+                sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
+                sqlCommand.Parameters.AddWithValue("@CORRELATIVIDAD", correlatividad);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+                return result;
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+            return result;
+        }
+
+        public bool EliminarCorrelatividad(int codigo, int correlatividad)
+        {
+            bool result = false;
+            string query = "DELETE FROM CORRELATIVIDAD WHERE CODIGO_CURSO = @CODIGO AND CORRELATIVIDAD = @CORRELATIVIDAD;";
+
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+                sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
+                sqlCommand.Parameters.AddWithValue("@CORRELATIVIDAD", correlatividad);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+                return result;
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+            return result;
+        }
+
+        private void ActualizarListaCorrelatividades()
+        {
+            List<string> result = new List<string>();
+
+            DataTable dt = this.ObtenerCorrelativas();
+            
+            foreach (DataRow dr in dt.Rows) 
+            {
+                result.Add(dr[0].ToString());
+            }
+
+            listaCorrelatividades = result;
+        }
+
+        public bool ChequearRequisitoCorrelativas(List<string> cursosAprobadosPorEstudiante)
+        {
+            bool result = true;
+
+            foreach (string curso in this.ListaCorrelatividades)
+            {
+                if(!cursosAprobadosPorEstudiante.Contains(curso))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
 
         //BD-------------------------------------------------------------------------------
         public bool AgregarABD(out string error)

@@ -48,7 +48,7 @@ namespace NewSysacadFront
             List<Curso> lista = EstudianteUsuario.ObtenerCursosVisibles();
             foreach (Curso curso in lista)
             {
-                FrmCursoParaEstudiante cardCurso = new FrmCursoParaEstudiante(curso, this);
+                FrmCursoParaEstudiante cardCurso = new FrmCursoParaEstudiante(curso, this, EstudianteUsuario);
                 cursosAgregados.Add(cardCurso);
             }
         }
@@ -111,7 +111,7 @@ namespace NewSysacadFront
                     string mensajeConfirmacion = "No ha seleccionado ningún curso.";
                     DialogResult confirmacion = MessageBox.Show(mensajeConfirmacion, tituloConfirmacion);
                 }
-                else
+                else //SI HAY SELECCION
                 {
                     string listaErrores = string.Empty;
                     string listaInscripciones = string.Empty;
@@ -119,25 +119,44 @@ namespace NewSysacadFront
 
                     foreach (Curso curso in cursosSeleccionados)
                     {
-
+                        //CHEQUEA QUE EL ESTUDIANTE TENGA DISPONIBILIDAD HORARIA
                         if (EstudianteUsuario.ChequearDisponibilidadDelEstudiante(curso))
                         {
-                            //INSCRIBE AL USUARIO EN LA CLASE CURSO
-                            bool inscripcion = curso.ChequearDisponibilidad();
-
-                            if (!inscripcion)
+                            //CHEQUEAR PROMEDIO 
+                            if (EstudianteUsuario.Promedio >= curso.PromedioMinimo)
                             {
-                                //LISTA DE ESPERA
-                                listaListasDeEspera.Add(curso);
+                                //CHEQUEAR EQUIVALENCIAS
+
+                                bool chequearCorrelativas = curso.ChequearRequisitoCorrelativas(EstudianteUsuario.ObtenerNombresCursosAprobados());
+                                if (chequearCorrelativas)
+                                {
+                                    //CHEQUEA QUE HAYA LUGAR EN EL CURSO
+                                    bool inscripcion = curso.ChequearDisponibilidad();
+
+                                    if (!inscripcion)
+                                    {
+                                        //LISTA DE ESPERA
+                                        listaListasDeEspera.Add(curso);
+                                    }
+                                    else
+                                    {
+                                        //INSCRIBE AL ESTUDIANTE - GUARDA EN BD
+                                        listaInscripciones += $"{curso.Nombre}: Inscripción exitosa.\n";
+                                        EstudianteUsuario.InscribirEnCurso(curso);
+                                        EstudianteUsuario.ActualizarCodigosCursosInscripto();
+                                    }
+                                }
+                                else
+                                {
+                                    listaErrores += $"{curso.Nombre}: El estudiante no cuenta con las equivalencias necesarias para inscribirse en este curso.\n";
+                                }
+                                
                             }
                             else
                             {
-                                
-                                //REGISTRA EL CODIGO DEL CURSO EN LA INFO DEL ESTUDIANTE
-                                listaInscripciones += $"{curso.Nombre}: Inscripción exitosa.\n";
-                                EstudianteUsuario.InscribirEnCurso(curso);
-                                EstudianteUsuario.ActualizarCodigosCursosInscripto();
+                                listaErrores += $"{curso.Nombre}: El estudiante no cuenta con el promedio necesario para inscribirse en este curso.\n";
                             }
+                            
                         }
                         else
                         {

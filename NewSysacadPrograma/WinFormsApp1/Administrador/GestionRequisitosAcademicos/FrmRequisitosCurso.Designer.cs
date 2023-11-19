@@ -185,7 +185,7 @@
             // 
             lblNombre.AutoSize = true;
             lblNombre.Dock = DockStyle.Fill;
-            lblNombre.ForeColor = Color.Brown;
+            lblNombre.ForeColor = Color.DarkRed;
             lblNombre.Location = new Point(81, 0);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(123, 27);
@@ -197,7 +197,7 @@
             lbl1.AutoSize = true;
             lbl1.Dock = DockStyle.Fill;
             lbl1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl1.ForeColor = Color.Brown;
+            lbl1.ForeColor = Color.DarkRed;
             lbl1.Location = new Point(3, 0);
             lbl1.Name = "lbl1";
             lbl1.Size = new Size(72, 27);

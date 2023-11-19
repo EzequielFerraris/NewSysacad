@@ -21,6 +21,7 @@ namespace BibliotecaNewSysacad
         private Carrera carrera;
         public bool debeCambiarPassword;
         private int legajo;
+        private decimal promedio;
 
         private List<int> cursosInscriptoCodigos;
         private List<string> cursosAprobados;
@@ -38,6 +39,7 @@ namespace BibliotecaNewSysacad
             this.altura = string.Empty;
             this.telefono = string.Empty;
             this.carrera = Carrera.TUP;
+            this.promedio = 0;
 
             cursosInscriptoCodigos = new List<int>();
             cursosAprobados = new List<string>();
@@ -133,6 +135,12 @@ namespace BibliotecaNewSysacad
             set => enListaDeEspera = value;
         }
 
+        public decimal Promedio
+        {
+            get => promedio;
+            set => promedio = value;
+        }
+  
 
         //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
         //LISTA DE CURSOS
@@ -275,6 +283,33 @@ namespace BibliotecaNewSysacad
             }
             return result;
             
+        }
+
+        public DataTable ObtenerCursosAprobados()
+        {
+            string query = "SELECT NOMBRE_MATERIA, NOTA_FINAL FROM ALUMNOS_CURSOS_APROBADOS WHERE LEGAJO = @LEGAJO;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@LEGAJO", this.Legajo);
+
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
+        }
+
+
+        public List<string> ObtenerNombresCursosAprobados()
+        { 
+            List<string> result = new List<string>();
+
+            DataTable dt = this.ObtenerCursosAprobados();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                result.Add(dr[0].ToString());
+            }
+
+            return result;
         }
 
         //LISTAS DE ESPERA-------------------------------------------------------
@@ -431,7 +466,7 @@ namespace BibliotecaNewSysacad
             {
                 try
                 {
-                    string query = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD);";
+                    string query = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD, @PROMEDIO);";
                     BDConexion.conexion.Open();
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = System.Data.CommandType.Text;
@@ -449,6 +484,7 @@ namespace BibliotecaNewSysacad
                     sqlCommand.Parameters.AddWithValue("@DEBE_CAMBIAR_PASS", this.DebeCambiarPassword);
                     sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", this.Inscripcion.ToString("yyyy-MM-dd"));
                     sqlCommand.Parameters.AddWithValue("@PASSWORD", this.Password);
+                    sqlCommand.Parameters.AddWithValue("@PROMEDIO", this.Promedio);
 
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
@@ -484,7 +520,7 @@ namespace BibliotecaNewSysacad
             bool result = false;    
             try
             {
-                string query = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD WHERE LEGAJO = @LEGAJO;";
+                string query = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD WHERE LEGAJO = @LEGAJO, PROMEDIO = @PROMEDIO;";
                 BDConexion.conexion.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = System.Data.CommandType.Text;
@@ -503,6 +539,7 @@ namespace BibliotecaNewSysacad
                 sqlCommand.Parameters.AddWithValue("@DEBE_CAMBIAR_PASS", this.DebeCambiarPassword);
                 sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", this.Inscripcion.ToString("yyyy-MM-dd"));
                 sqlCommand.Parameters.AddWithValue("@PASSWORD", this.Password);
+                sqlCommand.Parameters.AddWithValue("@PROMEDIO", this.Promedio);
 
                 sqlCommand.Parameters.AddWithValue("@LEGAJO", (int)this.Legajo);
 

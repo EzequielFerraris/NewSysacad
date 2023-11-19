@@ -140,6 +140,7 @@ namespace BibliotecaNewSysacad
             estudiante.Inscripcion = Convert.ToDateTime(dataReader["INSCRIPCION_FECHA"]);
             estudiante.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
             estudiante.Legajo = Convert.ToInt32(dataReader["LEGAJO"]);
+            estudiante.Promedio = Convert.ToDecimal(dataReader["PROMEDIO"]);
 
             return estudiante;
         }
@@ -197,6 +198,7 @@ namespace BibliotecaNewSysacad
             pago.LegajoDelEstudiante = Convert.ToInt32(dataReader["LEGAJO_ESTUDIANTE"]);
             pago.FechaLimite = Convert.ToDateTime(dataReader["FECHA_LIMITE"]);
             pago.FormaDePago = (FormaDePago)Convert.ToInt32(dataReader["FORMA_DE_PAGO"]);
+
 
             return pago;
         }

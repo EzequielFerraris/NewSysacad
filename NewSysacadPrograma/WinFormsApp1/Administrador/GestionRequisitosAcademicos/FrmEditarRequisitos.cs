@@ -33,7 +33,7 @@ namespace NewSysacadFront
             ObtenerCursosCarrera();
 
             this.lblTitulo.Text = $"Editar requisitos {curso.Nombre} ({curso.Codigo})";
-            dgvCorrelatividades.DataSource = admin.ObtenerCorrelativas(cursoAEditar);
+            dgvCorrelatividades.DataSource = cursoAEditar.ObtenerCorrelativas();
 
             this.txbPromedio.Text = cursoAEditar.PromedioMinimo.ToString();
             this.cbxCarrera.SelectedIndex = 0;
@@ -65,16 +65,20 @@ namespace NewSysacadFront
                     switch ((int)curso1.Carrera)
                     {
                         case 0:
-                            nombresCursos0.Add(curso1.Nombre);
+                            if (!nombresCursos0.Contains(curso1.Nombre))
+                            { nombresCursos0.Add(curso1.Nombre); }
                             break;
                         case 1:
-                            nombresCursos1.Add(curso1.Nombre);
+                            if (!nombresCursos0.Contains(curso1.Nombre))
+                            { nombresCursos1.Add(curso1.Nombre); }
                             break;
                         case 2:
-                            nombresCursos2.Add(curso1.Nombre);
+                            if (!nombresCursos0.Contains(curso1.Nombre))
+                            { nombresCursos2.Add(curso1.Nombre); }
                             break;
                         case 3:
-                            nombresCursos3.Add(curso1.Nombre);
+                            if (!nombresCursos3.Contains(curso1.Nombre))
+                            { nombresCursos0.Add(curso1.Nombre); }
                             break;
 
                     }
@@ -154,6 +158,7 @@ namespace NewSysacadFront
                     string correcto = "Información actualizada correctamente";
                     DialogResult result = MessageBox.Show(correcto, tituloMensaje);
                     listaPadre.ActualizarLista();
+                    this.Close();
                 }
             }
             else
@@ -177,13 +182,14 @@ namespace NewSysacadFront
                 {
                     if (curso.Nombre == cbxCursos.SelectedValue.ToString() && curso.Carrera == (Carrera)cbxCarrera.SelectedIndex)
                     {
-                        admin.RegistrarCorrelatividad(this.cursoAEditar.Codigo, curso.Codigo);
+                        cursoAEditar.RegistrarCorrelatividad(this.cursoAEditar.Codigo, curso.Codigo);
                     }
                 }
 
                 string correcto = "Información actualizada correctamente";
                 DialogResult result = MessageBox.Show(correcto, tituloMensaje);
                 listaPadre.ActualizarLista();
+                this.Close();
             }
         }
 
@@ -207,12 +213,13 @@ namespace NewSysacadFront
                         for (int i = 0; i < selectedRowCount; i++)
                         {
                             string nombre = dgvCorrelatividades.SelectedRows[i].Cells[0].Value.ToString();
-                            int carrera = (int)dgvCorrelatividades.SelectedRows[i].Cells[1].Value;
+                            int carrera = (int)dgvCorrelatividades.SelectedRows[i].Cells[2].Value;
+
 
                             if (curso.Nombre == nombre && curso.Carrera == (Carrera)carrera)
                             {
                                 //this.TEST.Text += $"{this.cursoAEditar.Codigo}  {curso.Codigo}\n";
-                                admin.EliminarCorrelatividad(this.cursoAEditar.Codigo, curso.Codigo);
+                                cursoAEditar.EliminarCorrelatividad(this.cursoAEditar.Codigo, curso.Codigo);
                             }
 
                         }
@@ -222,6 +229,7 @@ namespace NewSysacadFront
                     string correcto = "Información actualizada correctamente";
                     DialogResult result = MessageBox.Show(correcto, tituloMensaje);
                     listaPadre.ActualizarLista();
+                    this.Close();
                 }
 
             }

@@ -25,7 +25,8 @@ namespace NewSysacadFront
             EstadoMenusPorDefecto();
 
             usuario = NewSysacad.ObtenerEstudiante(nombreUsuarioEstudiante);
-            lbNombreEstudiante.Text = $"Usuario: {usuario.NombreUsuario}";
+            
+            lbNombreEstudiante.Text = $"Usuario: {usuario.NombreUsuario} \n";
 
             listaDeCursos = new FrmListaCursosEstudiante(usuario);
             listaDeCursos.TopLevel = false;
