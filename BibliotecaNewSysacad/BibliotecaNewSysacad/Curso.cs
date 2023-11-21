@@ -20,8 +20,8 @@ namespace BibliotecaNewSysacad
         private decimal promedioMinimo;
         
         private List<int> estudiantesInscriptos;
-        private Queue<int> listaDeEspera;
         private List<string> listaCorrelatividades;
+        private List<int> listaDeEspera;
 
         public Curso()
         {
@@ -30,9 +30,9 @@ namespace BibliotecaNewSysacad
             this.cupoMaximo = 0;
             this.codigo = 0;
             estudiantesInscriptos = new List<int>();
-            listaDeEspera = new Queue<int>();
             this.promedioMinimo = 0;
-            listaCorrelatividades = new List<string>(); 
+            listaCorrelatividades = new List<string>();
+            listaDeEspera = new List<int>();
 
         }
         public Curso(string nombre, string descripcion, 
@@ -49,8 +49,8 @@ namespace BibliotecaNewSysacad
             this.promedioMinimo = 0;
 
             estudiantesInscriptos = new List<int>();
-            listaDeEspera = new Queue<int>();
             listaCorrelatividades = new List<string>();
+            listaDeEspera = new List<int>();
         }
 
         public string Nombre 
@@ -127,12 +127,6 @@ namespace BibliotecaNewSysacad
             set => carrera = value;
         }
 
-        public Queue<int> ListaDeEspera
-        {
-            get => listaDeEspera;
-            set => listaDeEspera = value;
-        }
-
         public decimal PromedioMinimo
         {
             get => promedioMinimo;
@@ -154,7 +148,13 @@ namespace BibliotecaNewSysacad
             }
             set => listaCorrelatividades = value;
         }
-
+        
+        public List<int> ListaDeEspera
+        {
+            get => listaDeEspera;
+            set => listaDeEspera = value;
+        }
+        
         //CHEQUEO SI HAY LUGAR PARA EL ESTUDIANTE
         public bool ChequearDisponibilidad()
         {
@@ -166,28 +166,6 @@ namespace BibliotecaNewSysacad
             return resultado;
         }
 
-        //INSCRIPCION EN LA LISTA DE ESPERA
-        public bool InscribirEstudianteEnListaDeEspera(Estudiante estudianteNuevo, out string error)
-        {
-            bool resultado = true;
-            error = "";
-
-            foreach (int legajo in listaDeEspera)
-            {
-                if (legajo == estudianteNuevo.Legajo)
-                {
-                    error = "Usuario ya inscripto.";
-                    resultado = false;
-                    break;
-                }  
-            }
-            if (resultado)
-            {
-                listaDeEspera.Enqueue(estudianteNuevo.Legajo);
-            }
-
-            return resultado;
-        }
 
         public int CantidadInscriptos()
         {
@@ -360,6 +338,135 @@ namespace BibliotecaNewSysacad
                     result = false;
                 }
             }
+            return result;
+        }
+
+        //LISTAS DE ESPERA-------------------------------------------------------
+        
+        private int MapeoEstudiantesEnEspera(IDataReader dataReader)
+        {
+            int legajo = Convert.ToInt32(dataReader["LEGAJO_ESTUDIANTE"]);
+
+            return legajo;
+        }
+
+        
+        private void ObtenerEstudiantesEnListaEspera()
+        {
+            string query = "SELECT LEGAJO_ESTUDIANTE FROM LISTAS_DE_ESPERA WHERE CODIGO_CURSO = @CODIGO ORDER BY FECHA_INSCRIPCION, ID;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = System.Data.CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@CODIGO", this.Codigo);
+
+            ListaDeEspera = ConsultasBD.ObtenerLista(sqlCommand, MapeoEstudiantesEnEspera);
+        }
+
+        
+        public bool ChequearListaEspera(int legajoEst)
+        {
+            bool resultado = true;
+            ObtenerEstudiantesEnListaEspera();
+
+            foreach (int legajo in ListaDeEspera)
+            {
+                if (legajo == legajoEst)
+                {
+                    resultado = false; break;
+                }
+            }
+
+            return resultado;
+        }
+        
+        public void InscribirEnListaEspera(int legajo)
+        {
+            try
+            {
+                string query = "INSERT INTO LISTAS_DE_ESPERA VALUES(@CODIGO_CURSO, @LEGAJO_ESTUDIANTE, @FECHA_INSCRIPCION);";
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = System.Data.CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+
+                sqlCommand.Parameters.AddWithValue("@CODIGO_CURSO", this.Codigo);
+                sqlCommand.Parameters.AddWithValue("@LEGAJO_ESTUDIANTE", legajo);
+                sqlCommand.Parameters.AddWithValue("@FECHA_INSCRIPCION", DateTime.Now.ToString("yyyy-MM-dd"));
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+        }
+
+        public int NumeroInscriptosListaEspera()
+        {
+            string query = "SELECT COUNT(*) FROM LISTAS_DE_ESPERA WHERE CODIGO_CURSO = @CODIGO;";
+
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@CODIGO", this.codigo);
+
+            return ConsultasBD.ObtenerCantidad(sqlCommand);
+
+        }
+
+        public DataTable ListaInscriptosListaEspera()
+        {
+            string query = "SELECT LISTAS_DE_ESPERA.FECHA_INSCRIPCION AS 'FECHA', ESTUDIANTE.LEGAJO, ESTUDIANTE.APELLIDO, ESTUDIANTE.NOMBRE FROM LISTAS_DE_ESPERA JOIN ESTUDIANTE ON LISTAS_DE_ESPERA.LEGAJO_ESTUDIANTE = ESTUDIANTE.LEGAJO WHERE CODIGO_CURSO = @CODIGO ORDER BY LISTAS_DE_ESPERA.FECHA_INSCRIPCION, LISTAS_DE_ESPERA.ID;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@CODIGO", this.Codigo);
+
+            return ConsultasBD.ObtenerDataTabla(sqlCommand);
+        }
+
+        public bool EliminarEstudianteDeListaDeEspera(int legajo)
+        {
+            bool result = false;
+
+            string query = "DELETE FROM LISTAS_DE_ESPERA WHERE CODIGO_CURSO = @CODIGO AND LEGAJO_ESTUDIANTE = @LEGAJO;";
+
+            try
+            {
+                BDConexion.conexion.Open();
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = BDConexion.conexion;
+                sqlCommand.CommandText = query;
+                sqlCommand.Parameters.AddWithValue("@CODIGO", this.Codigo);
+                sqlCommand.Parameters.AddWithValue("@LEGAJO", legajo);
+
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+                return result;
+                throw;
+            }
+            finally
+            {
+                BDConexion.conexion.Close();
+            }
+
+
+
             return result;
         }
 

@@ -24,6 +24,9 @@
     <Compile Update="Administrador\GestionRequisitosAcademicos\FrmEditarRequisitos.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Administrador\ListasDeEspera\FrmCursosConListaDeEspera.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Administrador\GestionRequisitosAcademicos\FrmRequisitosCurso.cs">
       <SubType>Form</SubType>
     </Compile>

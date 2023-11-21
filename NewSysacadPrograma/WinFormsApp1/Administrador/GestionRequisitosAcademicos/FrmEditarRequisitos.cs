@@ -218,7 +218,7 @@ namespace NewSysacadFront
 
                             if (curso.Nombre == nombre && curso.Carrera == (Carrera)carrera)
                             {
-                                //this.TEST.Text += $"{this.cursoAEditar.Codigo}  {curso.Codigo}\n";
+                                
                                 cursoAEditar.EliminarCorrelatividad(this.cursoAEditar.Codigo, curso.Codigo);
                             }
 

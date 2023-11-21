@@ -22,8 +22,8 @@ namespace NewSysacadFront
             this.admin = admin;
             this.lblCurso.Text = curso.Nombre;
             this.lblCarrera.Text = curso.Carrera.ToString();
-            this.lblCantidad.Text = admin.InscriptosListaEspera(curso.Codigo).ToString();
-            this.dgvInscripciones.DataSource = admin.ListaInscriptosListaEspera(curso.Codigo);
+            this.lblCantidad.Text = curso.NumeroInscriptosListaEspera().ToString();
+            this.dgvInscripciones.DataSource = curso.ListaInscriptosListaEspera();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

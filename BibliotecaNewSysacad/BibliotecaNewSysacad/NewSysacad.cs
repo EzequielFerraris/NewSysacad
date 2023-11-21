@@ -276,12 +276,27 @@ namespace BibliotecaNewSysacad
                 if (nombreDeUsuario == estudiante.NombreUsuario)
                 {
                     resultado = estudiante;
+                    break;
                 }
             }
             return resultado;
         }
 
-        
+        public static Estudiante ObtenerEstudiante(int legajo)
+        {
+            Estudiante resultado = new Estudiante();
+
+            foreach (Estudiante estudiante in listaEstudiantes)
+            {
+                if (legajo == estudiante.Legajo)
+                {
+                    resultado = estudiante;
+                    break;
+                }
+            }
+            return resultado;
+        }
+
 
         //-------------------------------------------------------------------------
 

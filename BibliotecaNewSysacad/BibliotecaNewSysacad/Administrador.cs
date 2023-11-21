@@ -187,32 +187,18 @@ namespace BibliotecaNewSysacad
             return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
         // LISTA DE ESPERA ---------------------------------------------------------------------
-        public int InscriptosListaEspera(int codigo)
+        
+        public DataTable ObtenerCursosConListaDeEspera()
         {
-            string query = "SELECT COUNT(*) FROM LISTAS_DE_ESPERA WHERE CODIGO_CURSO = @CODIGO;";
-
+            string query = "SELECT DISTINCT LISTAS_DE_ESPERA.CODIGO_CURSO AS 'CODIGO', CURSO.NOMBRE AS 'MATERIA' FROM LISTAS_DE_ESPERA JOIN CURSO ON LISTAS_DE_ESPERA.CODIGO_CURSO = CURSO.CODIGO;";
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandType = CommandType.Text;
             sqlCommand.Connection = BDConexion.conexion;
             sqlCommand.CommandText = query;
-            sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
-
-            return ConsultasBD.ObtenerCantidad(sqlCommand);
-
-        }
-
-        public DataTable ListaInscriptosListaEspera(int codigo)
-        {
-            string query = "SELECT LISTAS_DE_ESPERA.FECHA_INSCRIPCION AS 'FECHA', ESTUDIANTE.LEGAJO, ESTUDIANTE.APELLIDO, ESTUDIANTE.NOMBRE FROM LISTAS_DE_ESPERA JOIN ESTUDIANTE ON LISTAS_DE_ESPERA.LEGAJO_ESTUDIANTE = ESTUDIANTE.LEGAJO WHERE CODIGO_CURSO = @CODIGO;";
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandType = CommandType.Text;
-            sqlCommand.Connection = BDConexion.conexion;
-            sqlCommand.CommandText = query;
-            sqlCommand.Parameters.AddWithValue("@CODIGO", codigo);
 
             return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
-        
+
     }
 
 }

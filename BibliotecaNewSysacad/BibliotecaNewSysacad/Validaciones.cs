@@ -49,8 +49,9 @@ namespace BibliotecaNewSysacad
             if (numero <= 0)
                 return false;
             return true;
-
         }
+
+
 
         public static bool ValidarNombreYApellido(string nombre)
         {
@@ -177,6 +178,15 @@ namespace BibliotecaNewSysacad
                 return false;
 
             if (numero < 0 || numero > 10)
+                return false;
+            return true;
+        }
+
+        public static bool ValidarIntPositivo(string intpositivo)
+        {
+            if (!int.TryParse(intpositivo, out var numero))
+                return false;
+            if (numero <= 0)
                 return false;
             return true;
         }

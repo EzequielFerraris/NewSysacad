@@ -19,7 +19,7 @@ namespace NewSysacadFront
         private FrmAgregarCurso formAgregarCurso;
         private FrmControlReportes frmControlReportes;
         private FrmListaDeRequisitos listaDeRequisitos;
-
+        private FrmCursosConListaDeEspera cursosConListaDeEspera;
 
         public FrmHomeAdministrador(Administrador admin)
         {
@@ -52,6 +52,11 @@ namespace NewSysacadFront
             listaDeRequisitos.TopLevel = false;
             pnlDisplay.Controls.Add(listaDeRequisitos);
             listaDeRequisitos.Hide();
+
+            cursosConListaDeEspera = new FrmCursosConListaDeEspera(admin);
+            cursosConListaDeEspera.TopLevel = false;
+            pnlDisplay.Controls.Add(cursosConListaDeEspera);
+            cursosConListaDeEspera.Hide();
 
         }
 
@@ -88,6 +93,7 @@ namespace NewSysacadFront
             frmControlReportes.Hide();
             formAgregarCurso.Hide();
             listaDeRequisitos.Hide();
+            cursosConListaDeEspera.Hide();
 
             if (formAgregarEstudiante.agregado)
             {
@@ -106,6 +112,7 @@ namespace NewSysacadFront
             formAgregarEstudiante.Hide();
             frmControlReportes.Hide();
             listaDeRequisitos.Hide();
+            cursosConListaDeEspera.Hide();
             listaDeCursos.ActualizarLista();
             listaDeCursos.Show();
 
@@ -135,6 +142,7 @@ namespace NewSysacadFront
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
             listaDeRequisitos.Hide();
+            cursosConListaDeEspera.Hide();
             frmControlReportes.Show();
         }
 
@@ -145,6 +153,7 @@ namespace NewSysacadFront
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
             frmControlReportes.Hide();
+            cursosConListaDeEspera.Hide();
             listaDeRequisitos.ActualizarLista();
             listaDeRequisitos.Show();
         }
@@ -162,6 +171,15 @@ namespace NewSysacadFront
             }
         }
 
-        
+        private void btnListasEspera_Click(object sender, EventArgs e)
+        {
+            EsconderSubMenus();
+            listaDeCursos.Hide();
+            formAgregarEstudiante.Hide();
+            formAgregarCurso.Hide();
+            frmControlReportes.Hide();
+            listaDeRequisitos.Hide();
+            cursosConListaDeEspera.Show();
+        }
     }
 }

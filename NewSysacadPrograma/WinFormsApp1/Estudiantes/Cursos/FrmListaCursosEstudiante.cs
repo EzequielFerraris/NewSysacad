@@ -164,7 +164,30 @@ namespace NewSysacadFront
                         }
                     }
 
+                    if (listaListasDeEspera.Count() > 0)
+                    {
+                        //PREGUNTA POR LAS INSCRIPCIONES A LISTA DE ESPERA
+                        foreach (Curso curso in listaListasDeEspera)
+                        {
+                            string msjListaEspera = $"El curso {curso.Nombre} está completo ¿Desea inscribirse en la lista de espera?";
+                            MessageBoxButtons btns = MessageBoxButtons.YesNo;
+                            DialogResult resultado = MessageBox.Show(msjListaEspera, tituloConfirmacion, btns);
 
+                            if (resultado == DialogResult.Yes)
+                            {
+                                if (curso.ChequearListaEspera(EstudianteUsuario.Legajo))
+                                {
+                                    curso.InscribirEnListaEspera(EstudianteUsuario.Legajo);
+                                    string msjListaEspera2 = $"{curso.Nombre}: Inscripción exitosa.\n";
+                                    DialogResult confirmacion = MessageBox.Show(msjListaEspera2, tituloConfirmacion);
+                                }
+                                else
+                                {
+                                    listaErrores += $"{curso.Nombre}: El estudiante ya se encuentra registrado en la lista de espera de este curso.\n";
+                                }
+                            }
+                        }
+                    }
 
                     if (listaErrores != string.Empty) //MUESTRA LOS ERRORES
                     {
@@ -176,26 +199,7 @@ namespace NewSysacadFront
                         string mensajeConfirmacion1 = listaInscripciones;
                         DialogResult confirmacion1 = MessageBox.Show(mensajeConfirmacion1, tituloConfirmacion);
                     }
-                    if(listaListasDeEspera.Count() > 0)
-                    {
-                        //PREGUNTA POR LAS INSCRIPCIONES A LISTA DE ESPERA
-                        foreach (Curso curso in listaListasDeEspera)
-                        {
-                            string msjListaEspera = $"El curso {curso.Nombre} está completo ¿Desea inscribirse en la lista de espera?";
-                            MessageBoxButtons btns = MessageBoxButtons.YesNo;
-                            DialogResult resultado = MessageBox.Show(msjListaEspera, tituloConfirmacion, btns);
-
-                            if (resultado == DialogResult.Yes)
-                            {
-                                if (EstudianteUsuario.ChequearListaEspera(curso.Codigo))
-                                {
-                                    EstudianteUsuario.InscribirEnListaEspera(curso.Codigo);
-                                    string msjListaEspera2 = $"{curso.Nombre}: Inscripción exitosa.\n";
-                                    DialogResult confirmacion = MessageBox.Show(msjListaEspera2, tituloConfirmacion);
-                                }
-                            }
-                        }
-                    }
+                   
 
                 }
 

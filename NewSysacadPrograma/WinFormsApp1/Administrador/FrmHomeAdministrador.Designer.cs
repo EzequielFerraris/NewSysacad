@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnRequisitosAcademicos = new Button();
             btnReportes = new Button();
             btnSalir = new Button();
             pnlSubMenuGE = new Panel();
@@ -41,7 +42,7 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             pnlDisplay = new Panel();
-            btnRequisitosAcademicos = new Button();
+            btnListasEspera = new Button();
             panel1.SuspendLayout();
             pnlSubMenuGE.SuspendLayout();
             panel3.SuspendLayout();
@@ -52,6 +53,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(102, 97, 130);
+            panel1.Controls.Add(btnListasEspera);
             panel1.Controls.Add(btnRequisitosAcademicos);
             panel1.Controls.Add(btnReportes);
             panel1.Controls.Add(btnSalir);
@@ -64,6 +66,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 461);
             panel1.TabIndex = 0;
+            // 
+            // btnRequisitosAcademicos
+            // 
+            btnRequisitosAcademicos.Dock = DockStyle.Top;
+            btnRequisitosAcademicos.FlatAppearance.BorderSize = 0;
+            btnRequisitosAcademicos.FlatAppearance.MouseDownBackColor = Color.Coral;
+            btnRequisitosAcademicos.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
+            btnRequisitosAcademicos.FlatStyle = FlatStyle.Flat;
+            btnRequisitosAcademicos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRequisitosAcademicos.ForeColor = Color.DarkRed;
+            btnRequisitosAcademicos.Location = new Point(0, 260);
+            btnRequisitosAcademicos.Name = "btnRequisitosAcademicos";
+            btnRequisitosAcademicos.Size = new Size(200, 46);
+            btnRequisitosAcademicos.TabIndex = 6;
+            btnRequisitosAcademicos.Text = "Gestionar Requisitos Académicos";
+            btnRequisitosAcademicos.UseVisualStyleBackColor = true;
+            btnRequisitosAcademicos.Click += btnRequisitosAcademicos_Click;
             // 
             // btnReportes
             // 
@@ -224,22 +243,22 @@
             pnlDisplay.Size = new Size(584, 361);
             pnlDisplay.TabIndex = 2;
             // 
-            // btnRequisitosAcademicos
+            // btnListasEspera
             // 
-            btnRequisitosAcademicos.Dock = DockStyle.Top;
-            btnRequisitosAcademicos.FlatAppearance.BorderSize = 0;
-            btnRequisitosAcademicos.FlatAppearance.MouseDownBackColor = Color.Coral;
-            btnRequisitosAcademicos.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
-            btnRequisitosAcademicos.FlatStyle = FlatStyle.Flat;
-            btnRequisitosAcademicos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnRequisitosAcademicos.ForeColor = Color.DarkRed;
-            btnRequisitosAcademicos.Location = new Point(0, 260);
-            btnRequisitosAcademicos.Name = "btnRequisitosAcademicos";
-            btnRequisitosAcademicos.Size = new Size(200, 46);
-            btnRequisitosAcademicos.TabIndex = 6;
-            btnRequisitosAcademicos.Text = "Gestionar Requisitos Académicos";
-            btnRequisitosAcademicos.UseVisualStyleBackColor = true;
-            btnRequisitosAcademicos.Click += btnRequisitosAcademicos_Click;
+            btnListasEspera.Dock = DockStyle.Top;
+            btnListasEspera.FlatAppearance.BorderSize = 0;
+            btnListasEspera.FlatAppearance.MouseDownBackColor = Color.Coral;
+            btnListasEspera.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
+            btnListasEspera.FlatStyle = FlatStyle.Flat;
+            btnListasEspera.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnListasEspera.ForeColor = Color.DarkRed;
+            btnListasEspera.Location = new Point(0, 306);
+            btnListasEspera.Name = "btnListasEspera";
+            btnListasEspera.Size = new Size(200, 46);
+            btnListasEspera.TabIndex = 7;
+            btnListasEspera.Text = "Manejar Listas de Espera";
+            btnListasEspera.UseVisualStyleBackColor = true;
+            btnListasEspera.Click += btnListasEspera_Click;
             // 
             // FrmHomeAdministrador
             // 
@@ -279,5 +298,6 @@
         private PictureBox pictureBox1;
         private Button btnReportes;
         private Button btnRequisitosAcademicos;
+        private Button btnListasEspera;
     }
 }
