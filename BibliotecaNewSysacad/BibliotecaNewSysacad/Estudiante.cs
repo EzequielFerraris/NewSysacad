@@ -515,10 +515,16 @@ namespace BibliotecaNewSysacad
         }
 
         //ENVIA UN CORREO ELECTRONICO AL ESTUDIANTE REGISTRADO (?)
-        public bool EnviarCorreoElectronico()
+        public void EnviarCorreoRegistro()
         {
-            return true;
+            string mensaje = $"Estimado/a {this.Nombre}:\n\nSe ha registrado su inscripción en la UTNFRA.\n";
+            mensaje += $"Para ingresar en el sistema de alumnos su nombre de usuario es {NombreUsuario} y su contraseña será su DNI la primera vez que ingrese.";
+            mensaje += " Luego se le pedirá modificarla\n";
+            mensaje += "En caso de no reconocer esta actividad, envíe un mail a newsysacad@gmail.com.\n\n";
+            mensaje += "UTN Facultad Regional Avellaneda.";
+            EmailAdm.EnviarEmail(this.EMail, "Inscripción NewSysacad", mensaje);
         }
+
     }
 
 

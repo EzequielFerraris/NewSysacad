@@ -235,19 +235,7 @@ namespace BibliotecaNewSysacad
             }
             return resultado;
         }
-
-        //ARCHIVOS------------------------------------------------------------------------
-        //GENERA EL PATH DONDE GUARDAR LOS ARCHIVOS CON DATOS DEL SISTEMA
-        private static string Combinar(string file)
-        {
-            Environment.SpecialFolder documentos = Environment.SpecialFolder.MyDocuments;
-
-            var documents = Environment.GetFolderPath(documentos);
-            var path = Path.Combine(documents, file);
-            return path;
-        }
-
-        
+   
 
     //ESTUDIANTES-------------------------------------------------------------------
 

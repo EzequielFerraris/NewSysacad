@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnListasEspera = new Button();
             btnRequisitosAcademicos = new Button();
             btnReportes = new Button();
             btnSalir = new Button();
@@ -42,7 +43,6 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             pnlDisplay = new Panel();
-            btnListasEspera = new Button();
             panel1.SuspendLayout();
             pnlSubMenuGE.SuspendLayout();
             panel3.SuspendLayout();
@@ -66,6 +66,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 461);
             panel1.TabIndex = 0;
+            // 
+            // btnListasEspera
+            // 
+            btnListasEspera.Dock = DockStyle.Top;
+            btnListasEspera.FlatAppearance.BorderSize = 0;
+            btnListasEspera.FlatAppearance.MouseDownBackColor = Color.Coral;
+            btnListasEspera.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
+            btnListasEspera.FlatStyle = FlatStyle.Flat;
+            btnListasEspera.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnListasEspera.ForeColor = Color.DarkRed;
+            btnListasEspera.Location = new Point(0, 306);
+            btnListasEspera.Name = "btnListasEspera";
+            btnListasEspera.Size = new Size(200, 46);
+            btnListasEspera.TabIndex = 7;
+            btnListasEspera.Text = "Manejar Listas de Espera";
+            btnListasEspera.UseVisualStyleBackColor = true;
+            btnListasEspera.Click += btnListasEspera_Click;
             // 
             // btnRequisitosAcademicos
             // 
@@ -242,23 +259,6 @@
             pnlDisplay.Name = "pnlDisplay";
             pnlDisplay.Size = new Size(584, 361);
             pnlDisplay.TabIndex = 2;
-            // 
-            // btnListasEspera
-            // 
-            btnListasEspera.Dock = DockStyle.Top;
-            btnListasEspera.FlatAppearance.BorderSize = 0;
-            btnListasEspera.FlatAppearance.MouseDownBackColor = Color.Coral;
-            btnListasEspera.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
-            btnListasEspera.FlatStyle = FlatStyle.Flat;
-            btnListasEspera.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnListasEspera.ForeColor = Color.DarkRed;
-            btnListasEspera.Location = new Point(0, 306);
-            btnListasEspera.Name = "btnListasEspera";
-            btnListasEspera.Size = new Size(200, 46);
-            btnListasEspera.TabIndex = 7;
-            btnListasEspera.Text = "Manejar Listas de Espera";
-            btnListasEspera.UseVisualStyleBackColor = true;
-            btnListasEspera.Click += btnListasEspera_Click;
             // 
             // FrmHomeAdministrador
             // 

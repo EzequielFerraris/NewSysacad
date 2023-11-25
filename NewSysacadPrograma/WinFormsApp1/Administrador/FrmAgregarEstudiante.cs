@@ -18,10 +18,12 @@ namespace NewSysacadFront
     {
         public bool agregado = false;
         private Administrador admin;
-        public FrmAgregarEstudiante(Administrador admin)
+        private List<Task> listaDeTareas;
+        public FrmAgregarEstudiante(Administrador admin, List<Task> listaDeTareas)
         {
             InitializeComponent();
             this.admin = admin;
+            this.listaDeTareas = listaDeTareas;
             cbxCarrera.SelectedIndex = 0;
         }
 
@@ -92,7 +94,13 @@ namespace NewSysacadFront
                             string tituloConfirmacion = "Inscripción";
                             DialogResult confirmacion = MessageBox.Show(mensajeConfirmacion, tituloConfirmacion);
                             agregado = true;
-                            nuevoEstudiante.EnviarCorreoElectronico();
+                            //HACER QUE LO HAGA ASINCRÓNICAMENTE 
+                            if (this.cbxEnviarMail.Checked)
+                            {
+                                Task enviarCorreo = Task.Run(nuevoEstudiante.EnviarCorreoRegistro);
+                                listaDeTareas.Add(enviarCorreo);
+                            }
+
                             this.Close();
                         }
                         else
@@ -115,6 +123,12 @@ namespace NewSysacadFront
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Task contador = Task.Run(() => Thread.Sleep(new Random().Next(1000, 5000)));
+            listaDeTareas.Add((Task)contador);
+
+        }
 
     }
 

@@ -31,6 +31,7 @@
             panelTop = new Panel();
             lblTitulo = new Label();
             panel1 = new Panel();
+            cbxEnviarMail = new CheckBox();
             btnRegistrar = new Button();
             txbApellido = new TextBox();
             txbNombre = new TextBox();
@@ -78,12 +79,23 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(cbxEnviarMail);
             panel1.Controls.Add(btnRegistrar);
             panel1.Dock = DockStyle.Bottom;
             panel1.Location = new Point(0, 281);
             panel1.Name = "panel1";
             panel1.Size = new Size(584, 80);
             panel1.TabIndex = 1;
+            // 
+            // cbxEnviarMail
+            // 
+            cbxEnviarMail.ForeColor = Color.DarkRed;
+            cbxEnviarMail.Location = new Point(12, 21);
+            cbxEnviarMail.Name = "cbxEnviarMail";
+            cbxEnviarMail.Size = new Size(278, 45);
+            cbxEnviarMail.TabIndex = 12;
+            cbxEnviarMail.Text = "Enviar correo electrónico al estudiante";
+            cbxEnviarMail.UseVisualStyleBackColor = true;
             // 
             // btnRegistrar
             // 
@@ -332,5 +344,6 @@
         private TextBox txbAltura;
         private Label label2;
         private ComboBox cbxCarrera;
+        private CheckBox cbxEnviarMail;
     }
 }

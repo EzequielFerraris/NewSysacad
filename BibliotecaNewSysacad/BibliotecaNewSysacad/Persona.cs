@@ -80,9 +80,9 @@ namespace BibliotecaNewSysacad
                         eMail = value;
                     }
 
-            }
-            
+            }    
         }
+
         public string Password
         {
             get => password;

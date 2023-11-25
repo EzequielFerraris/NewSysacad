@@ -20,6 +20,7 @@ namespace NewSysacadFront
         private FrmControlReportes frmControlReportes;
         private FrmListaDeRequisitos listaDeRequisitos;
         private FrmCursosConListaDeEspera cursosConListaDeEspera;
+        private List<Task> listaDeTareas;
 
         public FrmHomeAdministrador(Administrador admin)
         {
@@ -27,6 +28,7 @@ namespace NewSysacadFront
             InitializeComponent();
             EstadoMenusPorDefecto();
             this.admin = admin;
+            listaDeTareas = new List<Task>();
 
             lbNombreAdmin.Text = admin.Nombre;
             listaDeCursos = new FrmListaDeCursos(admin);
@@ -38,7 +40,7 @@ namespace NewSysacadFront
             pnlDisplay.Controls.Add(frmControlReportes);
             frmControlReportes.Hide();
 
-            formAgregarEstudiante = new FrmAgregarEstudiante(admin);
+            formAgregarEstudiante = new FrmAgregarEstudiante(admin, listaDeTareas);
             formAgregarEstudiante.TopLevel = false;
             pnlDisplay.Controls.Add(formAgregarEstudiante);
             formAgregarEstudiante.Hide();
@@ -97,7 +99,7 @@ namespace NewSysacadFront
 
             if (formAgregarEstudiante.agregado)
             {
-                formAgregarEstudiante = new FrmAgregarEstudiante(admin);
+                formAgregarEstudiante = new FrmAgregarEstudiante(admin, listaDeTareas);
                 formAgregarEstudiante.TopLevel = false;
                 pnlDisplay.Controls.Add(formAgregarEstudiante);
             }
@@ -161,13 +163,40 @@ namespace NewSysacadFront
         //SALIR
         private void btnSalir_Click(object sender, EventArgs e)
         {
+
             string mensaje = "¿Está seguro que quiere salir?";
             string titulo = "Salir";
             MessageBoxButtons botones = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show(mensaje, titulo, botones);
             if (result == DialogResult.Yes)
             {
-                Application.Exit();
+                bool tareasTerminadas = true;
+                foreach (Task tarea in listaDeTareas)
+                {
+                    if (tarea.Status == TaskStatus.Running)
+                    {
+                        tareasTerminadas = false;
+                        break;
+                    }
+                }
+
+                if (!tareasTerminadas)
+                {
+                    string mensaje1 = "Hay acciones que aún no se han terminado de cargar en el sistema y cerrar la aplicación podría dejarlas incompletas. \n ¿Desea salir de todos modos?";
+                    string titulo1 = "Salir";
+                    MessageBoxButtons botones1 = MessageBoxButtons.YesNo;
+                    DialogResult result1 = MessageBox.Show(mensaje1, titulo1, botones1);
+                    if (result1 == DialogResult.Yes)
+                    {
+                        Application.Exit();
+                    }
+
+                }
+                else
+                {
+                    Application.Exit();
+                }
+
             }
         }
 
@@ -181,5 +210,6 @@ namespace NewSysacadFront
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Show();
         }
+
     }
 }
