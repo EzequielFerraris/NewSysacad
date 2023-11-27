@@ -199,10 +199,11 @@ namespace NewSysacadFront
                     foreach (Pago pagoEnProceso in pagosARealizar)
                     {
                         Random random = new Random(); //PARA SIMULAR UNA TRANSACCION
-                        Pago pagoRealizado = new Pago(pagoEnProceso.Concepto, pagoEnProceso.Monto, TipoDePago.Realizado, pagoEnProceso.FechaLimite, pagoEnProceso.Codigo);
+                        Pago pagoRealizado = new Pago();
                         pagoRealizado.LegajoDelEstudiante = usuario.Legajo;
                         pagoRealizado.FechaAbonado = DateTime.Now;
                         pagoRealizado.FormaDePago = (FormaDePago)cbxFormaPago.SelectedValue;
+                        pagoRealizado.Carrera = pagoEnProceso.Carrera;
 
                         if (cbxFormaPago.SelectedIndex == 0)
                         {

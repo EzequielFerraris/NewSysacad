@@ -43,6 +43,7 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             pnlDisplay = new Panel();
+            btnGenerarNotificacion = new Button();
             panel1.SuspendLayout();
             pnlSubMenuGE.SuspendLayout();
             panel3.SuspendLayout();
@@ -53,6 +54,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(102, 97, 130);
+            panel1.Controls.Add(btnGenerarNotificacion);
             panel1.Controls.Add(btnListasEspera);
             panel1.Controls.Add(btnRequisitosAcademicos);
             panel1.Controls.Add(btnReportes);
@@ -260,6 +262,23 @@
             pnlDisplay.Size = new Size(584, 361);
             pnlDisplay.TabIndex = 2;
             // 
+            // btnGenerarNotificacion
+            // 
+            btnGenerarNotificacion.Dock = DockStyle.Top;
+            btnGenerarNotificacion.FlatAppearance.BorderSize = 0;
+            btnGenerarNotificacion.FlatAppearance.MouseDownBackColor = Color.Coral;
+            btnGenerarNotificacion.FlatAppearance.MouseOverBackColor = Color.FromArgb(125, 121, 163);
+            btnGenerarNotificacion.FlatStyle = FlatStyle.Flat;
+            btnGenerarNotificacion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnGenerarNotificacion.ForeColor = Color.DarkRed;
+            btnGenerarNotificacion.Location = new Point(0, 352);
+            btnGenerarNotificacion.Name = "btnGenerarNotificacion";
+            btnGenerarNotificacion.Size = new Size(200, 46);
+            btnGenerarNotificacion.TabIndex = 8;
+            btnGenerarNotificacion.Text = "Nueva Notificación";
+            btnGenerarNotificacion.UseVisualStyleBackColor = true;
+            btnGenerarNotificacion.Click += btnGenerarNotificacion_Click;
+            // 
             // FrmHomeAdministrador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -299,5 +318,6 @@
         private Button btnReportes;
         private Button btnRequisitosAcademicos;
         private Button btnListasEspera;
+        private Button btnGenerarNotificacion;
     }
 }

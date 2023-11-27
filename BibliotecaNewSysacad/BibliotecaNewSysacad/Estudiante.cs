@@ -144,8 +144,6 @@ namespace BibliotecaNewSysacad
 
         //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
         //LISTA DE CURSOS
-
-
         public List<Curso> ObtenerCursosVisibles()
         {
             List<Curso> cursosVisibles = new List<Curso>();
@@ -312,7 +310,6 @@ namespace BibliotecaNewSysacad
             return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
 
-
         public List<string> ObtenerNombresCursosAprobados()
         { 
             List<string> result = new List<string>();
@@ -373,6 +370,82 @@ namespace BibliotecaNewSysacad
         {
             pagoNuevo.AgregarABD(out string error);
         }
+
+        //NOTIFICACIONES-----------------------------------------------------------
+
+        public List<Notificacion> ObtenerNotificaciones()
+        {
+            List<Notificacion> resultado = new List<Notificacion>();
+
+            foreach (var item in NewSysacad.ListaNotificaciones)
+            {
+                if(item.Carrera == this.Carrera)
+                {
+                    resultado.Add(item);
+                }
+            }
+            return resultado;
+        }
+
+        private int MapeoNotificacionesLeidas(IDataReader dataReader)
+        {
+            
+            int notificacionLeida = (int)dataReader["ID_NOTIFICACION"];
+           
+            return notificacionLeida;
+        }
+
+        public List<int> ObtenerNotificacionesLeidas()
+        {
+            string query = "SELECT ID_NOTIFICACION FROM NOTIFICACIONES_LEIDAS WHERE LEGAJO_ALUMNO = @LEGAJO ORDER BY ID_NOTIFICACION;";
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.Connection = BDConexion.conexion;
+            sqlCommand.CommandText = query;
+            sqlCommand.Parameters.AddWithValue("@LEGAJO", this.Legajo);
+
+            return ConsultasBD.ObtenerLista<int>(sqlCommand, MapeoNotificacionesLeidas);
+        }
+
+        public void RegistrarLecturaNotificacion(Notificacion notificacionMarcada)
+        {
+            List<int> leidas = ObtenerNotificacionesLeidas();
+
+            if(!leidas.Contains(notificacionMarcada.Id))
+            {
+                try
+                {
+                    string query = "INSERT INTO NOTIFICACIONES_LEIDAS VALUES (@ID_NOTIFICACION, @LEGAJO_ALUMNO);";
+                    BDConexion.conexion.Open();
+                    SqlCommand sqlCommand = new SqlCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    sqlCommand.Connection = BDConexion.conexion;
+                    sqlCommand.CommandText = query;
+                    sqlCommand.Parameters.AddWithValue("@ID_NOTIFICACION", notificacionMarcada.Id);
+                    sqlCommand.Parameters.AddWithValue("@LEGAJO_ALUMNO", this.Legajo);
+                   
+
+                    sqlCommand.ExecuteNonQuery();
+                    sqlCommand.Parameters.Clear();
+                   
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+
+                }
+                finally
+                {
+                    BDConexion.conexion.Close();
+
+                }
+
+            }
+
+        }
+
 
         //BD---------------------------------------------------------------------------------------------------
 

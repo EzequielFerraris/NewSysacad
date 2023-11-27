@@ -106,3 +106,7 @@ C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmRequisitosCurso.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmEditarRequisitos.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmCursosConListaDeEspera.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmNotificacion.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmListaNotificaciones.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmNotificacionLeida.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmCrearNotificacion.resources

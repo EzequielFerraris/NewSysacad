@@ -36,6 +36,8 @@ namespace NewSysacadFront
         {
             FrmEditarCurso nuevaEdicion = new FrmEditarCurso(cursoObj, listaPadre, admin);
             nuevaEdicion.Show();
+            nuevaEdicion.TurnoCambiado += NotificarCambioCursoTurno;
+            nuevaEdicion.DiaCambiado += NotificarCambioCursoDia;
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -68,6 +70,43 @@ namespace NewSysacadFront
             }
         }
 
+        
+        public void NotificarCambioCursoTurno(Curso curso, InfoCursoEventArgs e)
+        {
+            string titulo = $"Cambio en el TURNO de {curso.Nombre}.";
+            string cuerpo = $"El TURNO para el curso {curso.Nombre}, ha sido modificado a {curso.TurnoCursada} el {DateTime.Now}.\nSi este cambio lo afecta, comuníquese con Administración." +
+                $"\nSaludos,\n" + "Administración UTNFRA.";
+            Carrera carrera = curso.Carrera;
+            DateTime fecha = DateTime.Now;
 
+            Notificacion notificacion = new Notificacion();
+
+            notificacion.Titulo = titulo;
+            notificacion.Cuerpo = cuerpo;
+            notificacion.Carrera = carrera;
+            notificacion.FechaCreacion = fecha;
+
+            notificacion.AgregarABD(out string error);
+
+        }
+       
+        public void NotificarCambioCursoDia(Curso curso, InfoCursoEventArgs e)
+        {
+            string titulo = $"Cambio en el DIA de {curso.Nombre}.";
+            string cuerpo = $"El DIA para el curso {curso.Nombre}, ha sido modificado a {curso.DiaCursada} el {DateTime.Now}.\nSi este cambio lo afecta, comuníquese con Administración.\nSaludos,\n"
+                + "Administración UTNFRA.";
+            Carrera carrera = curso.Carrera;
+            DateTime fecha = DateTime.Now;
+
+            Notificacion notificacion = new Notificacion();
+
+            notificacion.Titulo = titulo;
+            notificacion.Cuerpo = cuerpo;
+            notificacion.Carrera = carrera;
+            notificacion.FechaCreacion = fecha;
+
+            notificacion.AgregarABD(out string error);
+        }
+        
     }
 }

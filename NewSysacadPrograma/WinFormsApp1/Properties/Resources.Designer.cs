@@ -63,6 +63,26 @@ namespace NewSysacadFront.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap notificationClear {
+            get {
+                object obj = ResourceManager.GetObject("notificationClear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap notificationPending {
+            get {
+                object obj = ResourceManager.GetObject("notificationPending", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap UTN {
             get {
                 object obj = ResourceManager.GetObject("UTN", resourceCulture);

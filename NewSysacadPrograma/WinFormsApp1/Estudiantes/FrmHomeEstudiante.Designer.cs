@@ -37,12 +37,14 @@
             btnConsultarHorario = new Button();
             btnInscripcionCursos = new Button();
             panel3 = new Panel();
+            pbxNotificaciones = new PictureBox();
             pictureBox1 = new PictureBox();
             lbNombreEstudiante = new Label();
             pnlDisplay = new Panel();
             panel1.SuspendLayout();
             pnlSubMenuGE.SuspendLayout();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbxNotificaciones).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -178,6 +180,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(pbxNotificaciones);
             panel3.Controls.Add(pictureBox1);
             panel3.Controls.Add(lbNombreEstudiante);
             panel3.Dock = DockStyle.Top;
@@ -186,10 +189,21 @@
             panel3.Size = new Size(200, 130);
             panel3.TabIndex = 0;
             // 
+            // pbxNotificaciones
+            // 
+            pbxNotificaciones.Image = Properties.Resources.notificationClear;
+            pbxNotificaciones.Location = new Point(171, 100);
+            pbxNotificaciones.Name = "pbxNotificaciones";
+            pbxNotificaciones.Size = new Size(26, 24);
+            pbxNotificaciones.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbxNotificaciones.TabIndex = 4;
+            pbxNotificaciones.TabStop = false;
+            pbxNotificaciones.Click += pbxNotificaciones_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.UTN;
-            pictureBox1.Location = new Point(49, 3);
+            pictureBox1.Location = new Point(50, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(100, 100);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -198,15 +212,14 @@
             // 
             // lbNombreEstudiante
             // 
-            lbNombreEstudiante.Dock = DockStyle.Bottom;
             lbNombreEstudiante.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbNombreEstudiante.ForeColor = Color.Brown;
-            lbNombreEstudiante.Location = new Point(0, 105);
+            lbNombreEstudiante.Location = new Point(12, 105);
             lbNombreEstudiante.Name = "lbNombreEstudiante";
-            lbNombreEstudiante.Size = new Size(200, 25);
+            lbNombreEstudiante.Size = new Size(156, 25);
             lbNombreEstudiante.TabIndex = 0;
             lbNombreEstudiante.Text = "?";
-            lbNombreEstudiante.TextAlign = ContentAlignment.MiddleCenter;
+            lbNombreEstudiante.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pnlDisplay
             // 
@@ -232,6 +245,7 @@
             panel1.ResumeLayout(false);
             pnlSubMenuGE.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbxNotificaciones).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
@@ -250,5 +264,6 @@
         private Panel pnlSubMenuGE;
         private Button btnPagosRealizados;
         private Button btnPagosPendientes;
+        private PictureBox pbxNotificaciones;
     }
 }

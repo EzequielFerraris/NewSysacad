@@ -15,6 +15,7 @@ namespace BibliotecaNewSysacad
         private int codigo;
         private DateTime fechaLimite;
         private TipoDePago tipo;
+        private Carrera tipoCarrera;
 
         private int legajoDelEstudiante;
         private string titularPago;
@@ -35,11 +36,12 @@ namespace BibliotecaNewSysacad
             titularPago = String.Empty;
             numeroTransaccion = String.Empty;
             tarjetaCuenta = String.Empty;
+            this.tipoCarrera = Carrera.NINGUNA;
         }
 
         public Pago(string concepto, decimal monto, 
             TipoDePago tipo, DateTime fechaLimite, 
-            int codigo)
+            int codigo, Carrera carrera)
         {
             this.concepto = concepto;
             this.monto = monto;
@@ -49,6 +51,7 @@ namespace BibliotecaNewSysacad
             titularPago = String.Empty;
             numeroTransaccion = String.Empty;
             tarjetaCuenta = String.Empty;
+            this.tipoCarrera = carrera;
         }
         public string Concepto 
         { 
@@ -112,6 +115,12 @@ namespace BibliotecaNewSysacad
             get => titularPago; 
             set => titularPago = value; 
         }
+        public Carrera Carrera
+        {
+            get => tipoCarrera;
+            set => tipoCarrera = value;
+        }
+
 
         public bool ActualizarEnBD()
         {
@@ -144,6 +153,7 @@ namespace BibliotecaNewSysacad
                     sqlCommand.Parameters.AddWithValue("@LEGAJO_ESTUDIANTE", (int)this.LegajoDelEstudiante);
                     sqlCommand.Parameters.AddWithValue("@FECHA_LIMITE", this.FechaLimite.ToString("yyyy-MM-dd"));
                     sqlCommand.Parameters.AddWithValue("@FORMA_DE_PAGO", (int)this.FormaDePago);
+                    sqlCommand.Parameters.AddWithValue("@CARRERA", (int)this.Carrera);
 
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
@@ -151,10 +161,8 @@ namespace BibliotecaNewSysacad
                 }
                 catch (Exception)
                 {
-
                     result = false;
                     throw;
-
                 }
                 finally
                 {

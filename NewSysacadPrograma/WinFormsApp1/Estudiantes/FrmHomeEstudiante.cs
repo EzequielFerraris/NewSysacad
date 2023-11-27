@@ -18,6 +18,7 @@ namespace NewSysacadFront
         public FrmHorario horarioAlumno;
         private FrmPagosPendientes pagosPendientes;
         private FrmPagosRealizados realizados;
+        private FrmListaNotificaciones listaNotificaciones;
 
         public FrmHomeEstudiante(string nombreUsuarioEstudiante)
         {
@@ -25,7 +26,7 @@ namespace NewSysacadFront
             EstadoMenusPorDefecto();
 
             usuario = NewSysacad.ObtenerEstudiante(nombreUsuarioEstudiante);
-            
+
             lbNombreEstudiante.Text = $"Usuario: {usuario.NombreUsuario} \n";
 
             listaDeCursos = new FrmListaCursosEstudiante(usuario);
@@ -46,6 +47,14 @@ namespace NewSysacadFront
             realizados.TopLevel = false;
             pnlDisplay.Controls.Add(realizados);
             realizados.Hide();
+
+            listaNotificaciones = new FrmListaNotificaciones(usuario, this);
+            listaNotificaciones.TopLevel = false;
+            pnlDisplay.Controls.Add(listaNotificaciones);
+            listaNotificaciones.Hide();
+
+            CampanaNotificaciones();
+            
         }
 
         private void EstadoMenusPorDefecto()
@@ -94,6 +103,7 @@ namespace NewSysacadFront
             EsconderSubMenus();
             pagosPendientes.Hide();
             realizados.Hide();
+            listaNotificaciones.Hide();
             listaDeCursos.Show();
         }
 
@@ -103,6 +113,7 @@ namespace NewSysacadFront
             EsconderSubMenus();
             pagosPendientes.Hide();
             realizados.Hide();
+            listaNotificaciones.Hide();
             horarioAlumno.ActualizarHorario();
             horarioAlumno.Show();
         }
@@ -117,21 +128,54 @@ namespace NewSysacadFront
             horarioAlumno.Hide();
             listaDeCursos.Hide();
             realizados.Hide();
+            listaNotificaciones.Hide();
             pagosPendientes.ActualizarLista();
             pagosPendientes.Show();
             EsconderSubMenus();
 
-            
-        }
 
+        }
         private void btnPagosRealizados_Click(object sender, EventArgs e)
         {
             horarioAlumno.Hide();
             listaDeCursos.Hide();
             pagosPendientes.Hide();
+            listaNotificaciones.Hide();
             realizados.ActualizarLista();
             realizados.Show();
             EsconderSubMenus();
         }
+
+        private void pbxNotificaciones_Click(object sender, EventArgs e)
+        {
+            
+            horarioAlumno.Hide();
+            listaDeCursos.Hide();
+            pagosPendientes.Hide();
+            realizados.Hide();
+            listaNotificaciones.Show();
+            EsconderSubMenus();
+        }
+
+        public void CampanaNotificaciones()
+        {
+            if (listaNotificaciones.notificacionesNoLeidas.Count() > 0)
+            {
+                this.pbxNotificaciones.Image = Properties.Resources.notificationPending;
+                this.pbxNotificaciones.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else
+            {
+                this.pbxNotificaciones.Image = Properties.Resources.notificationClear;
+                this.pbxNotificaciones.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+
+        
+
     }
+
+
 }
+
+

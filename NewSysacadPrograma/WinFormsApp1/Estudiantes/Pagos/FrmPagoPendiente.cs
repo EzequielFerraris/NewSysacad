@@ -14,8 +14,10 @@ namespace NewSysacadFront
 {
     public partial class FrmPagoPendiente : Form
     {
+
         private Pago pagoPendiente;
         private FrmPagosPendientes formularioPadre;
+
         public FrmPagoPendiente(Pago pago, FrmPagosPendientes lista1)
         {
             InitializeComponent();
@@ -24,7 +26,7 @@ namespace NewSysacadFront
             lblCodigo.Text = pagoPendiente.Codigo.ToString();
             lblMonto.Text = pagoPendiente.Monto.ToString();
             lblVencimiento.Text = pagoPendiente.FechaLimite.ToString("dd/MM/yyyy");
-            this.formularioPadre = lista1;
+            this.formularioPadre = lista1;  
         }
 
         private void chbxPago_CheckedChanged(object sender, EventArgs e)
@@ -47,4 +49,6 @@ namespace NewSysacadFront
             set => PagoPendiente = value;
         }
     }
+
+    
 }

@@ -1,4 +1,5 @@
 ﻿using BibliotecaNewSysacad;
+using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ namespace NewSysacadFront
 {
     public partial class FrmPagosPendientes : Form
     {
+        
+
         public List<FrmPagoPendiente> pagosEnLista;
         public List<Pago> pagosSeleccionados;
         private Estudiante usuario;
@@ -25,6 +28,7 @@ namespace NewSysacadFront
             this.usuario = usuario;
             ActualizarLista();
             ActualizarSeleccion();
+            
         }
 
         public void ActualizarLista()
@@ -62,6 +66,7 @@ namespace NewSysacadFront
                 {
                     FrmPagoPendiente cardPago = new FrmPagoPendiente(pagoPendiente, this);
                     pagosEnLista.Add(cardPago);
+
                 }
             }
         }
@@ -113,5 +118,34 @@ namespace NewSysacadFront
             FrmRealizarPago nuevoPago = new FrmRealizarPago(pagosSeleccionados, usuario, this);
             nuevoPago.Show();
         }
+
+        
     }
+
+
 }
+
+
+/*
+            /*
+            bool cond0 = true;
+            bool cond1 = (pagoPendiente.FechaLimite.Day == DateTime.Now.Day) && (pagoPendiente.FechaLimite.Month == DateTime.Now.Month) && (pagoPendiente.FechaLimite.Year == DateTime.Now.Year);
+            bool cond2 = (pagoPendiente.FechaLimite.Day -1 == DateTime.Now.Day) && (pagoPendiente.FechaLimite.Month == DateTime.Now.Month) && (pagoPendiente.FechaLimite.Year == DateTime.Now.Year);
+
+            foreach (Notificacion notificacionActiva in NewSysacad.ListaNotificaciones)
+            {
+                if(notificacionActiva.Codigo == pagoPendiente.Codigo)
+                {
+                    cond0 = false; 
+                    break;
+                }
+            }
+
+            if(cond0)
+            {
+                if (cond1 || cond2)
+                {
+
+                }
+            }
+            */ 

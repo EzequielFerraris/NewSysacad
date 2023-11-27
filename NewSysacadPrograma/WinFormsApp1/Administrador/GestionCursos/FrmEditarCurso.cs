@@ -17,6 +17,11 @@ namespace NewSysacadFront
         private Curso cursoAEditar;
         FrmListaDeCursos listaPadre;
         private Administrador admin;
+
+        public delegate void NotificadorCambioCurso(Curso nuevoCurso, InfoCursoEventArgs infoCurso);
+        public event NotificadorCambioCurso TurnoCambiado;
+        public event NotificadorCambioCurso DiaCambiado;
+
         public FrmEditarCurso(Curso curso, FrmListaDeCursos lista, Administrador admin)
         {
             InitializeComponent();
@@ -60,6 +65,7 @@ namespace NewSysacadFront
 
                 nuevoCurso.DiaCursada = (dia)cbxDia.SelectedValue;
                 nuevoCurso.TurnoCursada = (turno)cbxTurno.SelectedValue;
+
                 nuevoCurso.Carrera = (Carrera)this.cbxCarrera.SelectedIndex;
                 nuevoCurso.PromedioMinimo = cursoAEditar.PromedioMinimo;
 
@@ -106,9 +112,29 @@ namespace NewSysacadFront
                 {
                     try
                     {
-                        //TRABAJANDO ACA PARA UPDATEAR
+
                         if (nuevoCurso.ActualizarEnBD())
                         {
+                            //ACÁ CHEQUEAR SI HUBO CAMBIO DE TURNO U HORARIO PARA ENVIAR NOTIFICACIÓN
+
+                            if (nuevoCurso.TurnoCursada != cursoAEditar.TurnoCursada)
+                            {
+                                InfoCursoEventArgs infoCurso = new InfoCursoEventArgs(nuevoCurso.TurnoCursada, nuevoCurso.DiaCursada);
+                                if(TurnoCambiado is not null)
+                                {
+                                    TurnoCambiado.Invoke(nuevoCurso, infoCurso);
+                                }
+                            }
+
+                            if(nuevoCurso.DiaCursada != cursoAEditar.DiaCursada) 
+                            {
+                                InfoCursoEventArgs infoCurso = new InfoCursoEventArgs(nuevoCurso.TurnoCursada, nuevoCurso.DiaCursada);
+                                if (DiaCambiado is not null)
+                                {
+                                    DiaCambiado.Invoke(nuevoCurso, infoCurso);
+                                }
+                            }
+
                             string mensaje1 = "Curso actualizado correctamente.";
                             string titulo1 = "Editar curso";
                             DialogResult result1 = MessageBox.Show(mensaje1, titulo1);
@@ -137,5 +163,18 @@ namespace NewSysacadFront
             this.Close();
         }
 
+    }
+
+    public class InfoCursoEventArgs : EventArgs
+    {
+        public turno turnoCursada;
+        public dia diaCursada;
+        
+        public InfoCursoEventArgs(turno turnoCursada, dia diaCursada)
+        {
+            this.turnoCursada = turnoCursada;
+            this.diaCursada = diaCursada;
+            
+        }
     }
 }

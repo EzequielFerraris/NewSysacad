@@ -22,12 +22,14 @@ namespace BibliotecaNewSysacad
         private static List<Curso> listaCursos;
         private static List<Pago> listaPagosPendientes;
         private static List<Pago> listaPagosRealizados;
+        private static List<Notificacion> listaNotificaciones;
         
         private static string actualizarEstudiantes = "SELECT * FROM ESTUDIANTE;";
         private static string actualizarAdministrador = "SELECT * FROM ADMINISTRADOR;";
         private static string actualizarCursos = "SELECT * FROM CURSO;";
         private static string actualizarPagosPendientes = "SELECT * FROM PAGO_PENDIENTE;";
         private static string actualizarPagosRealizados = "SELECT * FROM PAGOS_REALIZADOS;";
+        private static string actualizarNotificaciones = "SELECT * FROM NOTIFICACIONES;";
         static NewSysacad() 
         {
             //LISTAS MANEJADAS POR EL SISTEMA
@@ -37,7 +39,8 @@ namespace BibliotecaNewSysacad
             listaCursos = ActualizarLista<Curso>(actualizarCursos, MapeoCurso);
             listaPagosPendientes = ActualizarLista<Pago>(actualizarPagosPendientes, MapeoPagosPendientes);
             listaPagosRealizados = ActualizarLista<Pago>(actualizarPagosRealizados, MapeoPagosRealizados);
-
+            listaNotificaciones = ActualizarLista<Notificacion>(actualizarNotificaciones, MapeoNotificaciones);
+        
         }
 
         //GETTERS
@@ -81,6 +84,17 @@ namespace BibliotecaNewSysacad
             set => listaPagosPendientes = value;
         }
 
+        public static List<Notificacion> ListaNotificaciones
+        {
+            get
+            {
+                listaNotificaciones = ActualizarLista<Notificacion>(actualizarNotificaciones, MapeoNotificaciones);
+                return listaNotificaciones;
+            }
+            set => listaNotificaciones = value;
+        }
+
+
         public static string ActualizarEstudiantes
         {
             get => actualizarEstudiantes;
@@ -90,6 +104,8 @@ namespace BibliotecaNewSysacad
         {
             get => actualizarCursos;
         }
+
+        
 
         //BD-------------------------------------------------------------------------------
 
@@ -202,7 +218,19 @@ namespace BibliotecaNewSysacad
 
             return pago;
         }
-        
+
+        public static Notificacion MapeoNotificaciones(IDataReader dataReader)
+        {
+            Notificacion notificacion = new Notificacion();
+            notificacion.Id = (int)dataReader["ID"];
+            notificacion.Titulo = dataReader["TITULO"].ToString();
+            notificacion.Cuerpo = dataReader["CUERPO"].ToString();
+            notificacion.FechaCreacion = Convert.ToDateTime(dataReader["FECHA_CREACION"]);
+            notificacion.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
+            notificacion.Codigo = (int)dataReader["CODIGO"];
+
+            return notificacion;
+        }
 
         //ADMINISTRADOR--------------------------------------------------------------------
         //LOGGEO DEL ADMINISTRADOR

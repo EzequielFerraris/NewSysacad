@@ -199,6 +199,9 @@ namespace BibliotecaNewSysacad
             return ConsultasBD.ObtenerDataTabla(sqlCommand);
         }
 
+        //NOTIFICACIONES------------------------------------------------------------------------------------
+
+        
     }
 
 }

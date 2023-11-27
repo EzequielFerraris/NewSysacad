@@ -21,6 +21,7 @@ namespace NewSysacadFront
             this.admin = admin;
             cbxDia.DataSource = Enum.GetValues(typeof(dia));
             cbxTurno.DataSource = Enum.GetValues(typeof(turno));
+            cbxCarrera.SelectedIndex = 0;
         }
 
 

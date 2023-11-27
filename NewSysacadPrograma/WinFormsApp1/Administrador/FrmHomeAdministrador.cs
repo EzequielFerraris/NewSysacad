@@ -20,7 +20,9 @@ namespace NewSysacadFront
         private FrmControlReportes frmControlReportes;
         private FrmListaDeRequisitos listaDeRequisitos;
         private FrmCursosConListaDeEspera cursosConListaDeEspera;
+        private FrmCrearNotificacion agregarNotificacion;
         private List<Task> listaDeTareas;
+        
 
         public FrmHomeAdministrador(Administrador admin)
         {
@@ -29,6 +31,8 @@ namespace NewSysacadFront
             EstadoMenusPorDefecto();
             this.admin = admin;
             listaDeTareas = new List<Task>();
+
+        
 
             lbNombreAdmin.Text = admin.Nombre;
             listaDeCursos = new FrmListaDeCursos(admin);
@@ -59,6 +63,11 @@ namespace NewSysacadFront
             cursosConListaDeEspera.TopLevel = false;
             pnlDisplay.Controls.Add(cursosConListaDeEspera);
             cursosConListaDeEspera.Hide();
+
+            agregarNotificacion = new FrmCrearNotificacion(admin);
+            agregarNotificacion.TopLevel = false;
+            pnlDisplay.Controls.Add(agregarNotificacion);
+            agregarNotificacion.Hide();
 
         }
 
@@ -96,6 +105,7 @@ namespace NewSysacadFront
             formAgregarCurso.Hide();
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
+            agregarNotificacion.Hide();
 
             if (formAgregarEstudiante.agregado)
             {
@@ -116,6 +126,7 @@ namespace NewSysacadFront
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
             listaDeCursos.ActualizarLista();
+            agregarNotificacion.Hide();
             listaDeCursos.Show();
 
         }
@@ -145,6 +156,7 @@ namespace NewSysacadFront
             formAgregarCurso.Hide();
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
+            agregarNotificacion.Hide();
             frmControlReportes.Show();
         }
 
@@ -156,6 +168,7 @@ namespace NewSysacadFront
             formAgregarCurso.Hide();
             frmControlReportes.Hide();
             cursosConListaDeEspera.Hide();
+            agregarNotificacion.Hide();
             listaDeRequisitos.ActualizarLista();
             listaDeRequisitos.Show();
         }
@@ -208,8 +221,22 @@ namespace NewSysacadFront
             formAgregarCurso.Hide();
             frmControlReportes.Hide();
             listaDeRequisitos.Hide();
+            agregarNotificacion.Hide();
             cursosConListaDeEspera.Show();
         }
 
+        private void btnGenerarNotificacion_Click(object sender, EventArgs e)
+        {
+            EsconderSubMenus();
+            listaDeCursos.Hide();
+            formAgregarEstudiante.Hide();
+            formAgregarCurso.Hide();
+            frmControlReportes.Hide();
+            listaDeRequisitos.Hide();
+            cursosConListaDeEspera.Hide();
+            agregarNotificacion.Show();
+        }
+
+        
     }
 }
