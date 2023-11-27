@@ -453,7 +453,7 @@ namespace BibliotecaNewSysacad
         {
             campoRepetido = "Ninguno";
             bool resultado = true;
-            NewSysacad.ActualizarLista<Estudiante>(NewSysacad.ActualizarEstudiantes, NewSysacad.MapeoEstudiante); 
+             
 
             foreach (Estudiante estudiante in NewSysacad.ListaEstudiantes)
             {
@@ -519,8 +519,6 @@ namespace BibliotecaNewSysacad
 
                     result = false;
                     return result;
-                    throw;
-
                 }
                 finally
                 {
@@ -576,7 +574,6 @@ namespace BibliotecaNewSysacad
 
                 result = false;
                 return result;
-                throw;
 
             }
             finally

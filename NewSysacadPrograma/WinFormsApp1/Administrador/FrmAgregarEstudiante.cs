@@ -123,13 +123,6 @@ namespace NewSysacadFront
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Task contador = Task.Run(() => Thread.Sleep(new Random().Next(1000, 5000)));
-            listaDeTareas.Add((Task)contador);
-
-        }
-
     }
 
 }

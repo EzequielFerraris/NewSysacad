@@ -64,6 +64,7 @@ namespace BibliotecaNewSysacad
                 BDConexion.conexion.Open();
                 
                 SqlDataReader reader = sqlCommand.ExecuteReader();
+
                 dt.Load(reader);
 
                 sqlCommand.Parameters.Clear();

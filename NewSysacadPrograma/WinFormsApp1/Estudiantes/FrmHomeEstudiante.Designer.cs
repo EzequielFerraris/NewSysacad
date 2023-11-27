@@ -86,9 +86,11 @@
             btnPagosRealizados.ForeColor = Color.Gainsboro;
             btnPagosRealizados.Location = new Point(0, 40);
             btnPagosRealizados.Name = "btnPagosRealizados";
+            btnPagosRealizados.Padding = new Padding(10, 0, 0, 0);
             btnPagosRealizados.Size = new Size(200, 40);
             btnPagosRealizados.TabIndex = 1;
             btnPagosRealizados.Text = "Realizados";
+            btnPagosRealizados.TextAlign = ContentAlignment.MiddleLeft;
             btnPagosRealizados.UseVisualStyleBackColor = false;
             btnPagosRealizados.Click += btnPagosRealizados_Click;
             // 
@@ -104,9 +106,11 @@
             btnPagosPendientes.ForeColor = Color.Gainsboro;
             btnPagosPendientes.Location = new Point(0, 0);
             btnPagosPendientes.Name = "btnPagosPendientes";
+            btnPagosPendientes.Padding = new Padding(10, 0, 0, 0);
             btnPagosPendientes.Size = new Size(200, 40);
             btnPagosPendientes.TabIndex = 0;
             btnPagosPendientes.Text = "Pendientes";
+            btnPagosPendientes.TextAlign = ContentAlignment.MiddleLeft;
             btnPagosPendientes.UseVisualStyleBackColor = false;
             btnPagosPendientes.Click += btnPagosPendientes_Click;
             // 
@@ -121,9 +125,11 @@
             btnRealizarPagos.ForeColor = Color.Gainsboro;
             btnRealizarPagos.Location = new Point(0, 230);
             btnRealizarPagos.Name = "btnRealizarPagos";
+            btnRealizarPagos.Padding = new Padding(10, 0, 0, 0);
             btnRealizarPagos.Size = new Size(200, 50);
             btnRealizarPagos.TabIndex = 5;
             btnRealizarPagos.Text = "Pagos";
+            btnRealizarPagos.TextAlign = ContentAlignment.MiddleLeft;
             btnRealizarPagos.UseVisualStyleBackColor = true;
             btnRealizarPagos.Click += btnRealizarPagos_Click;
             // 
@@ -155,9 +161,11 @@
             btnConsultarHorario.ForeColor = Color.Gainsboro;
             btnConsultarHorario.Location = new Point(0, 180);
             btnConsultarHorario.Name = "btnConsultarHorario";
+            btnConsultarHorario.Padding = new Padding(10, 0, 0, 0);
             btnConsultarHorario.Size = new Size(200, 50);
             btnConsultarHorario.TabIndex = 2;
             btnConsultarHorario.Text = "Consultar Horario";
+            btnConsultarHorario.TextAlign = ContentAlignment.MiddleLeft;
             btnConsultarHorario.UseVisualStyleBackColor = true;
             btnConsultarHorario.Click += btnConsultarHorario_Click;
             // 
@@ -172,9 +180,11 @@
             btnInscripcionCursos.ForeColor = Color.Gainsboro;
             btnInscripcionCursos.Location = new Point(0, 130);
             btnInscripcionCursos.Name = "btnInscripcionCursos";
+            btnInscripcionCursos.Padding = new Padding(10, 0, 0, 0);
             btnInscripcionCursos.Size = new Size(200, 50);
             btnInscripcionCursos.TabIndex = 1;
             btnInscripcionCursos.Text = "Inscripción de cursos";
+            btnInscripcionCursos.TextAlign = ContentAlignment.MiddleLeft;
             btnInscripcionCursos.UseVisualStyleBackColor = true;
             btnInscripcionCursos.Click += btnInscripcionCursos_Click;
             // 
@@ -214,9 +224,10 @@
             // 
             lbNombreEstudiante.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             lbNombreEstudiante.ForeColor = Color.Brown;
-            lbNombreEstudiante.Location = new Point(12, 105);
+            lbNombreEstudiante.Location = new Point(0, 105);
             lbNombreEstudiante.Name = "lbNombreEstudiante";
-            lbNombreEstudiante.Size = new Size(156, 25);
+            lbNombreEstudiante.Padding = new Padding(10, 0, 0, 0);
+            lbNombreEstudiante.Size = new Size(168, 25);
             lbNombreEstudiante.TabIndex = 0;
             lbNombreEstudiante.Text = "?";
             lbNombreEstudiante.TextAlign = ContentAlignment.MiddleLeft;

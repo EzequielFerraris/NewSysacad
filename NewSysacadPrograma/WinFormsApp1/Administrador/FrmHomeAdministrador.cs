@@ -21,8 +21,10 @@ namespace NewSysacadFront
         private FrmListaDeRequisitos listaDeRequisitos;
         private FrmCursosConListaDeEspera cursosConListaDeEspera;
         private FrmCrearNotificacion agregarNotificacion;
+        private FrmListaProfesores listaProfesores;
+        private FrmAgregarProfesor formAgregarProfesor;
         private List<Task> listaDeTareas;
-        
+
 
         public FrmHomeAdministrador(Administrador admin)
         {
@@ -32,7 +34,7 @@ namespace NewSysacadFront
             this.admin = admin;
             listaDeTareas = new List<Task>();
 
-        
+
 
             lbNombreAdmin.Text = admin.Nombre;
             listaDeCursos = new FrmListaDeCursos(admin);
@@ -69,18 +71,29 @@ namespace NewSysacadFront
             pnlDisplay.Controls.Add(agregarNotificacion);
             agregarNotificacion.Hide();
 
+            listaProfesores = new FrmListaProfesores(admin);
+            listaProfesores.TopLevel = false;
+            pnlDisplay.Controls.Add(listaProfesores);
+            listaProfesores.Hide();
+
+            formAgregarProfesor = new FrmAgregarProfesor(admin, listaProfesores);
+            formAgregarProfesor.TopLevel = false;
+            pnlDisplay.Controls.Add(formAgregarProfesor);
+            formAgregarProfesor.Hide();
+
         }
 
         private void EstadoMenusPorDefecto()
         {
             pnlSubMenuGE.Visible = false;
+            pnlSubMenuProfes.Visible = false;
         }
 
-        private void EsconderSubMenus()
+        private void EsconderSubMenus(Panel subMenu)
         {
-            if (pnlSubMenuGE.Visible == true)
+            if (subMenu.Visible == true)
             {
-                pnlSubMenuGE.Visible = false;
+                subMenu.Visible = false;
             }
 
         }
@@ -89,7 +102,7 @@ namespace NewSysacadFront
         {
             if (subMenu.Visible == false)
             {
-                EsconderSubMenus();
+                EsconderSubMenus(pnlSubMenuGE);
                 subMenu.Visible = true;
             }
             else
@@ -97,15 +110,21 @@ namespace NewSysacadFront
                 subMenu.Visible = false;
             }
         }
+
+
+
+
         private void btnAgregarEstudiante_Click(object sender, EventArgs e)
         {
-            EsconderSubMenus(); //Esconde los submenus
-            listaDeCursos.Hide(); //Esconde la lista de cursos
+            EsconderSubMenus(pnlSubMenuGE);
+            EsconderSubMenus(pnlSubMenuProfes);
+            listaDeCursos.Hide();
             frmControlReportes.Hide();
             formAgregarCurso.Hide();
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
             agregarNotificacion.Hide();
+            listaProfesores.Hide();
 
             if (formAgregarEstudiante.agregado)
             {
@@ -121,12 +140,14 @@ namespace NewSysacadFront
         private void btnGestionarCursos_Click(object sender, EventArgs e)
         {
             MostrarSubMenu(pnlSubMenuGE);
+            EsconderSubMenus(pnlSubMenuProfes);
             formAgregarEstudiante.Hide();
             frmControlReportes.Hide();
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
             listaDeCursos.ActualizarLista();
             agregarNotificacion.Hide();
+            listaProfesores.Hide();
             listaDeCursos.Show();
 
         }
@@ -134,7 +155,7 @@ namespace NewSysacadFront
         private void btnAgregarCurso_Click(object sender, EventArgs e)
         {
             listaDeCursos.Hide();
-            EsconderSubMenus();
+            EsconderSubMenus(pnlSubMenuGE);
 
             if (formAgregarCurso.agregado)
             {
@@ -150,25 +171,29 @@ namespace NewSysacadFront
         //REPORTES
         private void btnReportes_Click(object sender, EventArgs e)
         {
-            EsconderSubMenus(); //Esconde los submenus
-            listaDeCursos.Hide(); //Esconde la lista de cursos
+            EsconderSubMenus(pnlSubMenuGE);
+            EsconderSubMenus(pnlSubMenuProfes);
+            listaDeCursos.Hide();
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
             agregarNotificacion.Hide();
+            listaProfesores.Hide();
             frmControlReportes.Show();
         }
 
         private void btnRequisitosAcademicos_Click(object sender, EventArgs e)
         {
-            EsconderSubMenus();
+            EsconderSubMenus(pnlSubMenuGE);
+            EsconderSubMenus(pnlSubMenuProfes);
             listaDeCursos.Hide();
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
             frmControlReportes.Hide();
             cursosConListaDeEspera.Hide();
             agregarNotificacion.Hide();
+            listaProfesores.Hide();
             listaDeRequisitos.ActualizarLista();
             listaDeRequisitos.Show();
         }
@@ -215,28 +240,59 @@ namespace NewSysacadFront
 
         private void btnListasEspera_Click(object sender, EventArgs e)
         {
-            EsconderSubMenus();
+            EsconderSubMenus(pnlSubMenuGE);
+            EsconderSubMenus(pnlSubMenuProfes);
             listaDeCursos.Hide();
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
             frmControlReportes.Hide();
             listaDeRequisitos.Hide();
             agregarNotificacion.Hide();
+            listaProfesores.Hide();
             cursosConListaDeEspera.Show();
         }
 
         private void btnGenerarNotificacion_Click(object sender, EventArgs e)
         {
-            EsconderSubMenus();
+            EsconderSubMenus(pnlSubMenuGE);
+            EsconderSubMenus(pnlSubMenuProfes);
             listaDeCursos.Hide();
             formAgregarEstudiante.Hide();
             formAgregarCurso.Hide();
             frmControlReportes.Hide();
             listaDeRequisitos.Hide();
             cursosConListaDeEspera.Hide();
+            listaProfesores.Hide();
             agregarNotificacion.Show();
         }
 
-        
+        private void btnGestionarProfesores_Click(object sender, EventArgs e)
+        {
+            MostrarSubMenu(pnlSubMenuProfes);
+            EsconderSubMenus(pnlSubMenuGE);
+            formAgregarEstudiante.Hide();
+            frmControlReportes.Hide();
+            listaDeRequisitos.Hide();
+            cursosConListaDeEspera.Hide();
+            listaDeCursos.ActualizarLista();
+            agregarNotificacion.Hide();
+            listaDeCursos.Hide();
+            listaProfesores.Show();
+        }
+
+        private void btnAgregarProfesor_Click(object sender, EventArgs e)
+        {
+            listaProfesores.Hide();
+            EsconderSubMenus(pnlSubMenuProfes);
+
+            if (formAgregarProfesor.agregado)
+            {
+                formAgregarProfesor = new FrmAgregarProfesor(admin, listaProfesores);
+                formAgregarProfesor.TopLevel = false;
+                pnlDisplay.Controls.Add(formAgregarProfesor);
+            }
+
+            formAgregarProfesor.Show();
+        }
     }
 }

@@ -23,13 +23,15 @@ namespace BibliotecaNewSysacad
         private static List<Pago> listaPagosPendientes;
         private static List<Pago> listaPagosRealizados;
         private static List<Notificacion> listaNotificaciones;
-        
+        private static List<Profesor> listaProfesores;
+
         private static string actualizarEstudiantes = "SELECT * FROM ESTUDIANTE;";
         private static string actualizarAdministrador = "SELECT * FROM ADMINISTRADOR;";
         private static string actualizarCursos = "SELECT * FROM CURSO;";
         private static string actualizarPagosPendientes = "SELECT * FROM PAGO_PENDIENTE;";
         private static string actualizarPagosRealizados = "SELECT * FROM PAGOS_REALIZADOS;";
         private static string actualizarNotificaciones = "SELECT * FROM NOTIFICACIONES;";
+        private static string actualizarProfesores = "SELECT * FROM PROFESORES;";
         static NewSysacad() 
         {
             //LISTAS MANEJADAS POR EL SISTEMA
@@ -40,7 +42,8 @@ namespace BibliotecaNewSysacad
             listaPagosPendientes = ActualizarLista<Pago>(actualizarPagosPendientes, MapeoPagosPendientes);
             listaPagosRealizados = ActualizarLista<Pago>(actualizarPagosRealizados, MapeoPagosRealizados);
             listaNotificaciones = ActualizarLista<Notificacion>(actualizarNotificaciones, MapeoNotificaciones);
-        
+            listaProfesores = ActualizarLista<Profesor>(actualizarProfesores, MapeoProfesor);
+
         }
 
         //GETTERS
@@ -94,6 +97,15 @@ namespace BibliotecaNewSysacad
             set => listaNotificaciones = value;
         }
 
+        public static List<Profesor> ListaProfesores
+        {
+            get
+            {
+                listaProfesores = ActualizarLista<Profesor>(actualizarProfesores, MapeoProfesor);
+                return listaProfesores;
+            }
+            set => listaProfesores = value;
+        }
 
         public static string ActualizarEstudiantes
         {
@@ -230,6 +242,24 @@ namespace BibliotecaNewSysacad
             notificacion.Codigo = (int)dataReader["CODIGO"];
 
             return notificacion;
+        }
+
+        public static Profesor MapeoProfesor(IDataReader dataReader)
+        {
+            Profesor profe = new Profesor();
+            profe.Legajo = Convert.ToInt32(dataReader["LEGAJO"]);
+            profe.Nombre = dataReader["NOMBRE"].ToString();
+            profe.Apellido = dataReader["APELLIDO"].ToString();
+            profe.NombreUsuario = dataReader["NOMBRE_USUARIO"].ToString();
+            profe.EMail = dataReader["EMAIL"].ToString();
+            profe.Password = dataReader["PASSWORD"].ToString();
+            profe.Dni = dataReader["DNI"].ToString();
+            profe.Calle = dataReader["CALLE"].ToString();
+            profe.Altura = dataReader["ALTURA"].ToString();
+            profe.Telefono = dataReader["TELEFONO"].ToString();
+            profe.Area = dataReader["AREA"].ToString();
+
+            return profe;
         }
 
         //ADMINISTRADOR--------------------------------------------------------------------

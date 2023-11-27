@@ -54,7 +54,7 @@ namespace NewSysacadFront
             listaNotificaciones.Hide();
 
             CampanaNotificaciones();
-            
+
         }
 
         private void EstadoMenusPorDefecto()
@@ -148,7 +148,7 @@ namespace NewSysacadFront
 
         private void pbxNotificaciones_Click(object sender, EventArgs e)
         {
-            
+
             horarioAlumno.Hide();
             listaDeCursos.Hide();
             pagosPendientes.Hide();
@@ -171,7 +171,7 @@ namespace NewSysacadFront
             }
         }
 
-        
+
 
     }
 

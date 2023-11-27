@@ -176,7 +176,6 @@ namespace BibliotecaNewSysacad
         //VALIDA UN CURSO
         public bool ValidarCursoNuevo(out string campoRepetido)
         {
-            NewSysacad.ActualizarLista<Curso>(NewSysacad.ActualizarCursos, NewSysacad.MapeoCurso);
             campoRepetido = "Ninguno";
             bool resultado = true;
             foreach (Curso curso in NewSysacad.ListaCursos)
@@ -458,7 +457,6 @@ namespace BibliotecaNewSysacad
             {
                 result = false;
                 return result;
-                throw;
             }
             finally
             {
@@ -508,7 +506,6 @@ namespace BibliotecaNewSysacad
 
                     result = false;
                     return result;
-                    throw;
 
                 }
                 finally
@@ -549,7 +546,7 @@ namespace BibliotecaNewSysacad
 
                     result = false;
                     return result;
-                    throw;
+                   
 
                 }
                 finally
@@ -580,7 +577,6 @@ namespace BibliotecaNewSysacad
 
                 result = false;
                 return result;
-                throw;
 
             }
             finally
@@ -623,7 +619,6 @@ namespace BibliotecaNewSysacad
 
                 result = false;
                 return result;
-                throw;
 
             }
             finally

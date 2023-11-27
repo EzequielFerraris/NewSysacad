@@ -110,3 +110,8 @@ C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmListaNotificaciones.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmNotificacionLeida.resources
 C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmCrearNotificacion.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmListaProfesores.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmProfesor.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmEditarProfesor.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmAgregarProfesor.resources
+C:\Users\ezef_\Documents\Eze\Programacion\UTN\Programacion_II\ProgramaNewSysacad\NewSysacadPrograma\WinFormsApp1\obj\Debug\net7.0-windows\NewSysacadFront.FrmAsignarCurso.resources
