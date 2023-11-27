@@ -35,7 +35,6 @@ namespace NewSysacadFront
             listaDeTareas = new List<Task>();
 
 
-
             lbNombreAdmin.Text = admin.Nombre;
             listaDeCursos = new FrmListaDeCursos(admin);
             listaDeCursos.TopLevel = false;
@@ -66,7 +65,7 @@ namespace NewSysacadFront
             pnlDisplay.Controls.Add(cursosConListaDeEspera);
             cursosConListaDeEspera.Hide();
 
-            agregarNotificacion = new FrmCrearNotificacion(admin);
+            agregarNotificacion = new FrmCrearNotificacion(admin, listaDeTareas);
             agregarNotificacion.TopLevel = false;
             pnlDisplay.Controls.Add(agregarNotificacion);
             agregarNotificacion.Hide();

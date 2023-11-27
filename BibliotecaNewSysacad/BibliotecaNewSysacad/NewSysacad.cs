@@ -169,6 +169,8 @@ namespace BibliotecaNewSysacad
             estudiante.Carrera = (Carrera)Convert.ToInt32(dataReader["CARRERA"]);
             estudiante.Legajo = Convert.ToInt32(dataReader["LEGAJO"]);
             estudiante.Promedio = Convert.ToDecimal(dataReader["PROMEDIO"]);
+            estudiante.RecibirNotificaciones = Convert.ToBoolean(dataReader["NOTIFICACIONES"]);
+            estudiante.RecibirMail = Convert.ToBoolean(dataReader["RECIBIR_MAIL"]);
 
             return estudiante;
         }
@@ -293,12 +295,13 @@ namespace BibliotecaNewSysacad
             }
             return resultado;
         }
-   
 
-    //ESTUDIANTES-------------------------------------------------------------------
 
-    //LOGGEO DEL ESTUDIANTE
-    public static bool LoginEstudiante(string nombreDeUsuario, string password)
+        //ESTUDIANTES-------------------------------------------------------------------
+
+        //LOGGEO DEL ESTUDIANTE
+
+        public static bool LoginEstudiante(string nombreDeUsuario, string password)
         {
             bool result = false;
             foreach (Estudiante estudiante in listaEstudiantes)
@@ -311,6 +314,7 @@ namespace BibliotecaNewSysacad
             }
             return result;
         }
+
 
         //OBTENER ESTUDIANTE CON EL NOMBRE DE USUARIO
         public static Estudiante ObtenerEstudiante(string nombreDeUsuario)

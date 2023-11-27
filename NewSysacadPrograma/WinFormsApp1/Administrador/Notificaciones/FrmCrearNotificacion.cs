@@ -15,10 +15,12 @@ namespace NewSysacadFront
     {
         public bool agregado = false;
         private Administrador admin;
-        public FrmCrearNotificacion(Administrador admin)
+        private List<Task> listaTareas;
+        public FrmCrearNotificacion(Administrador admin, List<Task> listaTareas)
         {
             InitializeComponent();
             this.admin = admin;
+            this.listaTareas = listaTareas;
             cbxCarrera.SelectedIndex = 0;
         }
 
@@ -53,6 +55,8 @@ namespace NewSysacadFront
                 string tituloError1 = "Notificaciones";
                 DialogResult confirmacion = MessageBox.Show(mensajeError1, tituloError1);
 
+                
+
             }
             else
             {
@@ -61,6 +65,11 @@ namespace NewSysacadFront
                     string mensaje1 = "Notificación publicada correctamente.";
                     string titulo1 = "Agregar Notificación";
                     DialogResult result1 = MessageBox.Show(mensaje1, titulo1);
+                    notificacion.EnviarMails();
+                    /*
+                    Task enviarNotificacionPorMail = Task.Run(notificacion.EnviarMails);
+                    listaTareas.Add(enviarNotificacionPorMail);
+                    */
 
                 }
                 else

@@ -41,6 +41,7 @@
             pictureBox1 = new PictureBox();
             lbNombreEstudiante = new Label();
             pnlDisplay = new Panel();
+            btnPreferencias = new Button();
             panel1.SuspendLayout();
             pnlSubMenuGE.SuspendLayout();
             panel3.SuspendLayout();
@@ -51,6 +52,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(124, 114, 140);
+            panel1.Controls.Add(btnPreferencias);
             panel1.Controls.Add(pnlSubMenuGE);
             panel1.Controls.Add(btnRealizarPagos);
             panel1.Controls.Add(btnSalir);
@@ -69,9 +71,9 @@
             pnlSubMenuGE.Controls.Add(btnPagosRealizados);
             pnlSubMenuGE.Controls.Add(btnPagosPendientes);
             pnlSubMenuGE.Dock = DockStyle.Top;
-            pnlSubMenuGE.Location = new Point(0, 280);
+            pnlSubMenuGE.Location = new Point(0, 250);
             pnlSubMenuGE.Name = "pnlSubMenuGE";
-            pnlSubMenuGE.Size = new Size(200, 80);
+            pnlSubMenuGE.Size = new Size(200, 61);
             pnlSubMenuGE.TabIndex = 6;
             // 
             // btnPagosRealizados
@@ -84,10 +86,10 @@
             btnPagosRealizados.FlatStyle = FlatStyle.Flat;
             btnPagosRealizados.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btnPagosRealizados.ForeColor = Color.Gainsboro;
-            btnPagosRealizados.Location = new Point(0, 40);
+            btnPagosRealizados.Location = new Point(0, 30);
             btnPagosRealizados.Name = "btnPagosRealizados";
             btnPagosRealizados.Padding = new Padding(10, 0, 0, 0);
-            btnPagosRealizados.Size = new Size(200, 40);
+            btnPagosRealizados.Size = new Size(200, 30);
             btnPagosRealizados.TabIndex = 1;
             btnPagosRealizados.Text = "Realizados";
             btnPagosRealizados.TextAlign = ContentAlignment.MiddleLeft;
@@ -107,7 +109,7 @@
             btnPagosPendientes.Location = new Point(0, 0);
             btnPagosPendientes.Name = "btnPagosPendientes";
             btnPagosPendientes.Padding = new Padding(10, 0, 0, 0);
-            btnPagosPendientes.Size = new Size(200, 40);
+            btnPagosPendientes.Size = new Size(200, 30);
             btnPagosPendientes.TabIndex = 0;
             btnPagosPendientes.Text = "Pendientes";
             btnPagosPendientes.TextAlign = ContentAlignment.MiddleLeft;
@@ -123,10 +125,10 @@
             btnRealizarPagos.FlatStyle = FlatStyle.Flat;
             btnRealizarPagos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRealizarPagos.ForeColor = Color.Gainsboro;
-            btnRealizarPagos.Location = new Point(0, 230);
+            btnRealizarPagos.Location = new Point(0, 210);
             btnRealizarPagos.Name = "btnRealizarPagos";
             btnRealizarPagos.Padding = new Padding(10, 0, 0, 0);
-            btnRealizarPagos.Size = new Size(200, 50);
+            btnRealizarPagos.Size = new Size(200, 40);
             btnRealizarPagos.TabIndex = 5;
             btnRealizarPagos.Text = "Pagos";
             btnRealizarPagos.TextAlign = ContentAlignment.MiddleLeft;
@@ -159,10 +161,10 @@
             btnConsultarHorario.FlatStyle = FlatStyle.Flat;
             btnConsultarHorario.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnConsultarHorario.ForeColor = Color.Gainsboro;
-            btnConsultarHorario.Location = new Point(0, 180);
+            btnConsultarHorario.Location = new Point(0, 170);
             btnConsultarHorario.Name = "btnConsultarHorario";
             btnConsultarHorario.Padding = new Padding(10, 0, 0, 0);
-            btnConsultarHorario.Size = new Size(200, 50);
+            btnConsultarHorario.Size = new Size(200, 40);
             btnConsultarHorario.TabIndex = 2;
             btnConsultarHorario.Text = "Consultar Horario";
             btnConsultarHorario.TextAlign = ContentAlignment.MiddleLeft;
@@ -181,7 +183,7 @@
             btnInscripcionCursos.Location = new Point(0, 130);
             btnInscripcionCursos.Name = "btnInscripcionCursos";
             btnInscripcionCursos.Padding = new Padding(10, 0, 0, 0);
-            btnInscripcionCursos.Size = new Size(200, 50);
+            btnInscripcionCursos.Size = new Size(200, 40);
             btnInscripcionCursos.TabIndex = 1;
             btnInscripcionCursos.Text = "Inscripción de cursos";
             btnInscripcionCursos.TextAlign = ContentAlignment.MiddleLeft;
@@ -240,6 +242,25 @@
             pnlDisplay.Size = new Size(584, 461);
             pnlDisplay.TabIndex = 2;
             // 
+            // btnPreferencias
+            // 
+            btnPreferencias.Dock = DockStyle.Top;
+            btnPreferencias.FlatAppearance.BorderSize = 0;
+            btnPreferencias.FlatAppearance.MouseDownBackColor = Color.Coral;
+            btnPreferencias.FlatAppearance.MouseOverBackColor = Color.FromArgb(102, 97, 130);
+            btnPreferencias.FlatStyle = FlatStyle.Flat;
+            btnPreferencias.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnPreferencias.ForeColor = Color.Gainsboro;
+            btnPreferencias.Location = new Point(0, 311);
+            btnPreferencias.Name = "btnPreferencias";
+            btnPreferencias.Padding = new Padding(10, 0, 0, 0);
+            btnPreferencias.Size = new Size(200, 40);
+            btnPreferencias.TabIndex = 7;
+            btnPreferencias.Text = "Preferencias";
+            btnPreferencias.TextAlign = ContentAlignment.MiddleLeft;
+            btnPreferencias.UseVisualStyleBackColor = true;
+            btnPreferencias.Click += btnPreferencias_Click;
+            // 
             // FrmHomeEstudiante
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -276,5 +297,6 @@
         private Button btnPagosRealizados;
         private Button btnPagosPendientes;
         private PictureBox pbxNotificaciones;
+        private Button btnPreferencias;
     }
 }

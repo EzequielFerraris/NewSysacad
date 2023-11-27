@@ -82,8 +82,22 @@ namespace BibliotecaNewSysacad
                 }
             }
         }
+        //ENVIAR MAILS-------------------------------------------------------------
 
-        public bool AgregarABD(out string error)
+        public void EnviarMails()
+        {
+            foreach (Estudiante e in NewSysacad.ListaEstudiantes)
+            {
+                if (e.RecibirMail)
+                {
+                    e.EnviarCorreoNotificacion(this);
+                }
+            }
+        }
+
+
+//BD-----------------------------------------------------------------------
+public bool AgregarABD(out string error)
         {
             bool result = false;
             error = "";

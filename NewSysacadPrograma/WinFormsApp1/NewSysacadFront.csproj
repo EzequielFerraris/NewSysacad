@@ -78,6 +78,9 @@
     <Compile Update="Administrador\Informes\FrmInformeEstudiantesInscriptosMateria.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Estudiantes\Preferencias\FrmPreferenciasUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Estudiantes\Notificacion\FrmNotificacionLeida.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -19,6 +19,9 @@ namespace NewSysacadFront
         private FrmPagosPendientes pagosPendientes;
         private FrmPagosRealizados realizados;
         private FrmListaNotificaciones listaNotificaciones;
+        private FrmPreferenciasUsuario preferencias;
+
+        public FrmListaNotificaciones ListaNotificaciones { get => listaNotificaciones; set => listaNotificaciones = value; }
 
         public FrmHomeEstudiante(string nombreUsuarioEstudiante)
         {
@@ -48,14 +51,21 @@ namespace NewSysacadFront
             pnlDisplay.Controls.Add(realizados);
             realizados.Hide();
 
-            listaNotificaciones = new FrmListaNotificaciones(usuario, this);
-            listaNotificaciones.TopLevel = false;
-            pnlDisplay.Controls.Add(listaNotificaciones);
-            listaNotificaciones.Hide();
+            ListaNotificaciones = new FrmListaNotificaciones(usuario, this);
+            ListaNotificaciones.TopLevel = false;
+            pnlDisplay.Controls.Add(ListaNotificaciones);
+            ListaNotificaciones.Hide();
+
+            preferencias = new FrmPreferenciasUsuario(usuario, this);
+            preferencias.TopLevel = false;
+            pnlDisplay.Controls.Add(preferencias);
+            preferencias.Hide();
 
             CampanaNotificaciones();
 
         }
+
+
 
         private void EstadoMenusPorDefecto()
         {
@@ -103,7 +113,8 @@ namespace NewSysacadFront
             EsconderSubMenus();
             pagosPendientes.Hide();
             realizados.Hide();
-            listaNotificaciones.Hide();
+            ListaNotificaciones.Hide();
+            preferencias.Hide();
             listaDeCursos.Show();
         }
 
@@ -113,7 +124,8 @@ namespace NewSysacadFront
             EsconderSubMenus();
             pagosPendientes.Hide();
             realizados.Hide();
-            listaNotificaciones.Hide();
+            ListaNotificaciones.Hide();
+            preferencias.Hide();
             horarioAlumno.ActualizarHorario();
             horarioAlumno.Show();
         }
@@ -128,7 +140,8 @@ namespace NewSysacadFront
             horarioAlumno.Hide();
             listaDeCursos.Hide();
             realizados.Hide();
-            listaNotificaciones.Hide();
+            ListaNotificaciones.Hide();
+            preferencias.Hide();
             pagosPendientes.ActualizarLista();
             pagosPendientes.Show();
             EsconderSubMenus();
@@ -140,7 +153,8 @@ namespace NewSysacadFront
             horarioAlumno.Hide();
             listaDeCursos.Hide();
             pagosPendientes.Hide();
-            listaNotificaciones.Hide();
+            ListaNotificaciones.Hide();
+            preferencias.Hide();
             realizados.ActualizarLista();
             realizados.Show();
             EsconderSubMenus();
@@ -153,13 +167,14 @@ namespace NewSysacadFront
             listaDeCursos.Hide();
             pagosPendientes.Hide();
             realizados.Hide();
-            listaNotificaciones.Show();
+            preferencias.Hide();
+            ListaNotificaciones.Show();
             EsconderSubMenus();
         }
 
         public void CampanaNotificaciones()
         {
-            if (listaNotificaciones.notificacionesNoLeidas.Count() > 0)
+            if (ListaNotificaciones.notificacionesNoLeidas.Count() > 0)
             {
                 this.pbxNotificaciones.Image = Properties.Resources.notificationPending;
                 this.pbxNotificaciones.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -171,8 +186,17 @@ namespace NewSysacadFront
             }
         }
 
+        private void btnPreferencias_Click(object sender, EventArgs e)
+        {
+            horarioAlumno.Hide();
+            listaDeCursos.Hide();
+            pagosPendientes.Hide();
+            realizados.Hide();
+            ListaNotificaciones.Hide();
+            EsconderSubMenus();
 
-
+            preferencias.Show();
+        }
     }
 
 

@@ -22,6 +22,8 @@ namespace BibliotecaNewSysacad
         public bool debeCambiarPassword;
         private int legajo;
         private decimal promedio;
+        private bool recibirNotificaciones;
+        private bool recibirMail;
 
         private List<int> cursosInscriptoCodigos;
         private List<string> cursosAprobados;
@@ -40,11 +42,12 @@ namespace BibliotecaNewSysacad
             this.telefono = string.Empty;
             this.carrera = Carrera.TUP;
             this.promedio = 0;
+            this.recibirMail = false;
+            this.recibirNotificaciones = true;
 
             cursosInscriptoCodigos = new List<int>();
             cursosAprobados = new List<string>();
             enListaDeEspera = new List<int>();
-
 
         }
         
@@ -140,7 +143,9 @@ namespace BibliotecaNewSysacad
             get => promedio;
             set => promedio = value;
         }
-  
+        public bool RecibirNotificaciones { get => recibirNotificaciones; set => recibirNotificaciones = value; }
+        public bool RecibirMail { get => recibirMail; set => recibirMail = value; }
+
 
         //ACCIONES DE ESTUDIANTE CON CURSOS--------------------------------------------------------------------------------------------
         //LISTA DE CURSOS
@@ -375,16 +380,22 @@ namespace BibliotecaNewSysacad
 
         public List<Notificacion> ObtenerNotificaciones()
         {
+
             List<Notificacion> resultado = new List<Notificacion>();
 
-            foreach (var item in NewSysacad.ListaNotificaciones)
+            if(this.RecibirNotificaciones)
             {
-                if(item.Carrera == this.Carrera)
+                foreach (var item in NewSysacad.ListaNotificaciones)
                 {
-                    resultado.Add(item);
+                    if (item.Carrera == this.Carrera)
+                    {
+                        resultado.Add(item);
+                    }
                 }
+                
             }
             return resultado;
+
         }
 
         private int MapeoNotificacionesLeidas(IDataReader dataReader)
@@ -489,7 +500,7 @@ namespace BibliotecaNewSysacad
             {
                 try
                 {
-                    string query = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD, @PROMEDIO);";
+                    string query = "INSERT INTO ESTUDIANTE VALUES (@DNI, @APELLIDO, @NOMBRE, @EMAIL, @NOMBRE_USUARIO, @CALLE, @ALTURA, @TELEFONO, @CARRERA, @DEBE_CAMBIAR_PASS, @INSCRIPCION_FECHA, @PASSWORD, @PROMEDIO, @NOTIFICACIONES, @RECIBIR_MAIL);";
                     BDConexion.conexion.Open();
                     SqlCommand sqlCommand = new SqlCommand();
                     sqlCommand.CommandType = System.Data.CommandType.Text;
@@ -508,6 +519,8 @@ namespace BibliotecaNewSysacad
                     sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", this.Inscripcion.ToString("yyyy-MM-dd"));
                     sqlCommand.Parameters.AddWithValue("@PASSWORD", this.Password);
                     sqlCommand.Parameters.AddWithValue("@PROMEDIO", this.Promedio);
+                    sqlCommand.Parameters.AddWithValue("@NOTIFICACIONES", this.RecibirNotificaciones);
+                    sqlCommand.Parameters.AddWithValue("@RECIBIR_MAIL", this.RecibirMail);
 
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
@@ -541,7 +554,7 @@ namespace BibliotecaNewSysacad
             bool result = false;    
             try
             {
-                string query = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD, PROMEDIO = @PROMEDIO WHERE LEGAJO = @LEGAJO;";
+                string query = "UPDATE ESTUDIANTE SET DNI = @DNI , APELLIDO = @APELLIDO, NOMBRE = @NOMBRE, EMAIL = @EMAIL, NOMBRE_USUARIO = @NOMBRE_USUARIO, CALLE = @CALLE, ALTURA = @ALTURA, TELEFONO = @TELEFONO, CARRERA = @CARRERA, DEBE_CAMBIAR_PASS = @DEBE_CAMBIAR_PASS, INSCRIPCION_FECHA = @INSCRIPCION_FECHA, PASSWORD = @PASSWORD, PROMEDIO = @PROMEDIO, NOTIFICACIONES = @NOTIFICACIONES, RECIBIR_MAIL = @RECIBIR_MAIL WHERE LEGAJO = @LEGAJO;";
                 BDConexion.conexion.Open();
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.CommandType = System.Data.CommandType.Text;
@@ -561,6 +574,8 @@ namespace BibliotecaNewSysacad
                 sqlCommand.Parameters.AddWithValue("@INSCRIPCION_FECHA", this.Inscripcion.ToString("yyyy-MM-dd"));
                 sqlCommand.Parameters.AddWithValue("@PASSWORD", this.Password);
                 sqlCommand.Parameters.AddWithValue("@PROMEDIO", this.Promedio);
+                sqlCommand.Parameters.AddWithValue("@NOTIFICACIONES", this.RecibirNotificaciones);
+                sqlCommand.Parameters.AddWithValue("@RECIBIR_MAIL", this.RecibirMail);
 
                 sqlCommand.Parameters.AddWithValue("@LEGAJO", (int)this.Legajo);
 
@@ -593,6 +608,14 @@ namespace BibliotecaNewSysacad
             mensaje += "En caso de no reconocer esta actividad, envíe un mail a newsysacad@gmail.com.\n\n";
             mensaje += "UTN Facultad Regional Avellaneda.";
             EmailAdm.EnviarEmail(this.EMail, "Inscripción NewSysacad", mensaje);
+        }
+
+        public void EnviarCorreoNotificacion(Notificacion notificacion)
+        {
+            string titulo = notificacion.Titulo;
+            string mensaje = notificacion.Cuerpo;
+
+            EmailAdm.EnviarEmail(this.EMail, titulo, mensaje);
         }
 
     }
